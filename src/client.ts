@@ -74,9 +74,14 @@ const retryAfterMs = (response: Response) => {
 const sleep = (delayMs: number, signal?: AbortSignal) => {
   if (delayMs <= 0) return Promise.resolve();
   return new Promise<void>((resolve, reject) => {
-    const timer = setTimeout(resolve, delayMs);
+    const cleanup = () => signal?.removeEventListener("abort", onAbort);
+    const timer = setTimeout(() => {
+      cleanup();
+      resolve();
+    }, delayMs);
     const onAbort = () => {
       clearTimeout(timer);
+      cleanup();
       reject(signal?.reason ?? new DOMException("The request was aborted", "AbortError"));
     };
     if (signal?.aborted) return onAbort();

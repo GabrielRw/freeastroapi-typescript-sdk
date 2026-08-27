@@ -90,6 +90,14 @@ const messageFromPayload = (payload: ErrorResponse | undefined, fallback: string
   return fallback;
 };
 
+const retryAfterSeconds = (value: string | null) => {
+  if (value === null) return undefined;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds)) return Math.max(0, seconds);
+  const dateMs = Date.parse(value);
+  return Number.isNaN(dateMs) ? undefined : Math.max(0, (dateMs - Date.now()) / 1_000);
+};
+
 export const errorFromResponse = async (response: Response): Promise<FreeAstroError> => {
   let payload: ErrorResponse | undefined;
   try {
@@ -112,11 +120,10 @@ export const errorFromResponse = async (response: Response): Promise<FreeAstroEr
   if (response.status === 400 || response.status === 422) return new ValidationError(message, options);
   if (response.status === 409) return new ConflictError(message, options);
   if (response.status === 429) {
-    const retryAfterHeader = response.headers.get("retry-after");
-    const retryAfter = retryAfterHeader === null ? undefined : Number(retryAfterHeader);
+    const retryAfter = retryAfterSeconds(response.headers.get("retry-after"));
     return new RateLimitError(message, {
       ...options,
-      ...(Number.isFinite(retryAfter) ? { retryAfter } : {}),
+      ...(retryAfter !== undefined ? { retryAfter } : {}),
     });
   }
   if (response.status >= 500) return new ServerError(message, options);
