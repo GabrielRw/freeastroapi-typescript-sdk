@@ -1,0 +1,57 @@
+{
+  "name": "@freeastroapi/sdk",
+  "version": "0.1.0",
+  "description": "Official TypeScript SDK for FreeAstroAPI",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielRw/freeastroapi-typescript-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GabrielRw/freeastroapi-typescript-sdk/issues"
+  },
+  "homepage": "https://www.freeastroapi.com/docs/utilities/sdk",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --sourcemap",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "keywords": [
+    "astrology",
+    "api",
+    "sdk",
+    "typescript",
+    "freeastroapi"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
