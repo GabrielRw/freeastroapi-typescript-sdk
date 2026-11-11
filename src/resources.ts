@@ -1,5 +1,5 @@
-import type { EndpointRequestOptions } from "./client";
-import { HttpClient } from "./client";
+import type { EndpointRequestOptions, HttpClient } from "./client";
+import { GeoResourceBase, MoonResourceBase, SkyEventsResourceBase, WesternResourceBase } from "./generated/resources";
 import type {
   CitySearchResponse,
   GeoSearchParams,
@@ -13,16 +13,14 @@ import type {
   WesternSignResponse,
 } from "./types";
 
-export class GeoResource {
-  constructor(private readonly client: HttpClient) {}
+export class GeoResource extends GeoResourceBase {
 
   search(params: GeoSearchParams, options?: EndpointRequestOptions) {
     return this.client.request<CitySearchResponse>("GET", "/api/v2/geo/search", { ...options, query: params });
   }
 }
 
-export class MoonResource {
-  constructor(private readonly client: HttpClient) {}
+export class MoonResource extends MoonResourceBase {
 
   phase(params: MoonPhaseParams = {}, options?: EndpointRequestOptions) {
     return this.client.request<MoonPhaseResponse>("GET", "/api/v1/moon/phase", { ...options, query: params });
@@ -33,8 +31,7 @@ export class MoonResource {
   }
 }
 
-export class SkyEventsResource {
-  constructor(private readonly client: HttpClient) {}
+export class SkyEventsResource extends SkyEventsResourceBase {
 
   list(params: SkyEventsParams, options?: EndpointRequestOptions) {
     return this.client.request<SkyEventsResponse>("GET", "/api/v1/sky-events", { ...options, query: params });
@@ -65,10 +62,11 @@ export class WesternSignsResource {
   }
 }
 
-export class WesternResource {
+export class WesternResource extends WesternResourceBase {
   readonly signs: WesternSignsResource;
 
   constructor(client: HttpClient) {
+    super(client);
     this.signs = new WesternSignsResource(client);
   }
 }
