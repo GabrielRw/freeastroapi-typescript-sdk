@@ -33,6 +33,16 @@ afterAll(() => rmSync(OUT, { recursive: true, force: true }));
 const respond = (body: BodyInit | null, init: ResponseInit) => vi.fn<Fetch>().mockImplementation(async () => new Response(body, init));
 
 describe("generator", () => {
+  it("lists only side-effecting operations the spec has and reports the rest", () => {
+    const withChat = structuredClone(fixture);
+    withChat.paths["/api/v1/things/create"].post.operationId = "v2_vedic_chat";
+    const result = generate(withChat);
+    expect(result.files["resources.ts"]).toContain('SIDE_EFFECTING_OPERATIONS: ReadonlySet<string> = new Set([\n  "v2_vedic_chat",\n]);');
+    expect(result.files["resources.ts"]).toMatch(/operationId: "v2_vedic_chat".*sideEffecting: true/);
+    expect(result.missingSideEffecting).not.toContain("v2_vedic_chat");
+    expect(generate(fixture).missingSideEffecting).toHaveLength(7);
+  });
+
   it("emits code that type-checks", () => {
     const program = ts.createProgram([join(OUT, "generated", "resources.ts")], {
       strict: true,

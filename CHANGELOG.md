@@ -1,7 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
+- Typed responses for every operation: the spec now documents a 2xx response for all 142 operations (975 component schemas), so every JSON method returns its `Schemas.*` response type instead of `unknown` or `Record<string, unknown>`. Chart routes return SVG text (or PNG bytes with `responseType: "bytes"`); `client.natal.report` can also return the PDF (`accept: "application/pdf"`, `responseType: "bytes"`).
+- Typed errors: error responses reference `ErrorResponse` (422 also `HTTPValidationError`). `FreeAstroError.code` reads gateway `error` codes and route `detail.error` codes, `message` reads `detail.message` and validation issues, and `RateLimitError.retryAfter` also comes from the body's `retry_after_ms`.
+- One retry policy: `maxRetries` 2 (the old `retries` option still works), exponential backoff from 0.5 s, factor 2, full jitter, capped at 8 s. 429 is retried for every operation, honouring `Retry-After` and `retry_after_ms`; a wait over 30 s throws `RateLimitError` at once. 408, 5xx, network errors and timeouts are retried for every operation except the side-effecting ones in `SIDE_EFFECTING_OPERATIONS`, which need an `idempotencyKey` or `retry: true`. Other 4xx are never retried. Calculation POSTs are now retried by default; previously only GET requests were.
+- Lenient decoding: responses are never validated, so missing required fields, unexpected nulls, unknown fields and unknown enum values never throw. The hand-written v0.1 types follow the spec (`WesternSignResponse.interpretation` is an object or null, `resolved_time` added). A malformed JSON body now throws `FreeAstroError` instead of being retried as a network error.
+- `OPERATIONS` entries gain `sideEffecting`.
 - Operations with non-JSON responses send the matching `Accept` header and return text (SVG, Markdown, other `text/*`) or a `Uint8Array` (PNG, PDF and other binary types). New `accept` and `responseType` request options (`responseType: "bytes"` reads PNG chart renders).
 - The generator handles component names that are not identifiers (`Model-Input` becomes `Schemas.Model_Input`), names that clash with TypeScript types, 2xx responses other than 200 and `+json` content types, and fails on request bodies it cannot encode.
 - Add the daily `Sync spec` workflow, `scripts/spec_sync.py` (fetch, normalise, diff, request samples), Prism contract tests and a nightly live smoke test.

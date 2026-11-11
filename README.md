@@ -57,7 +57,7 @@ Resource groups: `ai`, `chinese`, `ephemeris`, `geo`, `horoscope`, `moon`, `nata
 
 ### Types
 
-Request and response types are generated from the spec's component schemas and exported under the `Schemas` namespace. Methods return the documented response type; where the spec does not describe a response, the result is `unknown` and you can pass your own type:
+Request and response types are generated from the spec's component schemas and exported under the `Schemas` namespace. Every JSON operation returns its documented response type, and you can pass your own type instead:
 
 ```ts
 import { FreeAstro, type Schemas } from "@freeastroapi/sdk";
@@ -67,6 +67,8 @@ const synastry = await client.western.synastry(request);
 
 const raw = await client.natal.calculate<MyNatalChart>(birth);
 ```
+
+Responses are not validated at runtime. Some response fields marked required in the spec were inferred from samples, so a response that omits one, has `null` where the type says otherwise, adds fields or uses a new enum value is returned as sent, never rejected; code defensively around fields you depend on.
 
 Operations with non-JSON responses send the matching `Accept` header and return text (SVG, Markdown) or a `Uint8Array` (PNG, PDF). The chart render endpoints (`client.vedic.kpRender`, `client.vedic.visual.chart`) return SVG as text; for PNG output pass `{ responseType: "bytes" }`:
 
@@ -89,21 +91,35 @@ const result = await client.request<MyResponse>("POST", "/api/v1/example", {
 });
 ```
 
-## Retries and idempotency
+## Retries
 
-GET, HEAD, and OPTIONS requests retry transient network failures and HTTP 408, 429, 500, 502, 503, and 504 responses by default. The client honors `Retry-After` and caps exponential backoff.
+Failed requests are retried up to `maxRetries` times (default 2) with exponential backoff: the delay starts at 0.5 s, doubles on each retry, is capped at 8 s, and uses full jitter (a random wait between 0 and that value).
 
-Unsafe methods are not retried automatically. Supplying an `idempotencyKey` makes a request eligible for retry, or you can opt in explicitly with `retry: true` when the endpoint is known to be replay-safe.
+- **429 Too Many Requests** is retried for every operation, because the request was rejected before it ran. The client waits for `Retry-After` (seconds or an HTTP date) or the body's `retry_after_ms`, falling back to the backoff. If the requested wait is longer than 30 s (`maxRetryAfterMs`), it does not wait and throws `RateLimitError` with `retryAfter` (seconds) set.
+- **408, 500, 502, 503, 504, network errors and timeouts** are retried for every operation except those with side effects, listed in `SIDE_EFFECTING_OPERATIONS`: `v1_natal_calculate` (may create a paid report job), `v1_ai_generate`, `v2_vedic_chat`, `v2_western_chat`, `v2_vedic_qa`, `v1_western_transits_timeline` and `v1_western_transits_insights`. Those are retried only when you pass an `idempotencyKey` (sent as the `Idempotency-Key` header) or opt in with `retry: true`.
+- Other 4xx responses are never retried.
+
+Generic `client.request` calls follow the same rules, matched by method and path; a request to a path outside the spec is treated as side-effecting unless it is a GET, HEAD or OPTIONS.
 
 ```ts
-await client.western.signs.sun(input, {
-  idempotencyKey: "stable-key-for-this-logical-request",
-});
+// Retried on 503 because the key makes the replay safe.
+await client.vedic.chat(question, { idempotencyKey: "stable-key-for-this-logical-request" });
+
+// Per-request overrides: tune or disable retries.
+await client.western.natal.insights(request, { retry: { maxRetries: 5 } });
+await client.geo.search({ q: "Paris" }, { retry: false });
+
+// Client-wide settings, or `retry: false` to never retry.
+const client = new FreeAstro({ apiKey, retry: { maxRetries: 3, baseDelayMs: 250, maxDelayMs: 4_000 } });
 ```
+
+Passing a `retry` object for a side-effecting operation also opts it in.
 
 ## Errors
 
 All API failures derive from `FreeAstroError`. More specific classes include `AuthenticationError`, `PermissionError`, `ValidationError`, `ConflictError`, `RateLimitError`, `ServerError`, `NetworkError`, and `TimeoutError`.
+
+Error bodies follow `Schemas.ErrorResponse` (422 validation errors may use `Schemas.HTTPValidationError`). `error.details` holds the parsed body, `error.code` the stable error code (`error`, or `detail.error`), and `error.message` the message (`detail`, `detail.message` or the first validation issue).
 
 ```ts
 import { FreeAstroError, RateLimitError } from "@freeastroapi/sdk";

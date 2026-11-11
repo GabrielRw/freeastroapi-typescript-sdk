@@ -31,6 +31,18 @@ const HAND_WRITTEN = new Set([
 ]);
 // Resources whose top-level class is hand-written and extends `<Name>ResourceBase`.
 const HAND_WRITTEN_RESOURCES = new Set(["geo", "moon", "skyEvents", "western"]);
+// Side-effecting operations: transient failures (408, 5xx, network errors, timeouts) are only
+// retried when the caller sends an idempotency key or opts in. 429 is retried for every
+// operation. Update this list when the API adds or removes such operations.
+const SIDE_EFFECTING = [
+  "v1_natal_calculate", // may create a paid report job
+  "v1_ai_generate",
+  "v2_vedic_chat",
+  "v2_western_chat",
+  "v2_vedic_qa",
+  "v1_western_transits_timeline",
+  "v1_western_transits_insights",
+];
 // Method names for operations whose path has nothing after the resource.
 const EMPTY_NAME = { v1_sky_events: "list" };
 
@@ -380,7 +392,7 @@ function renderMethod(o) {
   );
 }
 
-function renderResources(ops) {
+function renderResources(ops, sideEffecting) {
   const resources = new Map();
   for (const o of ops) {
     if (!resources.has(o.resource)) resources.set(o.resource, { methods: [], subs: new Map() });
@@ -464,15 +476,26 @@ function renderResources(ops) {
     "  hasBody: boolean;",
     "  pathParams: readonly string[];",
     "  deprecated: boolean;",
+    "  /** Transient failures are only retried with an idempotency key or an explicit opt-in. */",
+    "  sideEffecting: boolean;",
     "}",
     "",
     "/** Every public operation and the client method that calls it. */",
     "export const OPERATIONS: readonly OperationInfo[] = [",
     ...ops.map(
       (o) =>
-        `  { operationId: ${literal(o.id)}, method: ${literal(o.method)}, path: ${literal(o.path)}, accessor: ${literal(o.accessor)}, hasBody: ${Boolean(o.body)}, pathParams: ${literal(o.pathParams.map((p) => p.name))}, deprecated: ${Boolean(o.op.deprecated)} },`,
+        `  { operationId: ${literal(o.id)}, method: ${literal(o.method)}, path: ${literal(o.path)}, accessor: ${literal(o.accessor)}, hasBody: ${Boolean(o.body)}, pathParams: ${literal(o.pathParams.map((p) => p.name))}, deprecated: ${Boolean(o.op.deprecated)}, sideEffecting: ${sideEffecting.has(o.id)} },`,
     ),
     "];",
+    "",
+    "/**",
+    " * Operations with side effects. Transient failures (408, 500, 502, 503, 504, network errors,",
+    " * timeouts) are retried for them only with an idempotency key or `retry: true`; 429 is",
+    " * retried for every operation.",
+    " */",
+    "export const SIDE_EFFECTING_OPERATIONS: ReadonlySet<string> = new Set([",
+    ...ops.filter((o) => sideEffecting.has(o.id)).map((o) => `  ${literal(o.id)},`),
+    "]);",
     "",
   );
   return out.join("\n");
@@ -485,18 +508,25 @@ export function generate(spec) {
   const schemas = spec.components?.schemas ?? {};
   schemaNames = buildSchemaNames(Object.keys(schemas));
   const ops = assignNames(collectOperations(spec));
+  // Only list side-effecting operations the spec has; a stale name is reported, not emitted.
+  const ids = new Set(ops.map((o) => o.id));
+  const sideEffecting = new Set(SIDE_EFFECTING.filter((id) => ids.has(id)));
   return {
     files: {
       "schemas.ts": renderSchemas(schemas),
-      "resources.ts": renderResources(ops),
+      "resources.ts": renderResources(ops, sideEffecting),
     },
     ops,
     schemaCount: Object.keys(schemas).length,
+    missingSideEffecting: SIDE_EFFECTING.filter((id) => !ids.has(id)),
   };
 }
 
 function main() {
-  const { files, ops, schemaCount } = generate(JSON.parse(readFileSync(SPEC_PATH, "utf8")));
+  const { files, ops, schemaCount, missingSideEffecting } = generate(JSON.parse(readFileSync(SPEC_PATH, "utf8")));
+  if (missingSideEffecting.length) {
+    console.warn(`Side-effecting operations not in the spec (update SIDE_EFFECTING): ${missingSideEffecting.join(", ")}`);
+  }
   const check = process.argv.includes("--check");
   let stale = [];
   if (!check) mkdirSync(OUT_DIR, { recursive: true });

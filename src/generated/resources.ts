@@ -672,7 +672,7 @@ export class AiResource {
    *
    * `POST /api/v1/ai/generate`
    */
-  generate<T = unknown>(body: Schemas.AtomicReportRequest, options?: EndpointRequestOptions): Promise<T> {
+  generate<T = Schemas.AtomicReportResponse>(body: Schemas.AtomicReportRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/ai/generate", withPayload(options, undefined, body));
   }
 
@@ -694,7 +694,7 @@ export class ChineseResource {
    *
    * `POST /api/v1/chinese/bazi`
    */
-  bazi<T = unknown>(body: Schemas.BaziRequest, options?: EndpointRequestOptions): Promise<T> {
+  bazi<T = Schemas.BaziChartResponse>(body: Schemas.BaziRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/chinese/bazi", withPayload(options, undefined, body));
   }
 
@@ -706,7 +706,7 @@ export class ChineseResource {
    *
    * `GET /api/v1/chinese/bazi/dictionary`
    */
-  baziDictionary<T = unknown>(params?: V1ChineseBaziDictionaryParams, options?: EndpointRequestOptions): Promise<T> {
+  baziDictionary<T = Schemas.BaziDictionaryResponse>(params?: V1ChineseBaziDictionaryParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v1/chinese/bazi/dictionary", withPayload(options, params, undefined));
   }
 
@@ -718,7 +718,7 @@ export class ChineseResource {
    *
    * `POST /api/v1/chinese/bazi/flow`
    */
-  baziFlow<T = unknown>(body: Schemas.BaziFlowRequest, options?: EndpointRequestOptions): Promise<T> {
+  baziFlow<T = Schemas.BaziFlowResponse>(body: Schemas.BaziFlowRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/chinese/bazi/flow", withPayload(options, undefined, body));
   }
 
@@ -729,7 +729,7 @@ export class ChineseResource {
    *
    * `POST /api/v1/chinese/bazi/health`
    */
-  baziHealth<T = unknown>(body: Schemas.BaziHealthRequest, options?: EndpointRequestOptions): Promise<T> {
+  baziHealth<T = Schemas.BaziHealthResponse>(body: Schemas.BaziHealthRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/chinese/bazi/health", withPayload(options, undefined, body));
   }
 
@@ -741,7 +741,7 @@ export class ChineseResource {
    *
    * `POST /api/v1/chinese/bazi/lifespan`
    */
-  baziLifespan<T = unknown>(body: Schemas.BaziLifespanRequest, options?: EndpointRequestOptions): Promise<T> {
+  baziLifespan<T = Schemas.BaziLifespanResponse>(body: Schemas.BaziLifespanRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/chinese/bazi/lifespan", withPayload(options, undefined, body));
   }
 
@@ -752,7 +752,7 @@ export class ChineseResource {
    *
    * `POST /api/v1/chinese/bazi/synastry`
    */
-  baziSynastry<T = unknown>(body: Schemas.BaziSynastryRequest, options?: EndpointRequestOptions): Promise<T> {
+  baziSynastry<T = Schemas.BaziSynastryResponse>(body: Schemas.BaziSynastryRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/chinese/bazi/synastry", withPayload(options, undefined, body));
   }
 
@@ -764,7 +764,7 @@ export class ChineseResource {
    *
    * `POST /api/v1/chinese/bazi/time-correction`
    */
-  baziTimeCorrection<T = unknown>(body: Schemas.BaziTimeCorrectionRequest, options?: EndpointRequestOptions): Promise<T> {
+  baziTimeCorrection<T = Schemas.BaziTimeCorrectionResponse>(body: Schemas.BaziTimeCorrectionRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/chinese/bazi/time-correction", withPayload(options, undefined, body));
   }
 
@@ -790,7 +790,7 @@ export class ChineseResource {
    *
    * `GET /api/v1/chinese/today`
    */
-  today<T = unknown>(params?: V1ChineseTodayParams, options?: EndpointRequestOptions): Promise<T> {
+  today<T = Schemas.ChineseTodayResponse>(params?: V1ChineseTodayParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v1/chinese/today", withPayload(options, params, undefined));
   }
 
@@ -806,7 +806,7 @@ export class EphemerisResource {
    *
    * `GET /api/v1/ephemeris`
    */
-  get<T = unknown>(params: V1EphemerisParams, options?: EndpointRequestOptions): Promise<T> {
+  get<T = Schemas.EphemerisResponse>(params: V1EphemerisParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v1/ephemeris", withPayload(options, params, undefined));
   }
 
@@ -815,7 +815,7 @@ export class EphemerisResource {
    *
    * `POST /api/v1/ephemeris/calculate`
    */
-  calculate<T = unknown>(body: Schemas.EphemerisRequest, options?: EndpointRequestOptions): Promise<T> {
+  calculate<T = Schemas.EphemerisResponse>(body: Schemas.EphemerisRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/ephemeris/calculate", withPayload(options, undefined, body));
   }
 
@@ -850,7 +850,7 @@ export class HoroscopeDailyResource {
    *
    * `GET /api/v1/horoscope/daily/bulk`
    */
-  bulk<T = Record<string, unknown>>(params?: V1HoroscopeDailyBulkParams, options?: EndpointRequestOptions): Promise<T> {
+  bulk<T = Schemas.HoroscopeDailyBulkResponse>(params?: V1HoroscopeDailyBulkParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v1/horoscope/daily/bulk", withPayload(options, params, undefined));
   }
 
@@ -861,7 +861,7 @@ export class HoroscopeDailyResource {
    *
    * `POST /api/v1/horoscope/daily/personal`
    */
-  personalV1<T = Record<string, unknown>>(body: Schemas.PersonalHoroscopeRequestV1, options?: EndpointRequestOptions): Promise<T> {
+  personalV1<T = Schemas.HoroscopeDailyPersonalResponse>(body: Schemas.PersonalHoroscopeRequestV1, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/horoscope/daily/personal", withPayload(options, undefined, body));
   }
 
@@ -872,7 +872,7 @@ export class HoroscopeDailyResource {
    *
    * `GET /api/v1/horoscope/daily/sign`
    */
-  signV1<T = Record<string, unknown>>(params: V1HoroscopeDailySignParams, options?: EndpointRequestOptions): Promise<T> {
+  signV1<T = Schemas.HoroscopeDailySignResponse>(params: V1HoroscopeDailySignParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v1/horoscope/daily/sign", withPayload(options, params, undefined));
   }
 
@@ -881,7 +881,7 @@ export class HoroscopeDailyResource {
    *
    * `POST /api/v2/horoscope/daily/personal`
    */
-  personalV2<T = Record<string, unknown>>(body: Schemas.PersonalHoroscopeRequestV2, options?: EndpointRequestOptions): Promise<T> {
+  personalV2<T = Schemas.HoroscopeDailyPersonalV2Response>(body: Schemas.PersonalHoroscopeRequestV2, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v2/horoscope/daily/personal", withPayload(options, undefined, body));
   }
 
@@ -890,7 +890,7 @@ export class HoroscopeDailyResource {
    *
    * `GET /api/v2/horoscope/daily/sign`
    */
-  signV2<T = Record<string, unknown>>(params: V2HoroscopeDailySignParams, options?: EndpointRequestOptions): Promise<T> {
+  signV2<T = Schemas.HoroscopeDailySignV2Response>(params: V2HoroscopeDailySignParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v2/horoscope/daily/sign", withPayload(options, params, undefined));
   }
 
@@ -899,7 +899,7 @@ export class HoroscopeDailyResource {
    *
    * `POST /api/v3/horoscope/daily/personal`
    */
-  personal<T = Record<string, unknown>>(body: Schemas.PersonalHoroscopeRequestV3, options?: EndpointRequestOptions): Promise<T> {
+  personal<T = Schemas.HoroscopeDailyPersonalV3Response>(body: Schemas.PersonalHoroscopeRequestV3, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v3/horoscope/daily/personal", withPayload(options, undefined, body));
   }
 
@@ -912,7 +912,7 @@ export class HoroscopeDailyResource {
    *
    * `GET /api/v3/horoscope/daily/sign`
    */
-  sign<T = Record<string, unknown>>(params: V3HoroscopeDailySignParams, options?: EndpointRequestOptions): Promise<T> {
+  sign<T = Schemas.HoroscopeDailySignV3Response>(params: V3HoroscopeDailySignParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v3/horoscope/daily/sign", withPayload(options, params, undefined));
   }
 
@@ -926,7 +926,7 @@ export class HoroscopeWeeklyResource {
    *
    * `POST /api/v3/horoscope/weekly/personal`
    */
-  personal<T = Record<string, unknown>>(body: Schemas.WeeklyPersonalHoroscopeRequest, options?: EndpointRequestOptions): Promise<T> {
+  personal<T = Schemas.HoroscopeWeeklyPersonalV3Response>(body: Schemas.WeeklyPersonalHoroscopeRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v3/horoscope/weekly/personal", withPayload(options, undefined, body));
   }
 
@@ -959,10 +959,11 @@ export class NatalExperimentalResource {
    * Generate a bi-wheel or standalone chart for the exact solar return in a target year.
    *
    * `POST /api/v1/natal/experimental/solar-return`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    * @deprecated
    */
-  solarReturn<T = unknown>(body: Schemas.ExperimentalSolarReturnChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/experimental/solar-return", withPayload(options, undefined, body));
+  solarReturn<T = string>(body: Schemas.ExperimentalSolarReturnChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/experimental/solar-return", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -971,10 +972,11 @@ export class NatalExperimentalResource {
    * Generate a bi-wheel chart with natal planets inside and transits outside.
    *
    * `POST /api/v1/natal/experimental/transits`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    * @deprecated
    */
-  transits<T = unknown>(body: Schemas.ExperimentalTransitChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/experimental/transits", withPayload(options, undefined, body));
+  transits<T = string>(body: Schemas.ExperimentalTransitChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/experimental/transits", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
 }
@@ -993,7 +995,7 @@ export class NatalResource {
    *
    * `POST /api/v1/natal/calculate`
    */
-  calculate<T = unknown>(body: Schemas.NatalChartRequest, params?: V1NatalCalculateParams, options?: EndpointRequestOptions): Promise<T> {
+  calculate<T = Schemas.NatalCalculateResponse>(body: Schemas.NatalChartRequest, params?: V1NatalCalculateParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/natal/calculate", withPayload(options, params, body));
   }
 
@@ -1003,9 +1005,10 @@ export class NatalResource {
    * Render a natal chart using the bundled natal library.
    *
    * `POST /api/v1/natal/chart/`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    */
-  chart<T = unknown>(body: Schemas.ExperimentalNatalChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/chart/", withPayload(options, undefined, body));
+  chart<T = string>(body: Schemas.ExperimentalNatalChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/chart/", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -1015,9 +1018,10 @@ export class NatalResource {
    * Renders a standalone composite chart from two people, reusing the natal SVG renderer.
    *
    * `POST /api/v1/natal/chart/composite`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    */
-  chartComposite<T = unknown>(body: Schemas.ExperimentalCompositeChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/chart/composite", withPayload(options, undefined, body));
+  chartComposite<T = string>(body: Schemas.ExperimentalCompositeChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/chart/composite", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -1026,9 +1030,10 @@ export class NatalResource {
    * Generate a bi-wheel chart with natal planets inside and secondary progressed planets outside.
    *
    * `POST /api/v1/natal/chart/progressions`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    */
-  chartProgressions<T = unknown>(body: Schemas.ExperimentalSecondaryProgressionsChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/chart/progressions", withPayload(options, undefined, body));
+  chartProgressions<T = string>(body: Schemas.ExperimentalSecondaryProgressionsChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/chart/progressions", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -1037,9 +1042,10 @@ export class NatalResource {
    * Generate a bi-wheel chart with natal planets inside and secondary progressed planets outside.
    *
    * `POST /api/v1/natal/chart/secondary-progressions`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    */
-  chartSecondaryProgressions<T = unknown>(body: Schemas.ExperimentalSecondaryProgressionsChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/chart/secondary-progressions", withPayload(options, undefined, body));
+  chartSecondaryProgressions<T = string>(body: Schemas.ExperimentalSecondaryProgressionsChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/chart/secondary-progressions", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -1048,9 +1054,10 @@ export class NatalResource {
    * Generate a bi-wheel or standalone chart for the exact solar return in a target year.
    *
    * `POST /api/v1/natal/chart/solar-return`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    */
-  chartSolarReturn<T = unknown>(body: Schemas.ExperimentalSolarReturnChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/chart/solar-return", withPayload(options, undefined, body));
+  chartSolarReturn<T = string>(body: Schemas.ExperimentalSolarReturnChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/chart/solar-return", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -1060,9 +1067,10 @@ export class NatalResource {
    * Renders person A (outer) and person B (inner) with optional B house ring and inter-aspects.
    *
    * `POST /api/v1/natal/chart/synastry`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    */
-  chartSynastry<T = unknown>(body: Schemas.ExperimentalSynastryChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/chart/synastry", withPayload(options, undefined, body));
+  chartSynastry<T = string>(body: Schemas.ExperimentalSynastryChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/chart/synastry", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -1071,9 +1079,10 @@ export class NatalResource {
    * Generate a bi-wheel chart with natal planets inside and transits outside.
    *
    * `POST /api/v1/natal/chart/transits`
+   * Returns the response body (image/svg+xml, image/png) as text; for binary formats such as PNG pass `{ responseType: "bytes" }` and `T = Uint8Array`.
    */
-  chartTransits<T = unknown>(body: Schemas.ExperimentalTransitChartRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/natal/chart/transits", withPayload(options, undefined, body));
+  chartTransits<T = string>(body: Schemas.ExperimentalTransitChartRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/natal/chart/transits", withPayload(options, undefined, body, { accept: "image/svg+xml, image/png", responseType: "text" }));
   }
 
   /**
@@ -1081,7 +1090,7 @@ export class NatalResource {
    *
    * `GET /api/v1/natal/report-credits`
    */
-  reportCredits<T = unknown>(options?: EndpointRequestOptions): Promise<T> {
+  reportCredits<T = Schemas.ReportCreditsResponse>(options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("GET", "/api/v1/natal/report-credits", withPayload(options, undefined, undefined));
   }
 
@@ -1090,7 +1099,7 @@ export class NatalResource {
    *
    * `GET /api/v1/natal/report/{job_id}`
    */
-  report<T = unknown>(params: V1NatalReportJobIdParams, options?: EndpointRequestOptions): Promise<T> {
+  report<T = Schemas.PsychologicalReportJobResponse>(params: V1NatalReportJobIdParams, options?: EndpointRequestOptions): Promise<T> {
     const { job_id, ...query } = params;
     return this.client.request<T>("GET", `/api/v1/natal/report/${encodeURIComponent(String(job_id))}`, withPayload(options, query, undefined));
   }
@@ -1103,7 +1112,7 @@ export class NatalResource {
    *
    * `POST /natal`
    */
-  simple<T = unknown>(body: Schemas.SimpleNatalRequest, options?: EndpointRequestOptions): Promise<T> {
+  simple<T = Schemas.SimpleNatalResponse>(body: Schemas.SimpleNatalRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/natal", withPayload(options, undefined, body));
   }
 
@@ -1162,7 +1171,7 @@ export class SpaceResource {
    *
    * `POST /api/v1/space/chart`
    */
-  chart<T = unknown>(body: Schemas.SpaceChartRequest, options?: EndpointRequestOptions): Promise<T> {
+  chart<T = Schemas.SpaceChartResponse>(body: Schemas.SpaceChartRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/space/chart", withPayload(options, undefined, body));
   }
 
@@ -1172,9 +1181,10 @@ export class SpaceResource {
    * The chart wheel, drawn by the natal chart renderer with the same themes and options.
    *
    * `POST /api/v1/space/chart/svg`
+   * Returns the response body (image/svg+xml) as text.
    */
-  chartSvg<T = unknown>(body: Schemas.SpaceChartSvgRequest, options?: EndpointRequestOptions): Promise<T> {
-    return this.client.request<T>("POST", "/api/v1/space/chart/svg", withPayload(options, undefined, body));
+  chartSvg<T = string>(body: Schemas.SpaceChartSvgRequest, options?: EndpointRequestOptions): Promise<T> {
+    return this.client.request<T>("POST", "/api/v1/space/chart/svg", withPayload(options, undefined, body, { accept: "image/svg+xml", responseType: "text" }));
   }
 
 }
@@ -1191,7 +1201,7 @@ export class TransitsResource {
    *
    * `POST /api/v1/transits/calculate`
    */
-  calculate<T = unknown>(body: Schemas.TransitRequest, params?: V1TransitsCalculateParams, options?: EndpointRequestOptions): Promise<T> {
+  calculate<T = Schemas.TransitsCalculateResponse>(body: Schemas.TransitRequest, params?: V1TransitsCalculateParams, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/transits/calculate", withPayload(options, params, body));
   }
 
@@ -1368,7 +1378,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/batch`
    */
-  batch<T = unknown>(body: Schemas.VedicBatchRequest, options?: EndpointRequestOptions): Promise<T> {
+  batch<T = Schemas.VedicBatchResponse>(body: Schemas.VedicBatchRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/batch", withPayload(options, undefined, body));
   }
 
@@ -1380,7 +1390,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/calculate`
    */
-  calculateV1<T = unknown>(body: Schemas.VedicChartRequest, options?: EndpointRequestOptions): Promise<T> {
+  calculateV1<T = Schemas.VedicCalculateResponse>(body: Schemas.VedicChartRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/calculate", withPayload(options, undefined, body));
   }
 
@@ -1392,7 +1402,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/chart`
    */
-  chartV1<T = unknown>(body: Schemas.BaseChartRequestV1, options?: EndpointRequestOptions): Promise<T> {
+  chartV1<T = Schemas.VedicChartResponse>(body: Schemas.BaseChartRequestV1, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/chart", withPayload(options, undefined, body));
   }
 
@@ -1404,7 +1414,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/compatibility`
    */
-  compatibilityV1<T = unknown>(body: Schemas.CompatibilityRequest, options?: EndpointRequestOptions): Promise<T> {
+  compatibilityV1<T = Schemas.VedicCompatibilityResponse>(body: Schemas.CompatibilityRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/compatibility", withPayload(options, undefined, body));
   }
 
@@ -1415,7 +1425,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/dasha`
    */
-  dashaV1<T = unknown>(body: Schemas.DashaRequestV1, options?: EndpointRequestOptions): Promise<T> {
+  dashaV1<T = Schemas.VedicDashaResponse>(body: Schemas.DashaRequestV1, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/dasha", withPayload(options, undefined, body));
   }
 
@@ -1438,7 +1448,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/match`
    */
-  matchV1<T = unknown>(body: Schemas.MatchRequest, options?: EndpointRequestOptions): Promise<T> {
+  matchV1<T = Schemas.VedicMatchResponse>(body: Schemas.MatchRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/match", withPayload(options, undefined, body));
   }
 
@@ -1449,7 +1459,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/panchang`
    */
-  panchangV1<T = unknown>(body: Schemas.PanchangRequestV1, options?: EndpointRequestOptions): Promise<T> {
+  panchangV1<T = Schemas.VedicPanchangResponse>(body: Schemas.PanchangRequestV1, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/panchang", withPayload(options, undefined, body));
   }
 
@@ -1460,7 +1470,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/strength`
    */
-  strengthV1<T = unknown>(body: Schemas.BaseChartRequestV1, options?: EndpointRequestOptions): Promise<T> {
+  strengthV1<T = Schemas.VedicStrengthResponse>(body: Schemas.BaseChartRequestV1, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/strength", withPayload(options, undefined, body));
   }
 
@@ -1471,7 +1481,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/vargas`
    */
-  vargasV1<T = unknown>(body: Schemas.VargaRequest, options?: EndpointRequestOptions): Promise<T> {
+  vargasV1<T = Schemas.VedicVargasResponse>(body: Schemas.VargaRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/vargas", withPayload(options, undefined, body));
   }
 
@@ -1482,7 +1492,7 @@ export class VedicResource {
    *
    * `POST /api/v1/vedic/yogas`
    */
-  yogasV1<T = unknown>(body: Schemas.BaseChartRequestV1, options?: EndpointRequestOptions): Promise<T> {
+  yogasV1<T = Schemas.VedicYogasResponse>(body: Schemas.BaseChartRequestV1, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/vedic/yogas", withPayload(options, undefined, body));
   }
 
@@ -1654,7 +1664,7 @@ export class WesternAstrocartographyResource {
    *
    * `POST /api/v1/western/astrocartography/city-check`
    */
-  cityCheck<T = Record<string, unknown>>(body: Schemas.AstrocartographyCityCheckRequest, options?: EndpointRequestOptions): Promise<T> {
+  cityCheck<T = Schemas.AstrocartographyCityCheckResponse>(body: Schemas.AstrocartographyCityCheckRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/western/astrocartography/city-check", withPayload(options, undefined, body));
   }
 
@@ -1665,7 +1675,7 @@ export class WesternAstrocartographyResource {
    *
    * `POST /api/v1/western/astrocartography/lines`
    */
-  lines<T = Record<string, unknown>>(body: Schemas.AstrocartographyLinesRequest, options?: EndpointRequestOptions): Promise<T> {
+  lines<T = Schemas.AstrocartographyLinesResponse>(body: Schemas.AstrocartographyLinesRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/western/astrocartography/lines", withPayload(options, undefined, body));
   }
 
@@ -1676,7 +1686,7 @@ export class WesternAstrocartographyResource {
    *
    * `POST /api/v1/western/astrocartography/parans`
    */
-  parans<T = Record<string, unknown>>(body: Schemas.AstrocartographyParansRequest, options?: EndpointRequestOptions): Promise<T> {
+  parans<T = Schemas.AstrocartographyParansResponse>(body: Schemas.AstrocartographyParansRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/western/astrocartography/parans", withPayload(options, undefined, body));
   }
 
@@ -1687,7 +1697,7 @@ export class WesternAstrocartographyResource {
    *
    * `POST /api/v1/western/astrocartography/recommendations`
    */
-  recommendations<T = Record<string, unknown>>(body: Schemas.AstrocartographyRecommendationsRequest, options?: EndpointRequestOptions): Promise<T> {
+  recommendations<T = Schemas.AstrocartographyRecommendationsResponse>(body: Schemas.AstrocartographyRecommendationsRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/western/astrocartography/recommendations", withPayload(options, undefined, body));
   }
 
@@ -1698,7 +1708,7 @@ export class WesternAstrocartographyResource {
    *
    * `POST /api/v1/western/astrocartography/relocation`
    */
-  relocation<T = Record<string, unknown>>(body: Schemas.AstrocartographyRelocationRequest, options?: EndpointRequestOptions): Promise<T> {
+  relocation<T = Schemas.AstrocartographyRelocationResponse>(body: Schemas.AstrocartographyRelocationRequest, options?: EndpointRequestOptions): Promise<T> {
     return this.client.request<T>("POST", "/api/v1/western/astrocartography/relocation", withPayload(options, undefined, body));
   }
 
@@ -2337,150 +2347,167 @@ export interface OperationInfo {
   hasBody: boolean;
   pathParams: readonly string[];
   deprecated: boolean;
+  /** Transient failures are only retried with an idempotency key or an explicit opt-in. */
+  sideEffecting: boolean;
 }
 
 /** Every public operation and the client method that calls it. */
 export const OPERATIONS: readonly OperationInfo[] = [
-  { operationId: "v1_ai_generate", method: "POST", path: "/api/v1/ai/generate", accessor: ["ai","generate"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_bazi", method: "POST", path: "/api/v1/chinese/bazi", accessor: ["chinese","bazi"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_bazi_dictionary", method: "GET", path: "/api/v1/chinese/bazi/dictionary", accessor: ["chinese","baziDictionary"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_bazi_flow", method: "POST", path: "/api/v1/chinese/bazi/flow", accessor: ["chinese","baziFlow"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_bazi_health", method: "POST", path: "/api/v1/chinese/bazi/health", accessor: ["chinese","baziHealth"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_bazi_lifespan", method: "POST", path: "/api/v1/chinese/bazi/lifespan", accessor: ["chinese","baziLifespan"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_bazi_synastry", method: "POST", path: "/api/v1/chinese/bazi/synastry", accessor: ["chinese","baziSynastry"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_bazi_time_correction", method: "POST", path: "/api/v1/chinese/bazi/time-correction", accessor: ["chinese","baziTimeCorrection"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_chinese_calendar_date", method: "GET", path: "/api/v1/chinese/calendar/{date}", accessor: ["chinese","calendar"], hasBody: false, pathParams: ["date"], deprecated: false },
-  { operationId: "v1_chinese_today", method: "GET", path: "/api/v1/chinese/today", accessor: ["chinese","today"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_ephemeris", method: "GET", path: "/api/v1/ephemeris", accessor: ["ephemeris","get"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_ephemeris_calculate", method: "POST", path: "/api/v1/ephemeris/calculate", accessor: ["ephemeris","calculate"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_geo_search", method: "GET", path: "/api/v1/geo/search", accessor: ["geo","searchV1"], hasBody: false, pathParams: [], deprecated: true },
-  { operationId: "v1_horoscope_daily_bulk", method: "GET", path: "/api/v1/horoscope/daily/bulk", accessor: ["horoscope","daily","bulk"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_horoscope_daily_personal", method: "POST", path: "/api/v1/horoscope/daily/personal", accessor: ["horoscope","daily","personalV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_horoscope_daily_sign", method: "GET", path: "/api/v1/horoscope/daily/sign", accessor: ["horoscope","daily","signV1"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_moon_month", method: "GET", path: "/api/v1/moon/month", accessor: ["moon","month"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_moon_phase", method: "GET", path: "/api/v1/moon/phase", accessor: ["moon","phase"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_calculate", method: "POST", path: "/api/v1/natal/calculate", accessor: ["natal","calculate"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_chart", method: "POST", path: "/api/v1/natal/chart/", accessor: ["natal","chart"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_chart_composite", method: "POST", path: "/api/v1/natal/chart/composite", accessor: ["natal","chartComposite"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_chart_progressions", method: "POST", path: "/api/v1/natal/chart/progressions", accessor: ["natal","chartProgressions"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_chart_secondary_progressions", method: "POST", path: "/api/v1/natal/chart/secondary-progressions", accessor: ["natal","chartSecondaryProgressions"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_chart_solar_return", method: "POST", path: "/api/v1/natal/chart/solar-return", accessor: ["natal","chartSolarReturn"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_chart_synastry", method: "POST", path: "/api/v1/natal/chart/synastry", accessor: ["natal","chartSynastry"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_chart_transits", method: "POST", path: "/api/v1/natal/chart/transits", accessor: ["natal","chartTransits"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_experimental_solar_return", method: "POST", path: "/api/v1/natal/experimental/solar-return", accessor: ["natal","experimental","solarReturn"], hasBody: true, pathParams: [], deprecated: true },
-  { operationId: "v1_natal_experimental_transits", method: "POST", path: "/api/v1/natal/experimental/transits", accessor: ["natal","experimental","transits"], hasBody: true, pathParams: [], deprecated: true },
-  { operationId: "v1_natal_report_credits", method: "GET", path: "/api/v1/natal/report-credits", accessor: ["natal","reportCredits"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_natal_report_job_id", method: "GET", path: "/api/v1/natal/report/{job_id}", accessor: ["natal","report"], hasBody: false, pathParams: ["job_id"], deprecated: false },
-  { operationId: "v1_numerology_alphabets", method: "GET", path: "/api/v1/numerology/alphabets", accessor: ["numerology","alphabets"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_numerology_methods", method: "GET", path: "/api/v1/numerology/methods", accessor: ["numerology","methods"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_numerology_profile", method: "POST", path: "/api/v1/numerology/profile", accessor: ["numerology","profile"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_sky_events", method: "GET", path: "/api/v1/sky-events", accessor: ["skyEvents","list"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v1_space_chart", method: "POST", path: "/api/v1/space/chart", accessor: ["space","chart"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_space_chart_svg", method: "POST", path: "/api/v1/space/chart/svg", accessor: ["space","chartSvg"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_transits_calculate", method: "POST", path: "/api/v1/transits/calculate", accessor: ["transits","calculate"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_batch", method: "POST", path: "/api/v1/vedic/batch", accessor: ["vedic","batch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_calculate", method: "POST", path: "/api/v1/vedic/calculate", accessor: ["vedic","calculateV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_chart", method: "POST", path: "/api/v1/vedic/chart", accessor: ["vedic","chartV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_compatibility", method: "POST", path: "/api/v1/vedic/compatibility", accessor: ["vedic","compatibilityV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_dasha", method: "POST", path: "/api/v1/vedic/dasha", accessor: ["vedic","dashaV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_dasha_insights", method: "POST", path: "/api/v1/vedic/dasha/insights", accessor: ["vedic","dashaInsightsV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_gochar_timeline", method: "POST", path: "/api/v1/vedic/gochar/timeline", accessor: ["vedic","gochar","timelineV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_gochar_timeline_insights", method: "POST", path: "/api/v1/vedic/gochar/timeline/insights", accessor: ["vedic","gochar","timelineInsightsV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_match", method: "POST", path: "/api/v1/vedic/match", accessor: ["vedic","matchV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_panchang", method: "POST", path: "/api/v1/vedic/panchang", accessor: ["vedic","panchangV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_strength", method: "POST", path: "/api/v1/vedic/strength", accessor: ["vedic","strengthV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_transits_insights", method: "POST", path: "/api/v1/vedic/transits/insights", accessor: ["vedic","transits","insights"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_vargas", method: "POST", path: "/api/v1/vedic/vargas", accessor: ["vedic","vargasV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_vedic_yogas", method: "POST", path: "/api/v1/vedic/yogas", accessor: ["vedic","yogasV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_astrocartography_city_check", method: "POST", path: "/api/v1/western/astrocartography/city-check", accessor: ["western","astrocartography","cityCheck"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_astrocartography_lines", method: "POST", path: "/api/v1/western/astrocartography/lines", accessor: ["western","astrocartography","lines"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_astrocartography_parans", method: "POST", path: "/api/v1/western/astrocartography/parans", accessor: ["western","astrocartography","parans"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_astrocartography_recommendations", method: "POST", path: "/api/v1/western/astrocartography/recommendations", accessor: ["western","astrocartography","recommendations"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_astrocartography_relocation", method: "POST", path: "/api/v1/western/astrocartography/relocation", accessor: ["western","astrocartography","relocation"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_directions_primary", method: "POST", path: "/api/v1/western/directions/primary", accessor: ["western","directions","primary"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_directions_primary_calendar", method: "POST", path: "/api/v1/western/directions/primary/calendar", accessor: ["western","directions","primaryCalendar"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_directions_primary_exact_aspects", method: "POST", path: "/api/v1/western/directions/primary/exact-aspects", accessor: ["western","directions","primaryExactAspects"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_directions_primary_search", method: "POST", path: "/api/v1/western/directions/primary/search", accessor: ["western","directions","primarySearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_natal_insights", method: "POST", path: "/api/v1/western/natal/insights", accessor: ["western","natal","insights"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_natal_insights_index_documents", method: "POST", path: "/api/v1/western/natal/insights/index-documents", accessor: ["western","natal","insightsIndexDocuments"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_profections_annual", method: "POST", path: "/api/v1/western/profections/annual", accessor: ["western","profections","annual"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_converse_secondary", method: "POST", path: "/api/v1/western/progressions/converse-secondary", accessor: ["western","progressions","converseSecondary"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_converse_secondary_calendar", method: "POST", path: "/api/v1/western/progressions/converse-secondary/calendar", accessor: ["western","progressions","converseSecondaryCalendar"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_converse_secondary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/converse-secondary/exact-aspects", accessor: ["western","progressions","converseSecondaryExactAspects"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_converse_secondary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/converse-secondary/exact-ingresses", accessor: ["western","progressions","converseSecondaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quaternary", method: "POST", path: "/api/v1/western/progressions/quaternary", accessor: ["western","progressions","quaternary"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quaternary_calendar", method: "POST", path: "/api/v1/western/progressions/quaternary/calendar", accessor: ["western","progressions","quaternaryCalendar"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quaternary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/quaternary/exact-aspects", accessor: ["western","progressions","quaternaryExactAspects"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quaternary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/quaternary/exact-ingresses", accessor: ["western","progressions","quaternaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quotidian", method: "POST", path: "/api/v1/western/progressions/quotidian", accessor: ["western","progressions","quotidian"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quotidian_calendar", method: "POST", path: "/api/v1/western/progressions/quotidian/calendar", accessor: ["western","progressions","quotidianCalendar"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quotidian_exact_aspects", method: "POST", path: "/api/v1/western/progressions/quotidian/exact-aspects", accessor: ["western","progressions","quotidianExactAspects"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_quotidian_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/quotidian/exact-ingresses", accessor: ["western","progressions","quotidianExactIngresses"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_secondary", method: "POST", path: "/api/v1/western/progressions/secondary", accessor: ["western","progressions","secondary"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_secondary_calendar", method: "POST", path: "/api/v1/western/progressions/secondary/calendar", accessor: ["western","progressions","secondaryCalendar"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_secondary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/secondary/exact-aspects", accessor: ["western","progressions","secondaryExactAspects"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_secondary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/secondary/exact-ingresses", accessor: ["western","progressions","secondaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_tertiary", method: "POST", path: "/api/v1/western/progressions/tertiary", accessor: ["western","progressions","tertiary"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_tertiary_calendar", method: "POST", path: "/api/v1/western/progressions/tertiary/calendar", accessor: ["western","progressions","tertiaryCalendar"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_tertiary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/tertiary/exact-aspects", accessor: ["western","progressions","tertiaryExactAspects"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_progressions_tertiary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/tertiary/exact-ingresses", accessor: ["western","progressions","tertiaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_returns_calculate", method: "POST", path: "/api/v1/western/returns/calculate", accessor: ["western","returns","calculate"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_signs_midheaven", method: "POST", path: "/api/v1/western/signs/midheaven", accessor: ["western","signs","midheaven"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_signs_moon", method: "POST", path: "/api/v1/western/signs/moon", accessor: ["western","signs","moon"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_signs_rising", method: "POST", path: "/api/v1/western/signs/rising", accessor: ["western","signs","rising"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_signs_sun", method: "POST", path: "/api/v1/western/signs/sun", accessor: ["western","signs","sun"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_solar_calculate", method: "POST", path: "/api/v1/western/solar/calculate", accessor: ["western","solar","calculate"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_synastry", method: "POST", path: "/api/v1/western/synastry", accessor: ["western","synastryV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_synastry_horoscope", method: "POST", path: "/api/v1/western/synastry/horoscope", accessor: ["western","synastryHoroscopeV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_synastry_simplified", method: "POST", path: "/api/v1/western/synastry/simplified", accessor: ["western","synastrySimplified"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_synastry_summary", method: "POST", path: "/api/v1/western/synastry/summary", accessor: ["western","synastrySummary"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_synastrycards", method: "POST", path: "/api/v1/western/synastrycards", accessor: ["western","synastrycardsV1"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_transits_insights", method: "POST", path: "/api/v1/western/transits/insights", accessor: ["western","transits","insights"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_transits_search", method: "POST", path: "/api/v1/western/transits/search", accessor: ["western","transits","search"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_transits_timeline", method: "POST", path: "/api/v1/western/transits/timeline", accessor: ["western","transits","timeline"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v1_western_transits_timeline_index_documents", method: "POST", path: "/api/v1/western/transits/timeline/index-documents", accessor: ["western","transits","timelineIndexDocuments"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_geo_search", method: "GET", path: "/api/v2/geo/search", accessor: ["geo","search"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v2_horoscope_daily_personal", method: "POST", path: "/api/v2/horoscope/daily/personal", accessor: ["horoscope","daily","personalV2"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_horoscope_daily_sign", method: "GET", path: "/api/v2/horoscope/daily/sign", accessor: ["horoscope","daily","signV2"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_calculate", method: "POST", path: "/api/v2/vedic/calculate", accessor: ["vedic","calculate"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_chart", method: "POST", path: "/api/v2/vedic/chart", accessor: ["vedic","chart"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_chat", method: "POST", path: "/api/v2/vedic/chat", accessor: ["vedic","chat"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_compatibility", method: "POST", path: "/api/v2/vedic/compatibility", accessor: ["vedic","compatibility"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_dasha", method: "POST", path: "/api/v2/vedic/dasha", accessor: ["vedic","dasha"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_dasha_insights", method: "POST", path: "/api/v2/vedic/dasha/insights", accessor: ["vedic","dashaInsights"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_gochar_timeline", method: "POST", path: "/api/v2/vedic/gochar/timeline", accessor: ["vedic","gochar","timeline"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_gochar_timeline_insights", method: "POST", path: "/api/v2/vedic/gochar/timeline/insights", accessor: ["vedic","gochar","timelineInsights"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_horoscope_daily_bulk", method: "GET", path: "/api/v2/vedic/horoscope/daily/bulk", accessor: ["vedic","horoscope","dailyBulk"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_horoscope_daily_personal", method: "POST", path: "/api/v2/vedic/horoscope/daily/personal", accessor: ["vedic","horoscope","dailyPersonal"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_horoscope_daily_sign", method: "GET", path: "/api/v2/vedic/horoscope/daily/sign", accessor: ["vedic","horoscope","dailySign"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_kp", method: "POST", path: "/api/v2/vedic/kp", accessor: ["vedic","kp"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_kp_render", method: "POST", path: "/api/v2/vedic/kp/render", accessor: ["vedic","kpRender"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_match", method: "POST", path: "/api/v2/vedic/match", accessor: ["vedic","match"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_muhurat_personalized_search", method: "POST", path: "/api/v2/vedic/muhurat/personalized-search", accessor: ["vedic","muhurat","personalizedSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_muhurat_search", method: "POST", path: "/api/v2/vedic/muhurat/search", accessor: ["vedic","muhurat","search"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_panchang", method: "POST", path: "/api/v2/vedic/panchang", accessor: ["vedic","panchang"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_qa", method: "POST", path: "/api/v2/vedic/qa", accessor: ["vedic","qa"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_strength", method: "POST", path: "/api/v2/vedic/strength", accessor: ["vedic","strength"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_vargas", method: "POST", path: "/api/v2/vedic/vargas", accessor: ["vedic","vargas"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_visual_chart", method: "POST", path: "/api/v2/vedic/visual/chart", accessor: ["vedic","visual","chart"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_vedic_yogas", method: "POST", path: "/api/v2/vedic/yogas", accessor: ["vedic","yogas"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_chart_similarity_famous_people", method: "POST", path: "/api/v2/western/chart-similarity/famous-people", accessor: ["western","chartSimilarity","famousPeople"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_chat", method: "POST", path: "/api/v2/western/chat", accessor: ["western","chat"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_invest_money_search", method: "POST", path: "/api/v2/western/electional/invest-money/search", accessor: ["western","electional","investMoneySearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_job_audition_search", method: "POST", path: "/api/v2/western/electional/job-audition/search", accessor: ["western","electional","jobAuditionSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_legal_proceedings_search", method: "POST", path: "/api/v2/western/electional/legal-proceedings/search", accessor: ["western","electional","legalProceedingsSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_making_contracts_search", method: "POST", path: "/api/v2/western/electional/making-contracts/search", accessor: ["western","electional","makingContractsSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_move_into_new_home_search", method: "POST", path: "/api/v2/western/electional/move-into-new-home/search", accessor: ["western","electional","moveIntoNewHomeSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_physical_examination_search", method: "POST", path: "/api/v2/western/electional/physical-examination/search", accessor: ["western","electional","physicalExaminationSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_purchase_car_search", method: "POST", path: "/api/v2/western/electional/purchase-car/search", accessor: ["western","electional","purchaseCarSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_purchase_property_search", method: "POST", path: "/api/v2/western/electional/purchase-property/search", accessor: ["western","electional","purchasePropertySearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_starting_journey_search", method: "POST", path: "/api/v2/western/electional/starting-journey/search", accessor: ["western","electional","startingJourneySearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_electional_wedding_search", method: "POST", path: "/api/v2/western/electional/wedding/search", accessor: ["western","electional","weddingSearch"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_synastry", method: "POST", path: "/api/v2/western/synastry", accessor: ["western","synastry"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_synastry_horoscope", method: "POST", path: "/api/v2/western/synastry/horoscope", accessor: ["western","synastryHoroscope"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v2_western_synastrycards", method: "POST", path: "/api/v2/western/synastrycards", accessor: ["western","synastrycards"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v3_horoscope_daily_personal", method: "POST", path: "/api/v3/horoscope/daily/personal", accessor: ["horoscope","daily","personal"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "v3_horoscope_daily_sign", method: "GET", path: "/api/v3/horoscope/daily/sign", accessor: ["horoscope","daily","sign"], hasBody: false, pathParams: [], deprecated: false },
-  { operationId: "v3_horoscope_weekly_personal", method: "POST", path: "/api/v3/horoscope/weekly/personal", accessor: ["horoscope","weekly","personal"], hasBody: true, pathParams: [], deprecated: false },
-  { operationId: "simple_natal", method: "POST", path: "/natal", accessor: ["natal","simple"], hasBody: true, pathParams: [], deprecated: false },
+  { operationId: "v1_ai_generate", method: "POST", path: "/api/v1/ai/generate", accessor: ["ai","generate"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: true },
+  { operationId: "v1_chinese_bazi", method: "POST", path: "/api/v1/chinese/bazi", accessor: ["chinese","bazi"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_bazi_dictionary", method: "GET", path: "/api/v1/chinese/bazi/dictionary", accessor: ["chinese","baziDictionary"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_bazi_flow", method: "POST", path: "/api/v1/chinese/bazi/flow", accessor: ["chinese","baziFlow"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_bazi_health", method: "POST", path: "/api/v1/chinese/bazi/health", accessor: ["chinese","baziHealth"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_bazi_lifespan", method: "POST", path: "/api/v1/chinese/bazi/lifespan", accessor: ["chinese","baziLifespan"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_bazi_synastry", method: "POST", path: "/api/v1/chinese/bazi/synastry", accessor: ["chinese","baziSynastry"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_bazi_time_correction", method: "POST", path: "/api/v1/chinese/bazi/time-correction", accessor: ["chinese","baziTimeCorrection"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_calendar_date", method: "GET", path: "/api/v1/chinese/calendar/{date}", accessor: ["chinese","calendar"], hasBody: false, pathParams: ["date"], deprecated: false, sideEffecting: false },
+  { operationId: "v1_chinese_today", method: "GET", path: "/api/v1/chinese/today", accessor: ["chinese","today"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_ephemeris", method: "GET", path: "/api/v1/ephemeris", accessor: ["ephemeris","get"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_ephemeris_calculate", method: "POST", path: "/api/v1/ephemeris/calculate", accessor: ["ephemeris","calculate"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_geo_search", method: "GET", path: "/api/v1/geo/search", accessor: ["geo","searchV1"], hasBody: false, pathParams: [], deprecated: true, sideEffecting: false },
+  { operationId: "v1_horoscope_daily_bulk", method: "GET", path: "/api/v1/horoscope/daily/bulk", accessor: ["horoscope","daily","bulk"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_horoscope_daily_personal", method: "POST", path: "/api/v1/horoscope/daily/personal", accessor: ["horoscope","daily","personalV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_horoscope_daily_sign", method: "GET", path: "/api/v1/horoscope/daily/sign", accessor: ["horoscope","daily","signV1"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_moon_month", method: "GET", path: "/api/v1/moon/month", accessor: ["moon","month"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_moon_phase", method: "GET", path: "/api/v1/moon/phase", accessor: ["moon","phase"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_calculate", method: "POST", path: "/api/v1/natal/calculate", accessor: ["natal","calculate"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: true },
+  { operationId: "v1_natal_chart", method: "POST", path: "/api/v1/natal/chart/", accessor: ["natal","chart"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_chart_composite", method: "POST", path: "/api/v1/natal/chart/composite", accessor: ["natal","chartComposite"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_chart_progressions", method: "POST", path: "/api/v1/natal/chart/progressions", accessor: ["natal","chartProgressions"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_chart_secondary_progressions", method: "POST", path: "/api/v1/natal/chart/secondary-progressions", accessor: ["natal","chartSecondaryProgressions"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_chart_solar_return", method: "POST", path: "/api/v1/natal/chart/solar-return", accessor: ["natal","chartSolarReturn"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_chart_synastry", method: "POST", path: "/api/v1/natal/chart/synastry", accessor: ["natal","chartSynastry"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_chart_transits", method: "POST", path: "/api/v1/natal/chart/transits", accessor: ["natal","chartTransits"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_experimental_solar_return", method: "POST", path: "/api/v1/natal/experimental/solar-return", accessor: ["natal","experimental","solarReturn"], hasBody: true, pathParams: [], deprecated: true, sideEffecting: false },
+  { operationId: "v1_natal_experimental_transits", method: "POST", path: "/api/v1/natal/experimental/transits", accessor: ["natal","experimental","transits"], hasBody: true, pathParams: [], deprecated: true, sideEffecting: false },
+  { operationId: "v1_natal_report_credits", method: "GET", path: "/api/v1/natal/report-credits", accessor: ["natal","reportCredits"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_natal_report_job_id", method: "GET", path: "/api/v1/natal/report/{job_id}", accessor: ["natal","report"], hasBody: false, pathParams: ["job_id"], deprecated: false, sideEffecting: false },
+  { operationId: "v1_numerology_alphabets", method: "GET", path: "/api/v1/numerology/alphabets", accessor: ["numerology","alphabets"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_numerology_methods", method: "GET", path: "/api/v1/numerology/methods", accessor: ["numerology","methods"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_numerology_profile", method: "POST", path: "/api/v1/numerology/profile", accessor: ["numerology","profile"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_sky_events", method: "GET", path: "/api/v1/sky-events", accessor: ["skyEvents","list"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_space_chart", method: "POST", path: "/api/v1/space/chart", accessor: ["space","chart"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_space_chart_svg", method: "POST", path: "/api/v1/space/chart/svg", accessor: ["space","chartSvg"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_transits_calculate", method: "POST", path: "/api/v1/transits/calculate", accessor: ["transits","calculate"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_batch", method: "POST", path: "/api/v1/vedic/batch", accessor: ["vedic","batch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_calculate", method: "POST", path: "/api/v1/vedic/calculate", accessor: ["vedic","calculateV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_chart", method: "POST", path: "/api/v1/vedic/chart", accessor: ["vedic","chartV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_compatibility", method: "POST", path: "/api/v1/vedic/compatibility", accessor: ["vedic","compatibilityV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_dasha", method: "POST", path: "/api/v1/vedic/dasha", accessor: ["vedic","dashaV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_dasha_insights", method: "POST", path: "/api/v1/vedic/dasha/insights", accessor: ["vedic","dashaInsightsV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_gochar_timeline", method: "POST", path: "/api/v1/vedic/gochar/timeline", accessor: ["vedic","gochar","timelineV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_gochar_timeline_insights", method: "POST", path: "/api/v1/vedic/gochar/timeline/insights", accessor: ["vedic","gochar","timelineInsightsV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_match", method: "POST", path: "/api/v1/vedic/match", accessor: ["vedic","matchV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_panchang", method: "POST", path: "/api/v1/vedic/panchang", accessor: ["vedic","panchangV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_strength", method: "POST", path: "/api/v1/vedic/strength", accessor: ["vedic","strengthV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_transits_insights", method: "POST", path: "/api/v1/vedic/transits/insights", accessor: ["vedic","transits","insights"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_vargas", method: "POST", path: "/api/v1/vedic/vargas", accessor: ["vedic","vargasV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_vedic_yogas", method: "POST", path: "/api/v1/vedic/yogas", accessor: ["vedic","yogasV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_astrocartography_city_check", method: "POST", path: "/api/v1/western/astrocartography/city-check", accessor: ["western","astrocartography","cityCheck"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_astrocartography_lines", method: "POST", path: "/api/v1/western/astrocartography/lines", accessor: ["western","astrocartography","lines"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_astrocartography_parans", method: "POST", path: "/api/v1/western/astrocartography/parans", accessor: ["western","astrocartography","parans"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_astrocartography_recommendations", method: "POST", path: "/api/v1/western/astrocartography/recommendations", accessor: ["western","astrocartography","recommendations"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_astrocartography_relocation", method: "POST", path: "/api/v1/western/astrocartography/relocation", accessor: ["western","astrocartography","relocation"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_directions_primary", method: "POST", path: "/api/v1/western/directions/primary", accessor: ["western","directions","primary"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_directions_primary_calendar", method: "POST", path: "/api/v1/western/directions/primary/calendar", accessor: ["western","directions","primaryCalendar"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_directions_primary_exact_aspects", method: "POST", path: "/api/v1/western/directions/primary/exact-aspects", accessor: ["western","directions","primaryExactAspects"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_directions_primary_search", method: "POST", path: "/api/v1/western/directions/primary/search", accessor: ["western","directions","primarySearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_natal_insights", method: "POST", path: "/api/v1/western/natal/insights", accessor: ["western","natal","insights"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_natal_insights_index_documents", method: "POST", path: "/api/v1/western/natal/insights/index-documents", accessor: ["western","natal","insightsIndexDocuments"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_profections_annual", method: "POST", path: "/api/v1/western/profections/annual", accessor: ["western","profections","annual"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_converse_secondary", method: "POST", path: "/api/v1/western/progressions/converse-secondary", accessor: ["western","progressions","converseSecondary"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_converse_secondary_calendar", method: "POST", path: "/api/v1/western/progressions/converse-secondary/calendar", accessor: ["western","progressions","converseSecondaryCalendar"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_converse_secondary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/converse-secondary/exact-aspects", accessor: ["western","progressions","converseSecondaryExactAspects"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_converse_secondary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/converse-secondary/exact-ingresses", accessor: ["western","progressions","converseSecondaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quaternary", method: "POST", path: "/api/v1/western/progressions/quaternary", accessor: ["western","progressions","quaternary"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quaternary_calendar", method: "POST", path: "/api/v1/western/progressions/quaternary/calendar", accessor: ["western","progressions","quaternaryCalendar"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quaternary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/quaternary/exact-aspects", accessor: ["western","progressions","quaternaryExactAspects"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quaternary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/quaternary/exact-ingresses", accessor: ["western","progressions","quaternaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quotidian", method: "POST", path: "/api/v1/western/progressions/quotidian", accessor: ["western","progressions","quotidian"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quotidian_calendar", method: "POST", path: "/api/v1/western/progressions/quotidian/calendar", accessor: ["western","progressions","quotidianCalendar"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quotidian_exact_aspects", method: "POST", path: "/api/v1/western/progressions/quotidian/exact-aspects", accessor: ["western","progressions","quotidianExactAspects"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_quotidian_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/quotidian/exact-ingresses", accessor: ["western","progressions","quotidianExactIngresses"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_secondary", method: "POST", path: "/api/v1/western/progressions/secondary", accessor: ["western","progressions","secondary"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_secondary_calendar", method: "POST", path: "/api/v1/western/progressions/secondary/calendar", accessor: ["western","progressions","secondaryCalendar"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_secondary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/secondary/exact-aspects", accessor: ["western","progressions","secondaryExactAspects"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_secondary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/secondary/exact-ingresses", accessor: ["western","progressions","secondaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_tertiary", method: "POST", path: "/api/v1/western/progressions/tertiary", accessor: ["western","progressions","tertiary"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_tertiary_calendar", method: "POST", path: "/api/v1/western/progressions/tertiary/calendar", accessor: ["western","progressions","tertiaryCalendar"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_tertiary_exact_aspects", method: "POST", path: "/api/v1/western/progressions/tertiary/exact-aspects", accessor: ["western","progressions","tertiaryExactAspects"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_progressions_tertiary_exact_ingresses", method: "POST", path: "/api/v1/western/progressions/tertiary/exact-ingresses", accessor: ["western","progressions","tertiaryExactIngresses"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_returns_calculate", method: "POST", path: "/api/v1/western/returns/calculate", accessor: ["western","returns","calculate"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_signs_midheaven", method: "POST", path: "/api/v1/western/signs/midheaven", accessor: ["western","signs","midheaven"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_signs_moon", method: "POST", path: "/api/v1/western/signs/moon", accessor: ["western","signs","moon"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_signs_rising", method: "POST", path: "/api/v1/western/signs/rising", accessor: ["western","signs","rising"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_signs_sun", method: "POST", path: "/api/v1/western/signs/sun", accessor: ["western","signs","sun"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_solar_calculate", method: "POST", path: "/api/v1/western/solar/calculate", accessor: ["western","solar","calculate"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_synastry", method: "POST", path: "/api/v1/western/synastry", accessor: ["western","synastryV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_synastry_horoscope", method: "POST", path: "/api/v1/western/synastry/horoscope", accessor: ["western","synastryHoroscopeV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_synastry_simplified", method: "POST", path: "/api/v1/western/synastry/simplified", accessor: ["western","synastrySimplified"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_synastry_summary", method: "POST", path: "/api/v1/western/synastry/summary", accessor: ["western","synastrySummary"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_synastrycards", method: "POST", path: "/api/v1/western/synastrycards", accessor: ["western","synastrycardsV1"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_transits_insights", method: "POST", path: "/api/v1/western/transits/insights", accessor: ["western","transits","insights"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: true },
+  { operationId: "v1_western_transits_search", method: "POST", path: "/api/v1/western/transits/search", accessor: ["western","transits","search"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v1_western_transits_timeline", method: "POST", path: "/api/v1/western/transits/timeline", accessor: ["western","transits","timeline"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: true },
+  { operationId: "v1_western_transits_timeline_index_documents", method: "POST", path: "/api/v1/western/transits/timeline/index-documents", accessor: ["western","transits","timelineIndexDocuments"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_geo_search", method: "GET", path: "/api/v2/geo/search", accessor: ["geo","search"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_horoscope_daily_personal", method: "POST", path: "/api/v2/horoscope/daily/personal", accessor: ["horoscope","daily","personalV2"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_horoscope_daily_sign", method: "GET", path: "/api/v2/horoscope/daily/sign", accessor: ["horoscope","daily","signV2"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_calculate", method: "POST", path: "/api/v2/vedic/calculate", accessor: ["vedic","calculate"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_chart", method: "POST", path: "/api/v2/vedic/chart", accessor: ["vedic","chart"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_chat", method: "POST", path: "/api/v2/vedic/chat", accessor: ["vedic","chat"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: true },
+  { operationId: "v2_vedic_compatibility", method: "POST", path: "/api/v2/vedic/compatibility", accessor: ["vedic","compatibility"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_dasha", method: "POST", path: "/api/v2/vedic/dasha", accessor: ["vedic","dasha"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_dasha_insights", method: "POST", path: "/api/v2/vedic/dasha/insights", accessor: ["vedic","dashaInsights"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_gochar_timeline", method: "POST", path: "/api/v2/vedic/gochar/timeline", accessor: ["vedic","gochar","timeline"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_gochar_timeline_insights", method: "POST", path: "/api/v2/vedic/gochar/timeline/insights", accessor: ["vedic","gochar","timelineInsights"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_horoscope_daily_bulk", method: "GET", path: "/api/v2/vedic/horoscope/daily/bulk", accessor: ["vedic","horoscope","dailyBulk"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_horoscope_daily_personal", method: "POST", path: "/api/v2/vedic/horoscope/daily/personal", accessor: ["vedic","horoscope","dailyPersonal"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_horoscope_daily_sign", method: "GET", path: "/api/v2/vedic/horoscope/daily/sign", accessor: ["vedic","horoscope","dailySign"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_kp", method: "POST", path: "/api/v2/vedic/kp", accessor: ["vedic","kp"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_kp_render", method: "POST", path: "/api/v2/vedic/kp/render", accessor: ["vedic","kpRender"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_match", method: "POST", path: "/api/v2/vedic/match", accessor: ["vedic","match"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_muhurat_personalized_search", method: "POST", path: "/api/v2/vedic/muhurat/personalized-search", accessor: ["vedic","muhurat","personalizedSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_muhurat_search", method: "POST", path: "/api/v2/vedic/muhurat/search", accessor: ["vedic","muhurat","search"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_panchang", method: "POST", path: "/api/v2/vedic/panchang", accessor: ["vedic","panchang"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_qa", method: "POST", path: "/api/v2/vedic/qa", accessor: ["vedic","qa"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: true },
+  { operationId: "v2_vedic_strength", method: "POST", path: "/api/v2/vedic/strength", accessor: ["vedic","strength"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_vargas", method: "POST", path: "/api/v2/vedic/vargas", accessor: ["vedic","vargas"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_visual_chart", method: "POST", path: "/api/v2/vedic/visual/chart", accessor: ["vedic","visual","chart"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_vedic_yogas", method: "POST", path: "/api/v2/vedic/yogas", accessor: ["vedic","yogas"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_chart_similarity_famous_people", method: "POST", path: "/api/v2/western/chart-similarity/famous-people", accessor: ["western","chartSimilarity","famousPeople"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_chat", method: "POST", path: "/api/v2/western/chat", accessor: ["western","chat"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: true },
+  { operationId: "v2_western_electional_invest_money_search", method: "POST", path: "/api/v2/western/electional/invest-money/search", accessor: ["western","electional","investMoneySearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_job_audition_search", method: "POST", path: "/api/v2/western/electional/job-audition/search", accessor: ["western","electional","jobAuditionSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_legal_proceedings_search", method: "POST", path: "/api/v2/western/electional/legal-proceedings/search", accessor: ["western","electional","legalProceedingsSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_making_contracts_search", method: "POST", path: "/api/v2/western/electional/making-contracts/search", accessor: ["western","electional","makingContractsSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_move_into_new_home_search", method: "POST", path: "/api/v2/western/electional/move-into-new-home/search", accessor: ["western","electional","moveIntoNewHomeSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_physical_examination_search", method: "POST", path: "/api/v2/western/electional/physical-examination/search", accessor: ["western","electional","physicalExaminationSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_purchase_car_search", method: "POST", path: "/api/v2/western/electional/purchase-car/search", accessor: ["western","electional","purchaseCarSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_purchase_property_search", method: "POST", path: "/api/v2/western/electional/purchase-property/search", accessor: ["western","electional","purchasePropertySearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_starting_journey_search", method: "POST", path: "/api/v2/western/electional/starting-journey/search", accessor: ["western","electional","startingJourneySearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_electional_wedding_search", method: "POST", path: "/api/v2/western/electional/wedding/search", accessor: ["western","electional","weddingSearch"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_synastry", method: "POST", path: "/api/v2/western/synastry", accessor: ["western","synastry"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_synastry_horoscope", method: "POST", path: "/api/v2/western/synastry/horoscope", accessor: ["western","synastryHoroscope"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v2_western_synastrycards", method: "POST", path: "/api/v2/western/synastrycards", accessor: ["western","synastrycards"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v3_horoscope_daily_personal", method: "POST", path: "/api/v3/horoscope/daily/personal", accessor: ["horoscope","daily","personal"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v3_horoscope_daily_sign", method: "GET", path: "/api/v3/horoscope/daily/sign", accessor: ["horoscope","daily","sign"], hasBody: false, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "v3_horoscope_weekly_personal", method: "POST", path: "/api/v3/horoscope/weekly/personal", accessor: ["horoscope","weekly","personal"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
+  { operationId: "simple_natal", method: "POST", path: "/natal", accessor: ["natal","simple"], hasBody: true, pathParams: [], deprecated: false, sideEffecting: false },
 ];
+
+/**
+ * Operations with side effects. Transient failures (408, 500, 502, 503, 504, network errors,
+ * timeouts) are retried for them only with an idempotency key or `retry: true`; 429 is
+ * retried for every operation.
+ */
+export const SIDE_EFFECTING_OPERATIONS: ReadonlySet<string> = new Set([
+  "v1_ai_generate",
+  "v1_natal_calculate",
+  "v1_western_transits_insights",
+  "v1_western_transits_timeline",
+  "v2_vedic_chat",
+  "v2_vedic_qa",
+  "v2_western_chat",
+]);

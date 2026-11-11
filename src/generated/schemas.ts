@@ -234,6 +234,168 @@ export interface AspectsPayload {
   progressed_to_progressed: Array<ProgressedToProgressedAspect>;
 }
 
+export interface AstrocartographyCityCheckCity {
+  name: string;
+  country: string;
+  state: string;
+  lat: number;
+  lng: number;
+  timezone: string;
+  population: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckCityVisualExplanation {
+  primary_lines: Array<AstrocartographyCityCheckCityVisualExplanationPrimaryLine>;
+  nearest_lines: Array<AstrocartographyCityCheckCityVisualExplanationPrimaryLine>;
+  primary_parans: Array<AstrocartographyCityCheckCityVisualExplanationPrimaryParan>;
+  relevant_crossings: Array<AstrocartographyCityCheckCityVisualExplanationRelevantCrossing>;
+  map_line_ids: Array<string>;
+  explanation_mode: string;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckCityVisualExplanationPrimaryLine {
+  body: string;
+  angle: string;
+  distance_km: number;
+  line_id: string;
+  is_close: boolean;
+  visual_strength: string;
+  source_focuses: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckCityVisualExplanationPrimaryParan {
+  id: string;
+  body_a: string;
+  event_a: string;
+  body_b: string;
+  event_b: string;
+  distance_km: number;
+  is_close: boolean;
+  visual_strength: string;
+  source_focuses: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckCityVisualExplanationRelevantCrossing {
+  lat?: number | null;
+  lng?: number | null;
+  distance_km?: number | null;
+  lines?: Array<AstrocartographyLinesCrossingLine> | null;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckFocusScores {
+  career: AstrocartographyCityCheckFocusScoresCareer;
+  romance: AstrocartographyCityCheckFocusScoresCareer;
+  home: AstrocartographyCityCheckFocusScoresCareer;
+  health: AstrocartographyCityCheckFocusScoresCareer;
+  spiritual: AstrocartographyCityCheckFocusScoresCareer;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckFocusScoresCareer {
+  score: number;
+  summary: string;
+  top_factors: Array<AstrocartographyCityCheckFocusScoresCareerTopFactor>;
+  nearest_favorable_distance_km: number;
+  nearest_challenging_distance_km: number;
+  nearest_favorable_line: AstrocartographyCityCheckFocusScoresCareerNearestFavorableLine;
+  nearest_challenging_line: AstrocartographyCityCheckFocusScoresCareerNearestFavorableLine;
+  line_score: number;
+  paran_score: number;
+  relocation_score: number;
+  top_parans: Array<AstrocartographyCityCheckFocusScoresCareerTopParan>;
+  nearest_favorable_paran?: AstrocartographyCityCheckFocusScoresCareerNearestFavorableParan | null;
+  nearest_challenging_paran?: AstrocartographyCityCheckFocusScoresCareerNearestFavorableParan | null;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckFocusScoresCareerNearestFavorableLine {
+  body: string;
+  angle: string;
+  distance_km: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckFocusScoresCareerNearestFavorableParan {
+  id: string;
+  body_a: string;
+  event_a: string;
+  body_b: string;
+  event_b: string;
+  latitude: number;
+  distance_km: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckFocusScoresCareerTopFactor {
+  body: string;
+  angle: string;
+  distance_km: number;
+  weight: number;
+  score: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckFocusScoresCareerTopParan {
+  id: string;
+  body_a: string;
+  event_a: string;
+  body_b: string;
+  event_b: string;
+  latitude: number;
+  distance_km: number;
+  score: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckMeta {
+  mode: string;
+  bodies: Array<string>;
+  angles: Array<string>;
+  timezone: string;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckRelocationSummary {
+  resolved_timezone: string;
+  angles: AstrocartographyCityCheckRelocationSummaryAngles;
+  angles_details: Record<string, AstrocartographyCityCheckRelocationSummaryAnglesDetailsEntry>;
+  angular_planets: Array<AstrocartographyCityCheckRelocationSummaryAngularPlanet>;
+  dominant_themes: Array<string>;
+  summary_short: string;
+  summary_caution: string;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckRelocationSummaryAngles {
+  asc: number;
+  mc: number;
+  ic: number;
+  dc: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckRelocationSummaryAnglesDetailsEntry {
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  house: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyCityCheckRelocationSummaryAngularPlanet {
+  body: string;
+  angle: string;
+  orb_deg: number;
+  house: number;
+  [key: string]: unknown;
+}
+
 export interface AstrocartographyCityCheckRequest {
   natal: NatalChartRequest;
   city: string;
@@ -252,6 +414,153 @@ export interface AstrocartographyCityCheckRequest {
   include_crossings?: boolean;
 }
 
+export interface AstrocartographyCityCheckResponse {
+  meta: AstrocartographyCityCheckMeta;
+  warnings: Array<string>;
+  city: AstrocartographyCityCheckCity;
+  overall_score: number;
+  focus_scores: AstrocartographyCityCheckFocusScores;
+  city_visual_explanation: AstrocartographyCityCheckCityVisualExplanation;
+  relocation_summary?: AstrocartographyCityCheckRelocationSummary | null;
+  map?: AstrocartographyLinesResponse | null;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesChartFamily {
+  id: string;
+  body: string;
+  kind: string;
+  angles: Array<string>;
+  member_line_ids: Array<string>;
+  geometry: AstrocartographyLinesLineGeometry;
+  line_family: string;
+  geometry_scope: string;
+  endpoint_behavior: string;
+  complete_geometry: boolean;
+  world_wrapped: boolean;
+  segment_count: number;
+  lat_range: AstrocartographyLinesLineLatRange;
+  lng_range: AstrocartographyLinesLineLatRange;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesCrossing {
+  lat: number;
+  lng: number;
+  lines: Array<AstrocartographyLinesCrossingLine>;
+  geometry: AstrocartographyLinesCrossingGeometry;
+  nearest_city: AstrocartographyLinesCrossingNearestCity;
+  quality: AstrocartographyLinesCrossingQuality;
+  strongest_focus: string;
+  secondary_focus: string;
+  polarity: string;
+  interpretation_short: string;
+  interpretation_caution: string;
+  benefit_keywords: Array<string>;
+  risk_keywords: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesCrossingGeometry {
+  type: string;
+  coordinates: Array<number>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesCrossingLine {
+  id: string;
+  body: string;
+  angle: string;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesCrossingNearestCity {
+  name: string;
+  country: string;
+  state: string;
+  lat: number;
+  lng: number;
+  timezone: string;
+  population: number;
+  distance_km: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesCrossingQuality {
+  overall_score: number;
+  strongest_focus: string;
+  strongest_focus_score: number;
+  secondary_focus: string;
+  secondary_focus_score: number;
+  polarity: string;
+  match_tier: string;
+  focus_scores: AstrocartographyLinesCrossingQualityFocusScores;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesCrossingQualityFocusScores {
+  career: number;
+  health: number;
+  home: number;
+  romance: number;
+  spiritual: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesLine {
+  id: string;
+  body: string;
+  angle: string;
+  _kind: string;
+  _segments?: Array<Array<AstrocartographyLinesLineSegmentItem>> | null;
+  geometry: AstrocartographyLinesLineGeometry;
+  chart_family_id?: string | null;
+  paired_line_id?: string | null;
+  line_family: string;
+  geometry_scope: string;
+  endpoint_behavior: string;
+  complete_geometry: boolean;
+  world_wrapped: boolean;
+  segment_count: number;
+  lat_range: AstrocartographyLinesLineLatRange;
+  lng_range: AstrocartographyLinesLineLatRange;
+  _longitude?: number | null;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesLineGeometry {
+  type: string;
+  coordinates: Array<Array<Array<number> | number>>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesLineLatRange {
+  min: number;
+  max: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesLineSegmentItem {
+  lat: number;
+  lng: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyLinesMeta {
+  mode: string;
+  bodies: Array<string>;
+  angles: Array<string>;
+  timezone: string;
+  geometry_format: string;
+  coordinate_reference_system: string;
+  coordinate_order: string;
+  sample_step_degrees: number;
+  line_sample_step_degrees: number;
+  crossing_count: number;
+  chart_family_count: number;
+  [key: string]: unknown;
+}
+
 export interface AstrocartographyLinesRequest {
   natal: NatalChartRequest;
   mode?: "in_mundo" | "projected";
@@ -259,6 +568,56 @@ export interface AstrocartographyLinesRequest {
   angles?: Array<string> | null;
   topocentric?: boolean;
   include_crossings?: boolean;
+}
+
+export interface AstrocartographyLinesResponse {
+  meta: AstrocartographyLinesMeta;
+  warnings: Array<string>;
+  lines: Array<AstrocartographyLinesLine>;
+  chart_families: Array<AstrocartographyLinesChartFamily>;
+  crossings: Array<AstrocartographyLinesCrossing>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyParansMeta {
+  mode: string;
+  bodies: Array<string>;
+  events: Array<string>;
+  timezone: string;
+  paran_orb_deg: number;
+  paran_tail_deg: number;
+  count: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyParansParan {
+  id: string;
+  body_a: string;
+  event_a: string;
+  body_b: string;
+  event_b: string;
+  latitude: number;
+  orb_deg: number;
+  kind: string;
+  geometry: AstrocartographyParansParanGeometry;
+  nearest_cities: Array<AstrocartographyLinesCrossingNearestCity>;
+  strength: number;
+  strongest_focus: string;
+  secondary_focus: string;
+  polarity: string;
+  interpretation_short: string;
+  interpretation_caution: string;
+  benefit_keywords: Array<string>;
+  risk_keywords: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyParansParanGeometry {
+  center_lat: number;
+  north_lat: number;
+  south_lat: number;
+  segments: Array<Array<AstrocartographyLinesLineSegmentItem>>;
+  [key: string]: unknown;
 }
 
 export interface AstrocartographyParansRequest {
@@ -271,6 +630,32 @@ export interface AstrocartographyParansRequest {
   paran_orb_deg?: number;
   paran_tail_deg?: number;
   include_nearby_cities?: boolean;
+}
+
+export interface AstrocartographyParansResponse {
+  meta: AstrocartographyParansMeta;
+  warnings: Array<string>;
+  parans: Array<AstrocartographyParansParan>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRecommendationsMeta {
+  focus: string;
+  mode: string;
+  country_scope: string;
+  city_size?: string | null;
+  population_min?: number | null;
+  population_max?: number | null;
+  bodies: Array<string>;
+  angles: Array<string>;
+  timezone: string;
+  candidate_count: number;
+  scored_count: number;
+  signal_strength: string;
+  confidence: string;
+  match_tier: string;
+  no_strong_matches: boolean;
+  [key: string]: unknown;
 }
 
 export interface AstrocartographyRecommendationsRequest {
@@ -296,12 +681,251 @@ export interface AstrocartographyRecommendationsRequest {
   include_relocation_summary?: boolean;
 }
 
+export interface AstrocartographyRecommendationsResponse {
+  meta: AstrocartographyRecommendationsMeta;
+  warnings: Array<string>;
+  results: Array<AstrocartographyRecommendationsResult>;
+  map?: AstrocartographyLinesResponse | null;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRecommendationsResult {
+  city: AstrocartographyRecommendationsResultCity;
+  distance_from_natal_km?: number | null;
+  score: number;
+  summary: string;
+  top_factors: Array<AstrocartographyCityCheckFocusScoresCareerTopFactor>;
+  nearest_favorable_distance_km: number;
+  nearest_challenging_distance_km: number;
+  nearest_favorable_line: AstrocartographyCityCheckFocusScoresCareerNearestFavorableLine;
+  nearest_challenging_line: AstrocartographyCityCheckFocusScoresCareerNearestFavorableLine;
+  line_score: number;
+  paran_score: number;
+  relocation_score: number;
+  top_parans: Array<AstrocartographyCityCheckFocusScoresCareerTopParan>;
+  nearest_favorable_paran?: AstrocartographyCityCheckFocusScoresCareerNearestFavorableParan | null;
+  nearest_challenging_paran?: AstrocartographyCityCheckFocusScoresCareerNearestFavorableParan | null;
+  rank: number;
+  relocation_summary?: AstrocartographyCityCheckRelocationSummary | null;
+  city_visual_explanation: AstrocartographyCityCheckCityVisualExplanation;
+  signal_strength: string;
+  match_tier: string;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRecommendationsResultCity {
+  name: string;
+  country: string;
+  state?: string | null;
+  lat: number;
+  lng: number;
+  timezone: string;
+  population: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChart {
+  subject: AstrocartographyRelocationChartSubject;
+  planets: Array<AstrocartographyRelocationChartPlanet>;
+  aspects: Array<AstrocartographyRelocationChartAspect>;
+  aspects_summary: AstrocartographyRelocationChartAspectsSummary;
+  confidence: AstrocartographyRelocationChartConfidence;
+  houses: Array<AstrocartographyRelocationChartHouse>;
+  angles: AstrocartographyRelocationChartAngles;
+  angles_details: Record<string, AstrocartographyCityCheckRelocationSummaryAnglesDetailsEntry>;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartAngles {
+  asc: number;
+  mc: number;
+  ic: number;
+  dc: number;
+  vertex: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartAspect {
+  p1: string;
+  p2: string;
+  type: string;
+  orb: number;
+  deg: number;
+  is_major: boolean;
+  is_applying: boolean;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartAspectsSummary {
+  total: number;
+  major: number;
+  minor: number;
+  by_type: AstrocartographyRelocationChartAspectsSummaryByType;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartAspectsSummaryByType {
+  square: number;
+  trine: number;
+  opposition?: number | null;
+  sextile: number;
+  conjunction: number;
+  semi_square?: number | null;
+  quintile?: number | null;
+  quincunx?: number | null;
+  semi_sextile?: number | null;
+  sesquiquadrate?: number | null;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartConfidence {
+  houses: string;
+  angles: string;
+  overall: string;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartHouse {
+  house: number;
+  name: string;
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartPlanet {
+  id: string;
+  name: string;
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  retrograde: boolean;
+  house: number;
+  declination_deg?: number | null;
+  variant?: string | null;
+  dignity?: string | null;
+  speed?: number | null;
+  is_stationary?: boolean | null;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartSubject {
+  name: string;
+  datetime: string;
+  location: AstrocartographyRelocationChartSubjectLocation;
+  settings: AstrocartographyRelocationChartSubjectSettings;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartSubjectLocation {
+  city: string;
+  lat: number;
+  lng: number;
+  timezone: string;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationChartSubjectSettings {
+  house_system: string;
+  julian_day: number;
+  julian_day_tt: number;
+  delta_t_days: number;
+  delta_t_seconds: number;
+  zodiac_type: string;
+  time_known: boolean;
+  [key: string]: unknown;
+}
+
+export interface AstrocartographyRelocationMeta {
+  mode: string;
+  timezone: string;
+  house_system: string;
+  [key: string]: unknown;
+}
+
 export interface AstrocartographyRelocationRequest {
   natal: NatalChartRequest;
   city: string;
   country?: string | null;
   lat?: number | null;
   lng?: number | null;
+}
+
+export interface AstrocartographyRelocationResponse {
+  meta: AstrocartographyRelocationMeta;
+  warnings: Array<string>;
+  city: AstrocartographyCityCheckCity;
+  relocation_summary: AstrocartographyCityCheckRelocationSummary;
+  chart: AstrocartographyRelocationChart;
+  [key: string]: unknown;
+}
+
+/**
+ * Interpretation blocks for the chart's placements and aspects, grouped by theme.
+ */
+export interface AtomicInterpretation {
+  metadata: AtomicInterpretationMetadata;
+  sections: AtomicInterpretationSections;
+  index: AtomicInterpretationIndex;
+  [key: string]: unknown;
+}
+
+export interface AtomicInterpretationAspect {
+  p1: string;
+  p2: string;
+  type: string;
+  key: string;
+  title?: string | null;
+  content?: string | Record<string, unknown> | null;
+  [key: string]: unknown;
+}
+
+/**
+ * An interpretation text block (a row of the interpretation library).
+ */
+export interface AtomicInterpretationBlock {
+  key?: string | null;
+  category?: string | null;
+  title?: string | null;
+  body?: string | Record<string, unknown> | null;
+  tone?: string | null;
+  tags?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+export interface AtomicInterpretationIndex {
+  placements: Array<AtomicInterpretationPlacement>;
+  aspects: Array<AtomicInterpretationAspect>;
+  [key: string]: unknown;
+}
+
+export interface AtomicInterpretationMetadata {
+  key_count: number;
+  found_count: number;
+  missing_keys: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface AtomicInterpretationPlacement {
+  planet: string;
+  key: string;
+  type: string;
+  title?: string | null;
+  content?: string | Record<string, unknown> | null;
+  [key: string]: unknown;
+}
+
+export interface AtomicInterpretationSections {
+  core_self: Array<AtomicInterpretationBlock>;
+  mind: Array<AtomicInterpretationBlock>;
+  love_relating: Array<AtomicInterpretationBlock>;
+  work_path: Array<AtomicInterpretationBlock>;
+  social_collective: Array<AtomicInterpretationBlock>;
+  karmic_healing: Array<AtomicInterpretationBlock>;
+  [key: string]: unknown;
 }
 
 export interface AtomicReportRequest {
@@ -317,6 +941,17 @@ export interface AtomicReportRequest {
   tz_str?: string | null;
   dst_policy?: ("reject" | "earlier" | "later" | "shift_forward") | null;
   template?: string;
+}
+
+/**
+ * Interpretation report for a natal chart.
+ */
+export interface AtomicReportResponse {
+  metadata: AtomicInterpretationMetadata;
+  sections: AtomicInterpretationSections;
+  index: AtomicInterpretationIndex;
+  resolved_time?: ResolvedTime | null;
+  [key: string]: unknown;
 }
 
 /**
@@ -432,6 +1067,298 @@ export interface BaseChartRequestV2 {
   reference_date?: string | null;
 }
 
+export interface BaziChartAstroDebug {
+  input_local_time: string;
+  input_calendar: string;
+  input_gregorian_equivalent: string;
+  effective_solar_time_local: string;
+  effective_solar_time_absolute: string;
+  effective_solar_time_absolute_reference: string;
+  resolved_timezone: string;
+  time_standard: string;
+  equation_of_time_minutes: number;
+  solar_terms: Record<string, string>;
+  [key: string]: unknown;
+}
+
+export interface BaziChartCurrentYearTriggers {
+  year: number;
+  gan_zhi: string;
+  interactions: Array<BaziChartCurrentYearTriggersInteraction>;
+  stars: Array<BaziChartCurrentYearTriggersStar>;
+  [key: string]: unknown;
+}
+
+export interface BaziChartCurrentYearTriggersInteraction {
+  id: string;
+  type: string;
+  scope: string;
+  pillars: Array<string>;
+  stems?: Array<string> | null;
+  can_transform?: boolean | null;
+  transform_level?: string | null;
+  transform_score?: number | null;
+  transform_to?: string | null;
+  branches?: Array<string> | null;
+  missing_branch?: string | null;
+  is_formed?: boolean | null;
+  note?: string | null;
+  interpretation?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartCurrentYearTriggersStar {
+  name: string;
+  pillar: string;
+  zhi: string;
+  xun_audit?: BaziChartStarXunAudit | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartDayMaster {
+  stem: string;
+  info: BaziChartDayMasterInfo;
+  pinyin?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartDayMasterInfo {
+  name: string;
+  pinyin?: string | null;
+  element: string;
+  polarity: string;
+  [key: string]: unknown;
+}
+
+export interface BaziChartElements {
+  scoring_model: string;
+  weights: BaziChartElementsWeights;
+  points: BaziChartElementsPoints;
+  percentages: BaziChartElementsPercentages;
+  dominant: string;
+  [key: string]: unknown;
+}
+
+export interface BaziChartElementsPercentages {
+  Wood: number;
+  Fire: number;
+  Earth: number;
+  Metal: number;
+  Water: number;
+  [key: string]: unknown;
+}
+
+export interface BaziChartElementsPoints {
+  Wood: number;
+  Fire: number;
+  Earth: number;
+  Metal: number;
+  Water: number;
+  [key: string]: unknown;
+}
+
+export interface BaziChartElementsWeights {
+  stem: number;
+  branch: number;
+  hidden_stem: number;
+  [key: string]: unknown;
+}
+
+export interface BaziChartInteraction {
+  id: string;
+  type: string;
+  scope: string;
+  pillars: Array<string>;
+  stems?: Array<string> | null;
+  can_transform?: boolean | null;
+  transform_level?: string | null;
+  transform_score?: number | null;
+  transform_to?: string | null;
+  transform_evidence?: BaziChartInteractionTransformEvidence | null;
+  conditions?: string | null;
+  interpretation: string;
+  branches?: Array<string> | null;
+  is_formed?: boolean | null;
+  note?: string | null;
+  missing_branch?: string | null;
+  mitigated_by_branches?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartInteractionTransformEvidence {
+  month_branch: string;
+  supporting_elements?: Array<string> | null;
+  opposing_elements?: Array<string> | null;
+  season_support_score?: number | null;
+  final_decision: string;
+  season_support?: boolean | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartLuckCycle {
+  start_age_years: number;
+  is_forward: boolean;
+  pillars: Array<BaziChartLuckCyclePillar>;
+  [key: string]: unknown;
+}
+
+export interface BaziChartLuckCyclePillar {
+  start_age: number;
+  start_year: number;
+  end_year: number;
+  gan_zhi: string;
+  gan: string;
+  zhi: string;
+  gan_pinyin?: string | null;
+  zhi_pinyin?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartMetadata {
+  engine_version: string;
+  ruleset: string;
+  solar_term_source: string;
+  life_stage_method: string;
+  [key: string]: unknown;
+}
+
+export interface BaziChartPillar {
+  label: string;
+  gan: string;
+  zhi: string;
+  gan_info: BaziChartDayMasterInfo;
+  zhi_info: BaziChartPillarZhiInfo;
+  nayin: string;
+  life_stage: BaziChartPillarLifeStage;
+  gan_pinyin?: string | null;
+  zhi_pinyin?: string | null;
+  ten_gods?: BaziChartPillarTenGods | null;
+  interpretation?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartPillarLifeStage {
+  chinese: string;
+  name: string;
+  [key: string]: unknown;
+}
+
+export interface BaziChartPillarTenGods {
+  stem: string;
+  hidden: Array<BaziChartPillarTenGodsHiddenItem>;
+  [key: string]: unknown;
+}
+
+export interface BaziChartPillarTenGodsHiddenItem {
+  gan: string;
+  info: BaziChartDayMasterInfo;
+  ten_god: string;
+  pinyin?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartPillarZhiInfo {
+  name: string;
+  pinyin?: string | null;
+  element: string;
+  polarity: string;
+  zodiac: string;
+  hidden: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface BaziChartProfessional {
+  dm_strength: string;
+  structure: string;
+  yong_shen_candidates: Array<string>;
+  favorable_elements: Array<string>;
+  unfavorable_elements: Array<string>;
+  professional_debug?: BaziChartProfessionalProfessionalDebug | null;
+  interpretation: string;
+  [key: string]: unknown;
+}
+
+export interface BaziChartProfessionalProfessionalDebug {
+  dm_strength_score: number;
+  seasonal_factor: number;
+  season_reason: string;
+  balance_ratio: number;
+  yong_shen_rationale: Array<string>;
+  structure_rationale: string;
+  xi_ji_method: string;
+  [key: string]: unknown;
+}
+
+export interface BaziChartResponse {
+  day_master: BaziChartDayMaster;
+  pillars: Array<BaziChartPillar>;
+  luck_cycle: BaziChartLuckCycle;
+  elements: BaziChartElements;
+  summary: BaziChartSummary;
+  stars?: Array<BaziChartStar> | null;
+  interactions?: Array<BaziChartInteraction> | null;
+  professional?: BaziChartProfessional | null;
+  xun_kong?: BaziChartStarXunAudit | null;
+  stars_ruleset?: string | null;
+  interpretation_ruleset: string;
+  metadata: BaziChartMetadata;
+  astro_debug?: BaziChartAstroDebug | null;
+  current_year_triggers?: BaziChartCurrentYearTriggers | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartStar {
+  name: string;
+  pillar: string;
+  zhi: string;
+  desc: string;
+  trigger_rule: BaziChartStarTriggerRule | string;
+  trigger_text: string;
+  xun_audit?: BaziChartStarXunAudit | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartStarTriggerRule {
+  type: string;
+  dm?: string | null;
+  target?: string | null;
+  star?: string | null;
+  ref_branch?: string | null;
+  day_pillar?: string | null;
+  xun?: string | null;
+  void_branches?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+export interface BaziChartStarXunAudit {
+  void_branches: Array<string>;
+  xun_name: string;
+  xun_index: number;
+  day_pillar: string;
+  [key: string]: unknown;
+}
+
+export interface BaziChartSummary {
+  lunar_date: string;
+  zodiac: string;
+  solar_term?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziDictionaryEntry {
+  type: string;
+  name: string;
+  stems?: Array<string> | null;
+  branches?: Array<string> | null;
+  element?: string | null;
+  [key: string]: unknown;
+}
+
+/**
+ * Dictionary of BaZi interaction and star codes, keyed by numeric code (as a string).
+ */
+export type BaziDictionaryResponse = Record<string, BaziDictionaryEntry>;
+
 export interface BaziFlowRequest {
   year: number;
   month: number;
@@ -454,6 +1381,210 @@ export interface BaziFlowRequest {
   lang?: string;
 }
 
+export interface BaziFlowResponse {
+  years: Array<BaziFlowYear>;
+  x_dict?: Record<string, BaziDictionaryEntry> | null;
+  [key: string]: unknown;
+}
+
+export interface BaziFlowYear {
+  year: number;
+  gan_zhi: string;
+  gan: string;
+  zhi: string;
+  age: number;
+  months: Array<BaziFlowYearMonth>;
+  gan_pinyin?: string | null;
+  zhi_pinyin?: string | null;
+  active_luck?: BaziFlowYearActiveLuck | null;
+  interactions: Array<BaziFlowYearMonthInteraction | number>;
+  stars?: Array<BaziFlowYearMonthStar | number> | null;
+  baseline_interactions?: Array<BaziFlowYearBaselineInteraction | number> | null;
+  [key: string]: unknown;
+}
+
+export interface BaziFlowYearActiveLuck {
+  gan_zhi: string;
+  start_year: number;
+  end_year: number;
+  [key: string]: unknown;
+}
+
+export interface BaziFlowYearBaselineInteraction {
+  id: string;
+  type: string;
+  scope: string;
+  pillars: Array<string>;
+  stems?: Array<string> | null;
+  can_transform?: boolean | null;
+  transform_level?: string | null;
+  transform_score?: number | null;
+  transform_to?: string | null;
+  transform_evidence?: BaziChartInteractionTransformEvidence | null;
+  conditions?: string | null;
+  interpretation: string;
+  branches?: Array<string> | null;
+  is_formed?: boolean | null;
+  note?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziFlowYearMonth {
+  index: number;
+  gan_zhi: string;
+  gan: string;
+  zhi: string;
+  gan_pinyin?: string | null;
+  zhi_pinyin?: string | null;
+  interactions: Array<BaziFlowYearMonthInteraction | number>;
+  stars?: Array<BaziFlowYearMonthStar | number> | null;
+  [key: string]: unknown;
+}
+
+export interface BaziFlowYearMonthInteraction {
+  id: string;
+  type: string;
+  scope: string;
+  pillars: Array<string>;
+  stems?: Array<string> | null;
+  can_transform?: boolean | null;
+  transform_level?: string | null;
+  transform_score?: number | null;
+  transform_to?: string | null;
+  branches?: Array<string> | null;
+  missing_branch?: string | null;
+  is_formed?: boolean | null;
+  mitigated_by_branches?: Array<string> | null;
+  note?: string | null;
+  interpretation?: string | null;
+  transform_evidence?: BaziChartInteractionTransformEvidence | null;
+  conditions?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziFlowYearMonthStar {
+  name: string;
+  pillar: string;
+  zhi: string;
+  xun_audit?: BaziChartStarXunAudit | null;
+  desc?: string | null;
+  trigger_rule?: BaziChartStarTriggerRule | string | null;
+  trigger_text?: string | null;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthBaziContext {
+  day_master: string;
+  day_master_element: string;
+  day_master_strength: string;
+  favorable_elements: Array<string>;
+  unfavorable_elements: Array<string>;
+  rationale: Array<string>;
+  balance_strategy: BaziHealthBaziContextBalanceStrategy;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthBaziContextBalanceStrategy {
+  priority_elements: Array<string>;
+  reason: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthConstitution {
+  temperature: string;
+  temperature_score: number;
+  temperature_scale: string;
+  temperature_components: BaziChartElementsPercentages;
+  temperature_confidence: number;
+  moisture: string;
+  moisture_score: number;
+  moisture_scale: string;
+  moisture_components: BaziChartElementsPercentages;
+  moisture_confidence: number;
+  yin_yang_skew: string;
+  yang_ratio: number;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthDataQuality {
+  rooting_model: string;
+  hidden_stems_weighting: string;
+  transformations: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthElementBalance {
+  raw_absolute: BaziChartElementsPercentages;
+  raw_total: number;
+  raw_distribution: BaziChartElementsPercentages;
+  effective_pre_normalized: BaziChartElementsPercentages;
+  effective_distribution: BaziChartElementsPercentages;
+  effective_method: string;
+  seasonal_adjustments: BaziHealthElementBalanceSeasonalAdjustments;
+  rooting_scores: BaziChartElementsPercentages;
+  rooting_raw: BaziChartElementsPercentages;
+  dominant_elements: Array<string>;
+  weak_elements: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthElementBalanceSeasonalAdjustments {
+  month_branch: string;
+  multipliers: BaziChartElementsPercentages;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthInstabilityMarkers {
+  markers: BaziHealthInstabilityMarkersMarkers;
+  total_clashes: number;
+  total_punishments: number;
+  total_harms: number;
+  instability_index: number;
+  level: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthInstabilityMarkersMarkers {
+  clashes: Array<BaziHealthInstabilityMarkersMarkersClash>;
+  punishments: Array<BaziHealthInstabilityMarkersMarkersPunishment>;
+  harms: Array<BaziHealthInstabilityMarkersMarkersPunishment>;
+  self_punishments: Array<BaziHealthInstabilityMarkersMarkersSelfPunishment>;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthInstabilityMarkersMarkersClash {
+  type: string;
+  pillars: Array<string>;
+  elements: Array<string>;
+  impact: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthInstabilityMarkersMarkersPunishment {
+  type: string;
+  pillars: Array<string>;
+  branches: Array<string>;
+  impact: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthInstabilityMarkersMarkersSelfPunishment {
+  type: string;
+  pillars: Array<string>;
+  branch?: string | null;
+  impact: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthMetadata {
+  version: string;
+  framework: string;
+  day_master: string;
+  month_branch: string;
+  birth_year: number;
+  [key: string]: unknown;
+}
+
 export interface BaziHealthRequest {
   year: number;
   month: number;
@@ -471,6 +1602,140 @@ export interface BaziHealthRequest {
   lang?: string;
 }
 
+export interface BaziHealthResponse {
+  bazi_context: BaziHealthBaziContext;
+  constitution: BaziHealthConstitution;
+  element_balance: BaziHealthElementBalance;
+  susceptibility_themes: Array<BaziHealthSusceptibilityTheme>;
+  stress_patterns: BaziHealthStressPatterns;
+  tcm_correspondences: Array<BaziHealthTcmCorrespondence>;
+  instability_markers: BaziHealthInstabilityMarkers;
+  timing?: BaziHealthTiming | null;
+  metadata: BaziHealthMetadata;
+  data_quality: BaziHealthDataQuality;
+  disclaimer: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthStressPatterns {
+  patterns: BaziHealthStressPatternsPatterns;
+  ten_god_distribution: BaziHealthStressPatternsTenGodDistribution;
+  dm_strength_context: string;
+  overall_stress_index: number;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthStressPatternsPatterns {
+  depletion_risk: BaziHealthStressPatternsPatternsDepletionRisk;
+  overwork_risk: BaziHealthStressPatternsPatternsDepletionRisk;
+  pressure_load: BaziHealthStressPatternsPatternsDepletionRisk;
+  recovery_capacity: BaziHealthStressPatternsPatternsDepletionRisk;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthStressPatternsPatternsDepletionRisk {
+  level: string;
+  score: number;
+  drivers: Array<string>;
+  description: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthStressPatternsTenGodDistribution {
+  Friend: number;
+  "Rob Wealth": number;
+  "Eating God": number;
+  "Hurting Officer": number;
+  "Indirect Wealth": number;
+  "Direct Wealth": number;
+  "7 Killings": number;
+  "Direct Officer": number;
+  "Indirect Resource": number;
+  "Direct Resource": number;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthSusceptibilityTheme {
+  theme: string;
+  category: string;
+  drivers: Array<string>;
+  confidence: number;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthTcmCorrespondence {
+  element: string;
+  system: string;
+  tendency: string;
+  themes: Array<string>;
+  drivers: Array<string>;
+  confidence: number;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthTiming {
+  decade_peaks: Array<BaziHealthTimingDecadePeak>;
+  year_peaks: Array<BaziHealthTimingYearPeak>;
+  analysis_range: string;
+  note: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthTimingDecadePeak {
+  period: string;
+  gan_zhi: string;
+  strain_index: number;
+  strain_breakdown: BaziHealthTimingDecadePeakStrainBreakdown;
+  strain_type: string;
+  drivers: Array<string>;
+  level: string;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthTimingDecadePeakStrainBreakdown {
+  unfavorable_elements: number;
+  clash_activation: number;
+  [key: string]: unknown;
+}
+
+export interface BaziHealthTimingYearPeak {
+  year: number;
+  gan_zhi: string;
+  strain_index: number;
+  strain_type: string;
+  drivers: Array<string>;
+  level: string;
+  [key: string]: unknown;
+}
+
+export interface BaziLifespanCurveItem {
+  age: number;
+  year: number;
+  j0: number;
+  j_final: number;
+  jing_prenatal: number;
+  jing_postnatal: number;
+  qi: number;
+  qi_pre_heaven: number;
+  qi_post_heaven: number;
+  prenatal_integrity: number;
+  shen: number;
+  S: number;
+  D: number;
+  V: number;
+  H: number;
+  explain: string;
+  [key: string]: unknown;
+}
+
+export interface BaziLifespanMetadata {
+  max_age: number;
+  sex: string;
+  cultivation_level: number;
+  algorithm: string;
+  [key: string]: unknown;
+}
+
 export interface BaziLifespanRequest {
   year: number;
   month: number;
@@ -486,6 +1751,12 @@ export interface BaziLifespanRequest {
   max_age?: number;
   cultivation_factor?: number;
   lang?: string;
+}
+
+export interface BaziLifespanResponse {
+  metadata: BaziLifespanMetadata;
+  curve: Array<BaziLifespanCurveItem>;
+  [key: string]: unknown;
 }
 
 export interface BaziRequest {
@@ -511,10 +1782,98 @@ export interface BaziRequest {
   lang?: string;
 }
 
+export interface BaziSynastryConflictScan {
+  clashes: number;
+  harms: number;
+  punishments: number;
+  destructions: number;
+  [key: string]: unknown;
+}
+
+export interface BaziSynastryDayMasterAnalysis {
+  dm_a: string;
+  dm_b: string;
+  relation: string;
+  score: number;
+  description: string;
+  dynamic: string;
+  [key: string]: unknown;
+}
+
+export interface BaziSynastryElementAnalysis {
+  score: number;
+  details: Array<string>;
+  a_needs: string;
+  b_needs: string;
+  [key: string]: unknown;
+}
+
+export interface BaziSynastryHiddenInteractions {
+  connections: Array<string>;
+  count: number;
+  [key: string]: unknown;
+}
+
+export interface BaziSynastryPillarInteraction {
+  pillar: string;
+  weight: number;
+  branch_interaction: BaziSynastryPillarInteractionBranchInteraction;
+  stem_interaction: string;
+  net_score: number;
+  [key: string]: unknown;
+}
+
+export interface BaziSynastryPillarInteractionBranchInteraction {
+  type: string;
+  label: string;
+  score_modifier: number;
+  [key: string]: unknown;
+}
+
 export interface BaziSynastryRequest {
   person_a: BaziRequest;
   person_b: BaziRequest;
   lang?: string;
+}
+
+export interface BaziSynastryResponse {
+  score: number;
+  score_breakdown: BaziSynastryScoreBreakdown;
+  overall_compatibility: string;
+  day_master_analysis: BaziSynastryDayMasterAnalysis;
+  spouse_palace_analysis: BaziSynastrySpousePalaceAnalysis;
+  element_analysis: BaziSynastryElementAnalysis;
+  pillar_interactions: Array<BaziSynastryPillarInteraction>;
+  hidden_interactions: BaziSynastryHiddenInteractions;
+  conflict_scan: BaziSynastryConflictScan;
+  conflict_summary: string;
+  [key: string]: unknown;
+}
+
+export interface BaziSynastryScoreBreakdown {
+  day_master: number;
+  spouse_palace: number;
+  pillars: number;
+  elements: number;
+  hidden_bonus: number;
+  [key: string]: unknown;
+}
+
+export interface BaziSynastrySpousePalaceAnalysis {
+  branch_a: string;
+  branch_b: string;
+  interaction: string;
+  score: number;
+  description: string;
+  type: string;
+  [key: string]: unknown;
+}
+
+export interface BaziTimeCorrectionModalities {
+  civil: string;
+  true_solar: string;
+  true_solar_absolute: string;
+  [key: string]: unknown;
 }
 
 export interface BaziTimeCorrectionRequest {
@@ -528,6 +1887,20 @@ export interface BaziTimeCorrectionRequest {
   city?: string | null;
   tz_str?: string | null;
   lang?: string;
+}
+
+export interface BaziTimeCorrectionResponse {
+  civil_time: string;
+  lmt: string;
+  true_solar_relative: string;
+  true_solar_absolute: string;
+  equation_of_time_minutes: number;
+  longitude_correction_minutes: number;
+  standard_meridian: number;
+  resolved_timezone: string;
+  dst_offset_hours: number;
+  modalities: BaziTimeCorrectionModalities;
+  [key: string]: unknown;
 }
 
 export interface BhavaChalitAscendant {
@@ -1154,6 +2527,46 @@ export interface ChineseCalendarYearProfile {
 export interface ChineseCalendarYearProfiles {
   lunar_new_year: ChineseCalendarYearProfile;
   li_chun: ChineseCalendarYearProfile;
+}
+
+export interface ChineseTodayPillar {
+  label: string;
+  gan: string;
+  zhi: string;
+  info: ChineseTodayPillarInfo;
+  gan_pinyin: string;
+  zhi_pinyin: string;
+  [key: string]: unknown;
+}
+
+export interface ChineseTodayPillarInfo {
+  stem: ChineseTodayPillarInfoStem;
+  branch: ChineseTodayPillarInfoBranch;
+  [key: string]: unknown;
+}
+
+export interface ChineseTodayPillarInfoBranch {
+  name: string;
+  pinyin: string;
+  element: string;
+  polarity: string;
+  zodiac: string;
+  hidden: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface ChineseTodayPillarInfoStem {
+  name: string;
+  pinyin: string;
+  element: string;
+  polarity: string;
+  [key: string]: unknown;
+}
+
+export interface ChineseTodayResponse {
+  timestamp: string;
+  pillars: Array<ChineseTodayPillar>;
+  [key: string]: unknown;
 }
 
 /**
@@ -1920,8 +3333,8 @@ export interface DashaV2Response {
 export interface EclipseData {
   is_eclipse?: boolean;
   is_blood_moon?: boolean;
-  kind?: string | null;
-  type?: string | null;
+  kind?: ("solar" | "lunar") | null;
+  type?: ("total" | "annular" | "hybrid" | "partial" | "penumbral") | null;
   date?: string | null;
   starts_at?: string | null;
   ends_at?: string | null;
@@ -1929,7 +3342,7 @@ export interface EclipseData {
   central_phase_ends_at?: string | null;
   visibility?: string | null;
   visible_at_location?: boolean | null;
-  type_at_location?: string | null;
+  type_at_location?: ("total" | "annular" | "hybrid" | "partial") | null;
   days_from_query?: number | null;
   magnitude?: number | null;
   obscuration?: number | null;
@@ -1949,6 +3362,235 @@ export interface EclipseMaximumLocationData {
 export interface EngineMeta {
   name?: string;
   version?: string;
+}
+
+export interface EphemerisDataAngles {
+  asc: number;
+  mc: number;
+  ic: number;
+  dc: number;
+  vertex: number;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAnglesDetailsEntry {
+  sign: string;
+  sign_abbr: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  house: number;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAspect {
+  p1: string;
+  p2: string;
+  type: string;
+  orb: number;
+  deg: number;
+  is_major: boolean;
+  is_applying: boolean;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAstrology {
+  retrograde_bodies: Array<string>;
+  stations: Array<EphemerisDataAstrologyStation>;
+  ingresses: Array<EphemerisDataAstrologyIngress>;
+  angular_bodies: Array<EphemerisDataAstrologyAngularBody>;
+  notable_conditions: Array<string>;
+  moon_phase: EphemerisDataAstrologyMoonPhase;
+  moon_void_of_course?: EphemerisDataAstrologyMoonVoidOfCourse | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAstrologyAngularBody {
+  body: string;
+  house: number;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAstrologyIngress {
+  body: string;
+  sign: string;
+  degree_in_sign: number;
+  direction: string;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAstrologyMoonPhase {
+  name: string;
+  phase_angle_deg: number;
+  is_waxing: boolean;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAstrologyMoonVoidOfCourse {
+  is_void: boolean;
+  definition: string;
+  current_sign: string;
+  next_sign: string;
+  sign_ingress_at: string;
+  next_applying_aspect?: EphemerisDataAstrologyMoonVoidOfCourseNextApplyingAspect | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAstrologyMoonVoidOfCourseNextApplyingAspect {
+  body: string;
+  aspect: string;
+  exact_at: string;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataAstrologyStation {
+  body: string;
+  motion_state: string;
+  speed?: number | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataBodiesEntry {
+  id: string;
+  name: string;
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  retrograde?: boolean | null;
+  speed?: number | null;
+  is_stationary?: boolean | null;
+  latitude_deg: number;
+  distance_au: number;
+  sign_abbr: string;
+  position_text: string;
+  degree_in_sign: number;
+  longitude_deg: number;
+  declination_deg?: number | null;
+  motion_state?: string | null;
+  house?: number | null;
+  dignity?: string | null;
+  variant?: string | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataFixedStarError {
+  name?: string | null;
+  error?: string | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataFixedStarsEntry {
+  id: string;
+  name: string;
+  requested_name: string;
+  swiss_name: string;
+  sign: string;
+  sign_abbr: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  longitude_deg: number;
+  latitude_deg: number;
+  distance_au?: number | null;
+  position_text: string;
+  degree_in_sign: number;
+  right_ascension_deg?: number | null;
+  declination_deg?: number | null;
+  speed?: number | null;
+  motion_state?: string | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataHouse {
+  house: number;
+  name: string;
+  sign: string;
+  sign_abbr: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataSubject {
+  datetime: string;
+  location: EphemerisDataSubjectLocation;
+  settings: EphemerisDataSubjectSettings;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataSubjectLocation {
+  city?: string | null;
+  lat: number;
+  lng: number;
+  timezone: string;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDataSubjectSettings {
+  julian_day: number;
+  julian_day_tt: number;
+  delta_t_days: number;
+  delta_t_seconds: number;
+  zodiac_type: string;
+  house_system: string;
+  sidereal_ayanamsa?: string | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDisplay {
+  sign_style: string;
+  position_text_suffixes?: Array<string> | null;
+  body_order?: Array<string> | null;
+  cell_format?: string | null;
+  motion_markers?: EphemerisDisplayMotionMarkers | null;
+  columns?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisDisplayMotionMarkers {
+  retrograde: string;
+  stationary: string;
+  [key: string]: unknown;
+}
+
+export interface EphemerisGridCell {
+  text: string;
+  degree_text: string;
+  sign: string;
+  sign_abbr: string;
+  motion_marker?: string | null;
+  entered_sign: boolean;
+  station: boolean;
+  [key: string]: unknown;
+}
+
+export interface EphemerisMeta {
+  start: string;
+  end?: string | null;
+  step?: string | null;
+  rows: number;
+  bodies: Array<string>;
+  format: string;
+  zodiac_type: string;
+  sidereal_ayanamsa?: string | null;
+  timezone: string;
+  fixed_stars?: Array<string> | null;
+  resolved_time?: ResolvedTime | null;
+  table_style?: string | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisRawRow {
+  timestamp: string;
+  bodies: Record<string, EphemerisDataBodiesEntry>;
+  astrology: EphemerisDataAstrology;
+  angles?: EphemerisDataAngles | null;
+  houses?: Array<EphemerisDataHouse> | null;
+  fixed_stars?: Record<string, EphemerisDataFixedStarsEntry> | null;
+  fixed_star_errors?: Array<EphemerisDataFixedStarError> | null;
+  [key: string]: unknown;
 }
 
 export interface EphemerisRequest {
@@ -1987,6 +3629,95 @@ export interface EphemerisRequest {
   include_chart_links?: boolean;
   sign_display?: ("abbr" | "full") | null;
   show_motion_markers?: boolean | null;
+}
+
+/**
+ * Ephemeris for one instant (``data`` is an object) or a range (``data`` is a list, or a table).
+ */
+export interface EphemerisResponse {
+  meta: EphemerisMeta;
+  data?: EphemerisSnapshot | Array<EphemerisSnapshot> | null;
+  display?: EphemerisDisplay | null;
+  columns?: Array<string> | Record<string, Array<string>> | null;
+  rows?: Array<EphemerisRow> | null;
+  raw_rows?: Array<EphemerisRawRow> | null;
+  index?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+/**
+ * One table row. Besides the fields below, each requested body is a column keyed by its
+ * display name (``Sun``, ``North Node``, ...): position text in ``rows``/``columns`` tables,
+ * a cell object in ``grid`` tables.
+ */
+export interface EphemerisRow {
+  timestamp?: string | null;
+  date?: EphemerisRowDate | null;
+  weekday?: string | null;
+  sidereal_time?: string | null;
+  chart?: EphemerisRowChart | null;
+  [key: string]: unknown;
+}
+
+export interface EphemerisRowChart {
+  timestamp: string;
+  date: string;
+  [key: string]: unknown;
+}
+
+export interface EphemerisRowDate {
+  iso: string;
+  day: number;
+  [key: string]: unknown;
+}
+
+export interface EphemerisSnapshot {
+  timestamp: string;
+  local_timestamp: string;
+  subject: EphemerisDataSubject;
+  bodies: Record<string, EphemerisDataBodiesEntry>;
+  astrology: EphemerisDataAstrology;
+  angles?: EphemerisDataAngles | null;
+  angles_details?: Record<string, EphemerisDataAnglesDetailsEntry> | null;
+  houses?: Array<EphemerisDataHouse> | null;
+  aspects?: Array<EphemerisDataAspect> | null;
+  fixed_stars?: Record<string, EphemerisDataFixedStarsEntry> | null;
+  resolved_time?: ResolvedTime | null;
+  fixed_star_errors?: Array<EphemerisDataFixedStarError> | null;
+  [key: string]: unknown;
+}
+
+/**
+ * Error body.
+ *
+ * Route errors carry ``detail``: a message, or an object with a stable ``error`` code, a
+ * ``message`` and context fields. Gateway errors (authentication, quota, rate limits,
+ * idempotency, capacity) carry a top-level ``error`` code and usually a ``detail`` message;
+ * rate-limit errors add ``retry_after_ms`` or ``limit_info``. Request validation errors (422)
+ * can also use the ``HTTPValidationError`` shape.
+ */
+export interface ErrorResponse {
+  /**
+   * Error message, or an object with an `error` code and a `message`.
+   */
+  detail?: string | Record<string, unknown> | Array<unknown> | null;
+  /**
+   * Stable error code, for gateway errors.
+   */
+  error?: string | null;
+  /**
+   * Documentation link.
+   */
+  docs?: string | null;
+  /**
+   * Suggested wait before retrying, in milliseconds.
+   */
+  retry_after_ms?: number | null;
+  /**
+   * Plan allowance details, for quota errors.
+   */
+  limit_info?: Record<string, unknown> | null;
+  [key: string]: unknown;
 }
 
 export interface ExactAspectSearchRequest {
@@ -3036,6 +4767,612 @@ export interface HighlightPayload {
   reason_codes: Array<string>;
 }
 
+export interface HoroscopeDailyBulkDataEntry {
+  sign: string;
+  date: string;
+  scores: HoroscopeDailyBulkDataEntryScores;
+  score_factors: Array<HoroscopeDailyBulkDataEntryScoreFactor>;
+  lucky: HoroscopeDailyBulkDataEntryLucky;
+  content: HoroscopeDailyBulkDataEntryContent;
+  astro: HoroscopeDailyBulkDataEntryAstro;
+  sign_label: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryAstro {
+  moon_sign: HoroscopeDailyBulkDataEntryLuckyColor;
+  moon_phase: HoroscopeDailyBulkDataEntryLuckyColor;
+  highlights: Array<HoroscopeDailyBulkDataEntryAstroHighlight>;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryAstroHighlight {
+  type: string;
+  key: string;
+  label: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryContent {
+  text: string;
+  theme: string;
+  keywords: Array<string>;
+  supporting_insights: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryLucky {
+  color: HoroscopeDailyBulkDataEntryLuckyColor;
+  number: number;
+  time_window: HoroscopeDailyBulkDataEntryLuckyTimeWindow;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryLuckyColor {
+  key: string;
+  label: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryLuckyTimeWindow {
+  display: string;
+  start: string;
+  end: string;
+  tz: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryScoreFactor {
+  dimension: string;
+  reason: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkDataEntryScores {
+  overall: number;
+  love: number;
+  career: number;
+  money: number;
+  health: number;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkMeta {
+  request_id: string;
+  generated_at: string;
+  settings: HoroscopeDailyBulkMetaSettings;
+  cache: HoroscopeDailyBulkMetaCache;
+  engine: HoroscopeDailyBulkMetaEngine;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkMetaCache {
+  hit: boolean;
+  ttl_seconds: number;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkMetaEngine {
+  name: string;
+  version: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkMetaSettings {
+  timezone: string;
+  locale: string;
+  date_resolved: string;
+  orb_policy: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyBulkResponse {
+  meta: HoroscopeDailyBulkMeta;
+  data: Record<string, HoroscopeDailyBulkDataEntry>;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalData {
+  sign: string;
+  date: string;
+  scores: HoroscopeDailyBulkDataEntryScores;
+  score_factors: Array<HoroscopeDailyBulkDataEntryScoreFactor>;
+  lucky: HoroscopeDailyBulkDataEntryLucky;
+  content: HoroscopeDailyBulkDataEntryContent;
+  astro: HoroscopeDailyBulkDataEntryAstro;
+  sign_label: string;
+  personal: HoroscopeDailyPersonalDataPersonal;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalDataPersonal {
+  transits_top: Array<HoroscopeDailyPersonalDataPersonalTransitsTopItem>;
+  focus_areas: Array<string>;
+  confidence_score: number;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalDataPersonalTransitsTopItem {
+  transit_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  natal_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  aspect: HoroscopeDailyBulkDataEntryLuckyColor;
+  orb_deg: number;
+  score: number;
+  is_applying: boolean;
+  exact_at?: string | null;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalResponse {
+  meta: HoroscopeDailyBulkMeta;
+  data: HoroscopeDailyPersonalData;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2Data {
+  sign: string;
+  date: string;
+  scores: HoroscopeDailyBulkDataEntryScores;
+  score_factors: Array<HoroscopeDailySignV2DataScoreFactor>;
+  lucky: HoroscopeDailyBulkDataEntryLucky;
+  content: HoroscopeDailyBulkDataEntryContent;
+  astro: HoroscopeDailyBulkDataEntryAstro;
+  sign_label: string;
+  personal: HoroscopeDailyPersonalV2DataPersonal;
+  scores_meta: HoroscopeDailyPersonalV2DataScoresMeta;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2DataPersonal {
+  transits_top: Array<HoroscopeDailyPersonalV2DataPersonalTransitsTopItem>;
+  focus_areas: Array<string>;
+  confidence_score: number;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2DataPersonalTransitsTopItem {
+  transit_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  natal_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  aspect: HoroscopeDailyBulkDataEntryLuckyColor;
+  orb_deg: number;
+  score: number;
+  is_applying: boolean;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2DataScoresMeta {
+  overall_method: string;
+  weights: HoroscopeDailyPersonalV2DataScoresMetaWeights;
+  rounding: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2DataScoresMetaWeights {
+  love: number;
+  career: number;
+  money: number;
+  health: number;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2Meta {
+  request_id: string;
+  generated_at: string;
+  settings: HoroscopeDailyPersonalV2MetaSettings;
+  engine: HoroscopeDailyBulkMetaEngine;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2MetaSettings {
+  date_resolved: string;
+  version: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV2Response {
+  meta: HoroscopeDailyPersonalV2Meta;
+  data: HoroscopeDailyPersonalV2Data;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3Data {
+  sign: string;
+  date: string;
+  scores: HoroscopeDailyBulkDataEntryScores;
+  score_factors: Array<HoroscopeDailySignV2DataScoreFactor>;
+  lucky: HoroscopeDailyBulkDataEntryLucky;
+  content: HoroscopeDailyPersonalV3DataContent;
+  astro: HoroscopeDailyBulkDataEntryAstro;
+  sign_label: string;
+  personal: HoroscopeDailyPersonalV3DataPersonal;
+  scores_meta: HoroscopeDailyPersonalV2DataScoresMeta;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataContent {
+  theme: string;
+  keywords: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonal {
+  transits_top: Array<HoroscopeDailyPersonalV3DataPersonalTransitsTopItem>;
+  focus_areas: Array<string>;
+  confidence_score: number;
+  day_context: HoroscopeDailyPersonalV3DataPersonalDayContext;
+  active_windows: Array<HoroscopeDailyPersonalV3DataPersonalDayContextActiveWindow>;
+  exact_hits: Array<HoroscopeDailyPersonalV3DataPersonalDayContextExactHit>;
+  next_shift: HoroscopeDailyPersonalV3DataPersonalDayContextNextShift;
+  dominant_topics: Array<HoroscopeDailyPersonalV3DataPersonalDayContextDominantTopic>;
+  supportive_vs_challenging: HoroscopeDailyPersonalV3DataPersonalDayContextSupportiveVsChallenging;
+  insights_meta: HoroscopeDailyPersonalV3DataPersonalInsightsMeta;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalDayContext {
+  active_windows: Array<HoroscopeDailyPersonalV3DataPersonalDayContextActiveWindow>;
+  exact_hits: Array<HoroscopeDailyPersonalV3DataPersonalDayContextExactHit>;
+  next_shift: HoroscopeDailyPersonalV3DataPersonalDayContextNextShift;
+  dominant_topics: Array<HoroscopeDailyPersonalV3DataPersonalDayContextDominantTopic>;
+  supportive_vs_challenging: HoroscopeDailyPersonalV3DataPersonalDayContextSupportiveVsChallenging;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalDayContextActiveWindow {
+  id: string;
+  label: string;
+  category: string;
+  transit_planet: string;
+  natal_point: string;
+  aspect_type: string;
+  pass_type: string;
+  start: string;
+  end: string;
+  exact_hits: Array<string>;
+  lookup_key: string;
+  has_interpretation_block: boolean;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalDayContextDominantTopic {
+  title: string;
+  category: string;
+  focus_type: string;
+  score: number;
+  peak_datetime: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalDayContextExactHit {
+  timestamp: string;
+  label: string;
+  category: string;
+  aspect_type: string;
+  transit_planet: string;
+  natal_point: string;
+  lookup_key: string;
+  has_interpretation_block: boolean;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalDayContextNextShift {
+  timestamp: string;
+  label: string;
+  type: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalDayContextSupportiveVsChallenging {
+  supportive: number;
+  challenging: number;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalInsightsMeta {
+  source: string;
+  timeline_enabled: boolean;
+  insights_enabled: boolean;
+  interpretation_blocks_enabled: boolean;
+  timeline_pass_count: number;
+  generated_fact_count: number;
+  range_start: string;
+  range_end: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3DataPersonalTransitsTopItem {
+  transit_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  natal_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  aspect: HoroscopeDailyBulkDataEntryLuckyColor;
+  label: string;
+  score: number;
+  exact_at?: string | null;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3Meta {
+  request_id: string;
+  generated_at: string;
+  settings: HoroscopeDailyPersonalV3MetaSettings;
+  engine: HoroscopeDailyBulkMetaEngine;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3MetaSettings {
+  date_resolved: string;
+  version: string;
+  include_interpretation_blocks: boolean;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailyPersonalV3Response {
+  meta: HoroscopeDailyPersonalV3Meta;
+  data: HoroscopeDailyPersonalV3Data;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignMeta {
+  request_id: string;
+  generated_at: string;
+  settings: HoroscopeDailySignMetaSettings;
+  cache: HoroscopeDailyBulkMetaCache;
+  engine: HoroscopeDailyBulkMetaEngine;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignMetaSettings {
+  timezone: string;
+  lang: string;
+  locale: string;
+  date_resolved: string;
+  orb_policy: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignResponse {
+  meta: HoroscopeDailySignMeta;
+  data: HoroscopeDailyBulkDataEntry;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV2Data {
+  sign: string;
+  date: string;
+  scores: HoroscopeDailyBulkDataEntryScores;
+  score_factors: Array<HoroscopeDailySignV2DataScoreFactor>;
+  lucky: HoroscopeDailyBulkDataEntryLucky;
+  content: HoroscopeDailyBulkDataEntryContent;
+  astro: HoroscopeDailyBulkDataEntryAstro;
+  sign_label: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV2DataScoreFactor {
+  dimension: string;
+  type: string;
+  reason: HoroscopeDailySignV2DataScoreFactorReason;
+  drivers: Array<HoroscopeDailySignV2DataScoreFactorDriver>;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV2DataScoreFactorDriver {
+  type: string;
+  key: string;
+  value?: number | null;
+  label?: string | null;
+  weight?: number | null;
+  intensity?: string | null;
+  orb_deg?: number | null;
+  house?: number | null;
+  condition_score?: number | null;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV2DataScoreFactorReason {
+  main: string;
+  secondary?: string | null;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV2Meta {
+  request_id: string;
+  generated_at: string;
+  settings: HoroscopeDailySignV2MetaSettings;
+  engine: HoroscopeDailyBulkMetaEngine;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV2MetaSettings {
+  date_resolved: string;
+  version: string;
+  lang: string;
+  locale: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV2Response {
+  meta: HoroscopeDailySignV2Meta;
+  data: HoroscopeDailySignV2Data;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV3Meta {
+  request_id: string;
+  generated_at: string;
+  settings: HoroscopeDailySignV3MetaSettings;
+  engine: HoroscopeDailyBulkMetaEngine;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV3MetaSettings {
+  date_resolved: string;
+  timezone: string;
+  lang: string;
+  locale: string;
+  type: string;
+  style: string;
+  variant?: string | null;
+  version: string;
+  compatibility_source: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeDailySignV3Response {
+  meta: HoroscopeDailySignV3Meta;
+  data: HoroscopeDailySignV2Data;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3Data {
+  sign: string;
+  scores: HoroscopeDailyBulkDataEntryScores;
+  score_factors: Array<HoroscopeDailySignV2DataScoreFactor>;
+  lucky: HoroscopeDailyBulkDataEntryLucky;
+  content: HoroscopeWeeklyPersonalV3DataContent;
+  astro: HoroscopeDailyBulkDataEntryAstro;
+  sign_label: string;
+  personal: HoroscopeWeeklyPersonalV3DataPersonal;
+  scores_meta: HoroscopeWeeklyPersonalV3DataScoresMeta;
+  period: HoroscopeWeeklyPersonalV3DataPeriod;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataContent {
+  text: string;
+  theme: string;
+  keywords: Array<string>;
+  supporting_insights: Array<string>;
+  weekly_summary: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPeriod {
+  start: string;
+  end: string;
+  days: number;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPersonal {
+  transits_top: Array<HoroscopeWeeklyPersonalV3DataPersonalTransitsTopItem>;
+  focus_areas: Array<string>;
+  confidence_score: number;
+  days: Array<HoroscopeWeeklyPersonalV3DataPersonalDay>;
+  week_context: HoroscopeWeeklyPersonalV3DataPersonalDayDayContext;
+  active_windows: Array<HoroscopeWeeklyPersonalV3DataPersonalDayDayContextActiveWindow>;
+  exact_hits: Array<HoroscopeWeeklyPersonalV3DataPersonalDayDayContextExactHit>;
+  next_shift: HoroscopeDailyPersonalV3DataPersonalDayContextNextShift;
+  dominant_topics: Array<HoroscopeDailyPersonalV3DataPersonalDayContextDominantTopic>;
+  supportive_vs_challenging: HoroscopeDailyPersonalV3DataPersonalDayContextSupportiveVsChallenging;
+  insights_meta: HoroscopeWeeklyPersonalV3DataPersonalInsightsMeta;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPersonalDay {
+  date: string;
+  weekday: string;
+  scores: HoroscopeDailyBulkDataEntryScores;
+  focus_areas: Array<string>;
+  transits_top: Array<HoroscopeWeeklyPersonalV3DataPersonalTransitsTopItem>;
+  day_context: HoroscopeWeeklyPersonalV3DataPersonalDayDayContext;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPersonalDayDayContext {
+  range_start: string;
+  range_end: string;
+  active_windows: Array<HoroscopeWeeklyPersonalV3DataPersonalDayDayContextActiveWindow>;
+  exact_hits: Array<HoroscopeWeeklyPersonalV3DataPersonalDayDayContextExactHit>;
+  next_shift: HoroscopeDailyPersonalV3DataPersonalDayContextNextShift;
+  dominant_topics: Array<HoroscopeDailyPersonalV3DataPersonalDayContextDominantTopic>;
+  supportive_vs_challenging: HoroscopeDailyPersonalV3DataPersonalDayContextSupportiveVsChallenging;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPersonalDayDayContextActiveWindow {
+  id: string;
+  label: string;
+  category: string;
+  transit_planet: string;
+  natal_point: string;
+  aspect_type: string;
+  pass_type: string;
+  start: string;
+  end: string;
+  exact_hits: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPersonalDayDayContextExactHit {
+  timestamp: string;
+  label: string;
+  category: string;
+  aspect_type: string;
+  transit_planet: string;
+  natal_point: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPersonalInsightsMeta {
+  source: string;
+  timeline_enabled: boolean;
+  insights_enabled: boolean;
+  interpretation_blocks_enabled: boolean;
+  period: string;
+  timeline_segment_count: number;
+  timeline_pass_count: number;
+  generated_fact_count: number;
+  range_start: string;
+  range_end: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataPersonalTransitsTopItem {
+  transit_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  natal_planet: HoroscopeDailyBulkDataEntryLuckyColor;
+  aspect: HoroscopeDailyBulkDataEntryLuckyColor;
+  label: string;
+  score: number;
+  event_date: string;
+  active_start: string;
+  active_end: string;
+  exact_hits: Array<string>;
+  exact_at?: string | null;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3DataScoresMeta {
+  overall_method: string;
+  weights: HoroscopeDailyPersonalV2DataScoresMetaWeights;
+  daily_sample_count: number;
+  rounding: string;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3Meta {
+  request_id: string;
+  generated_at: string;
+  settings: HoroscopeWeeklyPersonalV3MetaSettings;
+  engine: HoroscopeDailyBulkMetaEngine;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3MetaSettings {
+  week_start: string;
+  week_end: string;
+  date_anchor?: string | null;
+  start_week_on: string;
+  version: string;
+  include_interpretation_blocks: boolean;
+  [key: string]: unknown;
+}
+
+export interface HoroscopeWeeklyPersonalV3Response {
+  meta: HoroscopeWeeklyPersonalV3Meta;
+  data: HoroscopeWeeklyPersonalV3Data;
+  [key: string]: unknown;
+}
+
 export interface HouseOverlayItem {
   sr_body: string;
   natal_house: number;
@@ -3116,6 +5453,15 @@ export interface InterpretationSettings {
   template_id?: string | null;
   language?: string | null;
   style?: string | null;
+}
+
+/**
+ * Returned in place of the interpretation when the library could not be read.
+ */
+export interface InterpretationUnavailable {
+  error: string;
+  details?: string | null;
+  [key: string]: unknown;
 }
 
 export interface InvestMoneyElectionFactor {
@@ -4170,7 +6516,16 @@ export interface MoonMonthDayResponse {
   forecast?: Record<string, unknown> | null;
   interpretation?: MoonInterpretationData | null;
   traditional_moon?: TraditionalMoonData | null;
-  next_phases: Record<string, string>;
+  /**
+   * UTC instants (ISO 8601) of the next new moon, first quarter, full moon and last quarter.
+   */
+  next_phases: {
+    new_moon: string;
+    first_quarter: string;
+    full_moon: string;
+    last_quarter: string;
+    [key: string]: unknown;
+  };
   calendar_date: string;
 }
 
@@ -4187,7 +6542,7 @@ export interface MoonMonthResponse {
 }
 
 export interface MoonPhaseData {
-  name: string;
+  name: "New Moon" | "Waxing Crescent" | "First Quarter" | "Waxing Gibbous" | "Full Moon" | "Waning Gibbous" | "Last Quarter" | "Waning Crescent";
   phase_angle_deg: number;
   illumination: number;
   age_days: number;
@@ -4206,7 +6561,16 @@ export interface MoonPhaseResponse {
   forecast?: Record<string, unknown> | null;
   interpretation?: MoonInterpretationData | null;
   traditional_moon?: TraditionalMoonData | null;
-  next_phases: Record<string, string>;
+  /**
+   * UTC instants (ISO 8601) of the next new moon, first quarter, full moon and last quarter.
+   */
+  next_phases: {
+    new_moon: string;
+    first_quarter: string;
+    full_moon: string;
+    last_quarter: string;
+    [key: string]: unknown;
+  };
 }
 
 export interface MoonSignIngressData {
@@ -4377,6 +6741,539 @@ export interface NameAnalysis {
   missing_digits: Array<number>;
   frequency_grid: Record<string, number>;
   balance: NumberResult;
+}
+
+export interface NatalCalculateAngles {
+  asc: number;
+  mc: number;
+  ic: number;
+  dc: number;
+  vertex: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateAnglesDetailsEntry {
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  house: number;
+  name?: string | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateAspect {
+  p1: string;
+  p2: string;
+  type: string;
+  orb: number;
+  deg: number;
+  is_major: boolean;
+  is_applying: boolean;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateAspectsSummary {
+  total: number;
+  major: number;
+  minor: number;
+  by_type: Record<string, number>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateConfidence {
+  houses: string;
+  angles: string;
+  overall: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateConfigurations {
+  total: number;
+  items: Array<NatalCalculateConfigurationsItem>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateConfigurationsItem {
+  type: string;
+  aliases?: Array<string> | null;
+  bodies: Array<string>;
+  base?: Array<string> | null;
+  apex: string;
+  sextiles?: Array<Array<string>> | null;
+  trines?: Array<Array<string>> | null;
+  aspects: Array<NatalCalculateConfigurationsItemAspect>;
+  derived_from_minor_aspects: boolean;
+  opposition?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateConfigurationsItemAspect {
+  p1: string;
+  p2: string;
+  type: string;
+  orb: number;
+  deg: number;
+  is_major: boolean;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDeclinationAspect {
+  p1: string;
+  p2: string;
+  type: string;
+  orb: number;
+  orb_deg: number;
+  declination_1: number;
+  declination_2: number;
+  is_major: boolean;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDeclinationAspectsSummary {
+  total: number;
+  parallel: number;
+  contra_parallel: number;
+  orb: number;
+  by_type: Record<string, number>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominants {
+  elements: NatalCalculateDominantsElements;
+  modalities: NatalCalculateDominantsModalities;
+  polarities: NatalCalculateDominantsPolarities;
+  dominant_element: string;
+  dominant_modality: string;
+  dominant_polarity: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsElements {
+  fire: number;
+  earth: number;
+  air: number;
+  water: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsModalities {
+  cardinal: number;
+  fixed: number;
+  mutable: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsPolarities {
+  masculine: number;
+  feminine: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfile {
+  method: string;
+  dominant_planets: Array<NatalCalculateDominantsProfileDominantPlanet>;
+  top_planets: Array<string>;
+  dominant_element: NatalCalculateDominantsProfileDominantElement;
+  signature_sign: NatalCalculateDominantsProfileSignatureSign;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfileDominantElement {
+  table: NatalCalculateDominantsProfileDominantElementTable;
+  element: string;
+  ties: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfileDominantElementTable {
+  fire: NatalCalculateDominantsProfileDominantElementTableFire;
+  earth: NatalCalculateDominantsProfileDominantElementTableFire;
+  air: NatalCalculateDominantsProfileDominantElementTableFire;
+  water: NatalCalculateDominantsProfileDominantElementTableFire;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfileDominantElementTableFire {
+  sun_moon_asc: number;
+  personal: number;
+  transpersonal: number;
+  dominant: number;
+  total: number;
+  percent: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfileDominantPlanet {
+  id: string;
+  name: string;
+  sign: number;
+  house: number;
+  angle: number;
+  ruler: number;
+  aspects: number;
+  total: number;
+  percent: number;
+  rank: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfileSignatureSign {
+  element_counts: NatalCalculateDominantsProfileSignatureSignElementCounts;
+  modality_counts: NatalCalculateDominantsProfileSignatureSignModalityCounts;
+  element: string;
+  modality?: string | null;
+  signature?: string | null;
+  sign?: string | null;
+  includes_asc: boolean;
+  element_ties: Array<string>;
+  modality_ties: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfileSignatureSignElementCounts {
+  fire: number;
+  earth: number;
+  air: number;
+  water: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateDominantsProfileSignatureSignModalityCounts {
+  cardinal: number;
+  fixed: number;
+  mutable: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateFixedStarError {
+  name?: string | null;
+  error?: string | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateFixedStarsEntry {
+  id: string;
+  name: string;
+  requested_name: string;
+  swiss_name: string;
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  longitude_deg: number;
+  latitude_deg: number;
+  distance_au?: number | null;
+  degree_in_sign: number;
+  right_ascension_deg?: number | null;
+  declination_deg?: number | null;
+  speed?: number | null;
+  is_stationary?: boolean | null;
+  house?: number | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateHouse {
+  house: number;
+  name: string;
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  ruler?: NatalCalculateHouseRuler | null;
+  classic_ruler?: NatalCalculateHouseRuler | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateHouseRuler {
+  id: string;
+  name: string;
+  sign: string;
+  sign_id: string;
+  house: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculatePlanet {
+  id: string;
+  name: string;
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  retrograde: boolean;
+  house?: number | null;
+  declination_deg?: number | null;
+  variant?: string | null;
+  dignity?: string | null;
+  speed?: number | null;
+  is_stationary?: boolean | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateResponse {
+  subject?: NatalCalculateSubject | null;
+  planets?: Array<NatalCalculatePlanet> | null;
+  aspects?: Array<NatalCalculateAspect> | null;
+  aspects_summary?: NatalCalculateAspectsSummary | null;
+  confidence?: NatalCalculateConfidence | null;
+  houses?: Array<NatalCalculateHouse> | null;
+  angles?: NatalCalculateAngles | null;
+  angles_details?: Record<string, NatalCalculateAnglesDetailsEntry> | null;
+  declination_aspects?: Array<NatalCalculateDeclinationAspect> | null;
+  declination_aspects_summary?: NatalCalculateDeclinationAspectsSummary | null;
+  fixed_stars?: Record<string, NatalCalculateFixedStarsEntry> | null;
+  dominants?: NatalCalculateDominants | null;
+  configurations?: NatalCalculateConfigurations | null;
+  stelliums?: NatalCalculateStelliums | null;
+  tables?: NatalCalculateTables | null;
+  resolved_time?: ResolvedTime | null;
+  dominants_profile?: NatalCalculateDominantsProfile | null;
+  status?: string | null;
+  response_format?: string | null;
+  text?: string | null;
+  subject_name?: string | null;
+  datetime?: string | null;
+  city?: string | null;
+  timezone?: string | null;
+  time_known?: boolean | null;
+  zodiac_type?: string | null;
+  house_system?: string | null;
+  planet_count?: number | null;
+  house_count?: number | null;
+  aspect_count?: number | null;
+  fixed_star_count?: number | null;
+  fixed_star_names?: string | null;
+  fixed_star_errors?: Array<NatalCalculateFixedStarError> | null;
+  interpretation?: AtomicInterpretation | InterpretationUnavailable | null;
+  credits_used?: number | null;
+  psychological_report?: NatalPsychologicalReportStatus | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateStelliums {
+  threshold: number;
+  signs: Array<NatalCalculateStelliumsSign>;
+  houses: Array<NatalCalculateStelliumsHouse>;
+  total: number;
+  policy?: string | null;
+  definition?: string | null;
+  eligible_body_ids?: Array<string> | null;
+  conjunction_orb_deg?: number | null;
+  clusters?: Array<NatalStelliumCluster> | null;
+  concentrations?: NatalCalculateStelliumsConcentrations | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateStelliumsConcentrations {
+  signs?: Array<NatalCalculateStelliumsConcentrationsSign> | null;
+  houses?: Array<NatalCalculateStelliumsConcentrationsHouse> | null;
+  total?: number | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateStelliumsConcentrationsHouse {
+  house?: number | null;
+  count?: number | null;
+  bodies?: Array<string> | null;
+  co_present_points?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateStelliumsConcentrationsSign {
+  sign_id?: string | null;
+  count?: number | null;
+  bodies?: Array<string> | null;
+  co_present_points?: Array<string> | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateStelliumsHouse {
+  house: number;
+  count: number;
+  bodies: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateStelliumsSign {
+  sign_id: string;
+  count: number;
+  bodies: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateSubject {
+  name: string;
+  datetime: string;
+  location: NatalCalculateSubjectLocation;
+  settings: NatalCalculateSubjectSettings;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateSubjectLocation {
+  city: string;
+  lat: number;
+  lng: number;
+  timezone: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateSubjectSettings {
+  house_system: string;
+  julian_day: number;
+  julian_day_tt: number;
+  delta_t_days: number;
+  delta_t_seconds: number;
+  zodiac_type: string;
+  time_known: boolean;
+  sidereal_ayanamsa?: string | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTables {
+  meta: NatalCalculateTablesMeta;
+  positions: NatalCalculateTablesPositions;
+  element_modality: NatalCalculateTablesElementModality;
+  aspect_matrix: NatalCalculateTablesAspectMatrix;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesAspectMatrix {
+  points: Array<NatalCalculateTablesAspectMatrixPoint>;
+  rows: Array<NatalCalculateTablesAspectMatrixRow>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesAspectMatrixPoint {
+  id: string;
+  name: string;
+  glyph?: string | null;
+  table_glyph?: string | null;
+  glyph_source: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesAspectMatrixRow {
+  point: NatalCalculateTablesAspectMatrixPoint;
+  cells: Array<NatalCalculateTablesAspectMatrixRowCell>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesAspectMatrixRowCell {
+  with_id: string;
+  with_name: string;
+  with_glyph?: string | null;
+  with_table_glyph?: string | null;
+  with_glyph_source: string;
+  has_aspect: boolean;
+  type?: string | null;
+  type_key?: string | null;
+  glyph?: string | null;
+  orb?: number | null;
+  deg?: number | null;
+  is_major?: boolean | null;
+  is_applying?: boolean | null;
+  derived_from_angles?: boolean | null;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesElementModality {
+  columns: Array<NatalCalculateTablesElementModalityColumn>;
+  rows: Array<NatalCalculateTablesElementModalityRow>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesElementModalityColumn {
+  modality: string;
+  label: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesElementModalityRow {
+  element: string;
+  element_label: string;
+  cells: Array<NatalCalculateTablesElementModalityRowCell>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesElementModalityRowCell {
+  modality: string;
+  modality_label: string;
+  count: number;
+  items: Array<NatalCalculateTablesElementModalityRowCellItem>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesElementModalityRowCellItem {
+  id: string;
+  name: string;
+  glyph?: string | null;
+  table_glyph?: string | null;
+  glyph_source: string;
+  sign: string;
+  sign_id: string;
+  sign_glyph: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesMeta {
+  font_family: string;
+  mapping_source: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesPositions {
+  point_rows: Array<NatalCalculateTablesPositionsPointRow>;
+  angle_rows: Array<NatalCalculateTablesPositionsAngleRow>;
+  house_rows: Array<NatalCalculateTablesPositionsHouseRow>;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesPositionsAngleRow {
+  id: string;
+  name: string;
+  glyph?: string | null;
+  table_glyph?: string | null;
+  glyph_source: string;
+  sign: string;
+  sign_id: string;
+  sign_glyph: string;
+  position_in_sign_deg: number;
+  longitude_deg: number;
+  longitude_text: string;
+  house: number;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesPositionsHouseRow {
+  house: number;
+  name: string;
+  sign: string;
+  sign_id: string;
+  sign_glyph: string;
+  position_in_sign_deg: number;
+  longitude_deg: number;
+  longitude_text: string;
+  [key: string]: unknown;
+}
+
+export interface NatalCalculateTablesPositionsPointRow {
+  id: string;
+  name: string;
+  glyph?: string | null;
+  table_glyph?: string | null;
+  glyph_source: string;
+  sign: string;
+  sign_id: string;
+  sign_glyph: string;
+  position_in_sign_deg: number;
+  longitude_deg: number;
+  longitude_text: string;
+  house?: number | null;
+  retrograde: boolean;
+  variant?: string | null;
+  dignity?: string | null;
+  [key: string]: unknown;
 }
 
 export interface NatalChartRequest {
@@ -4711,10 +7608,58 @@ export interface NatalInsightsResponse {
   signatures_by_category?: Record<string, Record<string, unknown>> | null;
 }
 
+/**
+ * The psychological report requested with the chart: a job to poll, or the report itself.
+ */
+export interface NatalPsychologicalReportStatus {
+  status: string;
+  mode: string;
+  style: string;
+  output_format?: string | null;
+  include_chart_in_pdf?: boolean | null;
+  job_id?: string | null;
+  fetch_url?: string | null;
+  pdf_url?: string | null;
+  credits_used?: number | null;
+  include_profile_branding_logo?: boolean | null;
+  subject?: NatalCalculateSubject | null;
+  report_metadata?: PsychologicalReportMetadata | null;
+  report_content?: PsychologicalReportContent | null;
+  report_markdown?: string | null;
+  next_poll_after_seconds?: number | null;
+  error?: string | null;
+  details?: unknown | null;
+  [key: string]: unknown;
+}
+
 export interface NatalReference {
   natal_datetime_utc: string;
   natal_location: SolarReturnLocation;
   natal_sun_abs_pos: number;
+}
+
+/**
+ * A connected conjunction cluster (``stellium_policy="classified"``).
+ */
+export interface NatalStelliumCluster {
+  count: number;
+  bodies: Array<string>;
+  positions_deg: Record<string, number>;
+  span_deg: number;
+  conjunction_orb_deg: number;
+  conjunction_links: Array<NatalStelliumLink>;
+  sign_ids: Array<string>;
+  houses: Array<number>;
+  personal_planet_count: number;
+  co_present_points: Array<string>;
+  [key: string]: unknown;
+}
+
+export interface NatalStelliumLink {
+  p1: string;
+  p2: string;
+  separation_deg: number;
+  [key: string]: unknown;
 }
 
 export interface NatalTimeLordDetails {
@@ -5645,6 +8590,94 @@ export interface ProgressionTablesPayload {
   events?: Array<TableEventRow>;
 }
 
+export interface PsychologicalReportChapter {
+  id: string;
+  title: string;
+  question: string;
+  sections: Array<PsychologicalReportSection>;
+  [key: string]: unknown;
+}
+
+export interface PsychologicalReportChapterPlan {
+  id?: string | null;
+  title?: string | null;
+  question?: string | null;
+  target_words?: number | null;
+  subsections: Array<PsychologicalReportSubsectionPlan>;
+  evidence: Array<PsychologicalReportEvidence>;
+  [key: string]: unknown;
+}
+
+export interface PsychologicalReportContent {
+  title: string;
+  summary: string;
+  word_count: number;
+  chapters: Array<PsychologicalReportChapter>;
+  [key: string]: unknown;
+}
+
+export interface PsychologicalReportEvidence {
+  id?: string | null;
+  type?: string | null;
+  ref?: string | null;
+  note?: string | null;
+  weight?: number | null;
+  source_field?: string | null;
+  topics?: Array<string> | null;
+  bodies?: Array<string> | null;
+  houses?: Array<number> | null;
+  signs?: Array<string> | null;
+  confidence?: number | string | null;
+  [key: string]: unknown;
+}
+
+/**
+ * Status of a psychological report job, with the report once it is completed.
+ */
+export interface PsychologicalReportJobResponse {
+  job_id: string;
+  /**
+   * pending, processing, completed or failed.
+   */
+  status: string;
+  credits_used?: number | null;
+  pdf_url?: string | null;
+  include_profile_branding_logo?: boolean | null;
+  /**
+   * The natal chart subject (see NatalCalculateSubject).
+   */
+  subject?: Record<string, unknown> | null;
+  /**
+   * The natal chart the report was written from (see NatalCalculateResponse).
+   */
+  natal_chart?: Record<string, unknown> | null;
+  next_poll_after_seconds?: number | null;
+  report_metadata?: PsychologicalReportMetadata | null;
+  report_content?: PsychologicalReportContent | null;
+  report_markdown?: string | null;
+  error?: string | Record<string, unknown> | null;
+  [key: string]: unknown;
+}
+
+export interface PsychologicalReportMetadata {
+  report_id?: string | null;
+  title?: string | null;
+  generated_at?: string | null;
+  provider?: string | null;
+  model?: string | null;
+  summary?: string | null;
+  language: string;
+  word_count?: number | null;
+  structure_plan?: Array<PsychologicalReportChapterPlan> | null;
+  [key: string]: unknown;
+}
+
+export interface PsychologicalReportSection {
+  title: string;
+  paragraphs: Array<string>;
+  [key: string]: unknown;
+}
+
 export interface PsychologicalReportSettings {
   enabled?: boolean;
   mode?: "async" | "sync";
@@ -5671,6 +8704,12 @@ export interface PsychologicalReportSettings {
   include_profile_branding_logo?: boolean;
   callback_url?: string | null;
   callback_signing_secret?: string | null;
+}
+
+export interface PsychologicalReportSubsectionPlan {
+  heading?: string | null;
+  purpose?: string | null;
+  [key: string]: unknown;
 }
 
 export interface PurchaseCarElectionBuyerResonance {
@@ -6022,6 +9061,15 @@ export interface RashifalTransit {
   house_from_moon: number;
 }
 
+export interface ReportCreditsResponse {
+  user_id: string;
+  key_id?: string | null;
+  report_credits_remaining: number;
+  auto_recharge_enabled: boolean;
+  auto_recharge_threshold: number;
+  [key: string]: unknown;
+}
+
 export interface ResolvedAnkJyotishMethod {
   system: "ank_jyotish";
   profile: "ank-jyotish-civil-cheiro-navagraha-reduce-all-v1";
@@ -6058,6 +9106,19 @@ export interface ResolvedPythagoreanMethod {
   profile: "pythagorean-component-preserve-core-v1" | "pythagorean-raw-date-preserve-core-v1";
   master_policy: "preserve_core_11_22_33";
   compound_policy: "root_only" | "compound_and_root" | "full_trace";
+}
+
+/**
+ * How a local wall-clock time was resolved (DST gaps and overlaps, tz database version).
+ */
+export interface ResolvedTime {
+  input_timezone: string;
+  resolved_timezone: string;
+  utc_offset: string;
+  utc_instant: string;
+  resolution_status: string;
+  tzdb_version: string;
+  [key: string]: unknown;
 }
 
 export interface ResponseMeta {
@@ -6230,12 +9291,42 @@ export interface SignInfo {
 export interface SignResponse {
   point: string;
   sign: string;
-  sign_id: string;
+  sign_id: "aries" | "taurus" | "gemini" | "cancer" | "leo" | "virgo" | "libra" | "scorpio" | "sagittarius" | "capricorn" | "aquarius" | "pisces";
   degree: number;
   abs_pos: number;
   house: number;
   interpretation?: Record<string, unknown> | null;
   resolved_time?: Record<string, unknown> | null;
+}
+
+export interface SimpleNatalHouse {
+  house: number;
+  sign: string;
+  sign_id: string;
+  degree: number;
+  absolute_degree: number;
+  [key: string]: unknown;
+}
+
+export interface SimpleNatalMeta {
+  endpoint: string;
+  zodiac_type: string;
+  house_system: string;
+  planet_count: number;
+  house_count: number;
+  [key: string]: unknown;
+}
+
+export interface SimpleNatalPlanet {
+  id: string;
+  name: string;
+  sign: string;
+  sign_id: string;
+  degree: number;
+  absolute_degree: number;
+  house?: number | null;
+  retrograde: boolean;
+  [key: string]: unknown;
 }
 
 export interface SimpleNatalRequest {
@@ -6250,6 +9341,33 @@ export interface SimpleNatalRequest {
   lat?: number | null;
   lng?: number | null;
   tz_str?: string | null;
+}
+
+export interface SimpleNatalResponse {
+  subject: SimpleNatalSubject;
+  summary: SimpleNatalSummary;
+  planets: Array<SimpleNatalPlanet>;
+  planets_by_name: Record<string, SimpleNatalPlanet>;
+  houses: Array<SimpleNatalHouse>;
+  houses_by_number: Record<string, SimpleNatalHouse>;
+  angles: Record<string, SimpleNatalHouse | null>;
+  meta: SimpleNatalMeta;
+  [key: string]: unknown;
+}
+
+export interface SimpleNatalSubject {
+  name: string;
+  datetime: string;
+  time_known: boolean;
+  location: NatalCalculateSubjectLocation;
+  [key: string]: unknown;
+}
+
+export interface SimpleNatalSummary {
+  sun_sign: string;
+  moon_sign: string;
+  rising_sign?: string | null;
+  [key: string]: unknown;
 }
 
 export interface SkyEvent {
@@ -6379,6 +9497,66 @@ export interface SolarReturnUncertainty {
   suppressed_fields: Array<string>;
 }
 
+export interface SpaceChartEngine {
+  name: string;
+  extension: string;
+  [key: string]: unknown;
+}
+
+export interface SpaceChartHouses {
+  cusps: Array<SpaceChartHousesCusp>;
+  asc: SpaceChartPoint;
+  mc: SpaceChartPoint;
+  obliquity: number;
+  [key: string]: unknown;
+}
+
+export interface SpaceChartHousesCusp {
+  house: number;
+  lon: number;
+  sign: string;
+  sign_degree: number;
+  [key: string]: unknown;
+}
+
+export interface SpaceChartInstant {
+  jd_ut: number;
+  jd_tt: number;
+  utc: string;
+  timezone?: string | null;
+  time_basis: string;
+  light_time_seconds?: number | null;
+  [key: string]: unknown;
+}
+
+export interface SpaceChartMarsTime {
+  sol: number;
+  mars_sol_date: number;
+  local_mean_solar_time: number;
+  local_time: string;
+  [key: string]: unknown;
+}
+
+export interface SpaceChartPlanet {
+  id: string;
+  lon: number;
+  sign: string;
+  sign_degree: number;
+  lat: number;
+  distance_au: number;
+  speed: number;
+  retrograde: boolean;
+  house: number;
+  [key: string]: unknown;
+}
+
+export interface SpaceChartPoint {
+  lon: number;
+  sign: string;
+  sign_degree: number;
+  [key: string]: unknown;
+}
+
 export interface SpaceChartRequest {
   year?: number | null;
   month?: number | null;
@@ -6415,6 +9593,30 @@ export interface SpaceChartRequest {
   lng?: number | null;
   zodiac?: "earth" | "native";
   house_system?: "placidus" | "whole_sign" | "equal" | "koch" | "porphyry" | "regiomontanus" | "campanus";
+}
+
+export interface SpaceChartResponse {
+  site: SpaceChartSite;
+  instant: SpaceChartInstant;
+  zodiac: string;
+  house_system: string;
+  house_note?: string | null;
+  planets: Array<SpaceChartPlanet>;
+  houses: SpaceChartHouses;
+  engine: SpaceChartEngine;
+  mars_time?: SpaceChartMarsTime | null;
+  earth_comparison?: (Record<string, SpaceChartPoint | null>) | null;
+  [key: string]: unknown;
+}
+
+export interface SpaceChartSite {
+  key: string;
+  name: string;
+  description?: string | null;
+  world: string;
+  lon: number;
+  lat: number;
+  [key: string]: unknown;
 }
 
 /**
@@ -7217,6 +10419,101 @@ export interface TransitTimelineTransitHouses {
   transit_house_in_month?: number | null;
 }
 
+export interface TransitsCalculateAspect {
+  p1: string;
+  p2: string;
+  between: TransitsCalculateAspectBetween;
+  type: string;
+  orb: number;
+  deg: number;
+  is_major: boolean;
+  is_applying: boolean;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateAspectBetween {
+  natal: string;
+  transit: string;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateAspectsSummary {
+  total: number;
+  major: number;
+  minor: number;
+  by_type: TransitsCalculateAspectsSummaryByType;
+  exact: number;
+  applying: number;
+  separating: number;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateAspectsSummaryByType {
+  opposition: number;
+  square: number;
+  conjunction: number;
+  sextile: number;
+  trine: number;
+  semi_sextile?: number | null;
+  semi_square?: number | null;
+  quintile?: number | null;
+  sesquiquadrate?: number | null;
+  quincunx?: number | null;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateNatal {
+  julian_day: number;
+  house_system: string;
+  zodiac_type: string;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateNatalPlanet {
+  id: string;
+  name: string;
+  sign: string;
+  sign_id: string;
+  pos: number;
+  abs_pos: number;
+  retrograde: boolean;
+  house?: number | null;
+  declination_deg?: number | null;
+  variant?: string | null;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateResolvedTime {
+  transit: ResolvedTime;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateResponse {
+  mode: string;
+  transit_date: string;
+  transit_planets: Array<TransitsCalculateTransitPlanet>;
+  natal_planets: Array<TransitsCalculateNatalPlanet>;
+  natal: TransitsCalculateNatal;
+  aspects: Array<TransitsCalculateAspect>;
+  aspects_summary: TransitsCalculateAspectsSummary;
+  interpretation: AtomicInterpretation;
+  resolved_time?: TransitsCalculateResolvedTime | null;
+  [key: string]: unknown;
+}
+
+export interface TransitsCalculateTransitPlanet {
+  id: string;
+  name: string;
+  sign: string;
+  pos: number;
+  abs_pos: number;
+  house: number;
+  retrograde: boolean;
+  speed: number;
+  variant?: string | null;
+  [key: string]: unknown;
+}
+
 export interface TransliterationInput {
   profile?: string | null;
   birth?: string | null;
@@ -7419,8 +10716,167 @@ export interface VedicBatchItem {
   payload: Record<string, unknown>;
 }
 
+export interface VedicBatchItemResult {
+  endpoint: string;
+  success: boolean;
+  status_code: number;
+  /**
+   * On success, the response of the named endpoint (VedicChartResponse, VedicCalculateResponse, VedicDashaResponse, VedicYogasResponse, VedicStrengthResponse, VedicVargasResponse or VedicPanchangResponse).
+   */
+  data?: Record<string, unknown> | null;
+  /**
+   * On failure: validation errors (422), the error detail, or a message.
+   */
+  error?: string | Record<string, unknown> | Array<unknown> | null;
+  [key: string]: unknown;
+}
+
 export interface VedicBatchRequest {
   items: Array<VedicBatchItem>;
+}
+
+export interface VedicBatchResponse {
+  count: number;
+  items: Array<VedicBatchItemResult>;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculateAshtakavarga {
+  sarvashtakavarga: Array<number>;
+  bhinnashtakavarga: VedicCalculateAshtakavargaBhinnashtakavarga;
+  total_points: number;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculateAshtakavargaBhinnashtakavarga {
+  Sun: Array<number>;
+  Moon: Array<number>;
+  Mars: Array<number>;
+  Mercury: Array<number>;
+  Jupiter: Array<number>;
+  Venus: Array<number>;
+  Saturn: Array<number>;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculatePanchang {
+  tithi: VedicCalculatePanchangTithi;
+  nakshatra: VedicChartAscendantNakshatra;
+  yoga: VedicCalculatePanchangYoga;
+  karana: VedicCalculatePanchangYoga;
+  weekday: string;
+  rahu_kalam: VedicCalculatePanchangRahuKalam;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculatePanchangRahuKalam {
+  start: string;
+  end: string;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculatePanchangTithi {
+  number: number;
+  name: string;
+  paksha: string;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculatePanchangYoga {
+  number: number;
+  name: string;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculateResponse {
+  ayanamsha: string;
+  timezone_used: string;
+  house_system: string;
+  node_type: string;
+  ascendant: VedicChartAscendant;
+  planets: Array<VedicChartPlanet>;
+  houses: Array<VedicChartHouse>;
+  vimshottari_dasha: Array<VedicDashaPeriod>;
+  sade_sati: VedicCalculateSadeSati;
+  yogas?: Array<VedicCalculateYoga> | null;
+  panchang?: VedicCalculatePanchang | null;
+  shadbala?: Record<string, VedicCalculateShadbalaEntry> | null;
+  ashtakavarga?: VedicCalculateAshtakavarga | null;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculateSadeSati {
+  active: boolean;
+  phase?: string | null;
+  description: string;
+  reference_date: string;
+  timezone: string;
+  moon_sign: string;
+  moon_sign_id: number;
+  saturn_sign: string;
+  saturn_sign_id: number;
+  saturn_degree_in_sign: number;
+  saturn_absolute_degree: number;
+  saturn_is_retrograde: boolean;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculateShadbalaEntry {
+  sthana_bala: number;
+  dig_bala: number;
+  kala_bala: number;
+  cheshta_bala: number;
+  naisargika_bala: number;
+  drik_bala: number;
+  total: number;
+  [key: string]: unknown;
+}
+
+export interface VedicCalculateYoga {
+  name: string;
+  type: string;
+  present: boolean;
+  description: string;
+  [key: string]: unknown;
+}
+
+export interface VedicChartAscendant {
+  degree: number;
+  sign: string;
+  nakshatra: VedicChartAscendantNakshatra;
+  [key: string]: unknown;
+}
+
+export interface VedicChartAscendantNakshatra {
+  id: number;
+  name: string;
+  pada: number;
+  lord: string;
+  [key: string]: unknown;
+}
+
+export interface VedicChartHouse {
+  house: number;
+  sign: string;
+  sign_id: number;
+  degree_cusp: number;
+  [key: string]: unknown;
+}
+
+export interface VedicChartPlanet {
+  name: string;
+  absolute_degree: number;
+  sign: string;
+  sign_id: number;
+  degree_in_sign: number;
+  house: number;
+  is_retrograde: boolean;
+  nakshatra: string;
+  nakshatra_id: number;
+  pada: number;
+  nakshatra_lord: string;
+  vargas: Record<string, VedicPlanetVargaSign>;
+  [key: string]: unknown;
 }
 
 /**
@@ -7499,6 +10955,15 @@ export interface VedicChartRequest {
    * Dasha depth (0=off, 1=Maha only, 2=+Antar, 3=+Pratyantar)
    */
   dasha_levels?: number;
+}
+
+export interface VedicChartResponse {
+  ayanamsha: string;
+  timezone_used: string;
+  ascendant: VedicChartAscendant;
+  planets: Array<VedicChartPlanet>;
+  houses: Array<VedicChartHouse>;
+  [key: string]: unknown;
 }
 
 export interface VedicChatHistoryItem {
@@ -7626,6 +11091,21 @@ export interface VedicChatResponse {
   tool_trace?: Record<string, unknown> | null;
 }
 
+export interface VedicCompatibilityResponse {
+  scores: Record<string, VedicCompatibilityScoresEntry>;
+  total_score: number;
+  max_score: number;
+  percentage: number;
+  recommendation: string;
+  [key: string]: unknown;
+}
+
+export interface VedicCompatibilityScoresEntry {
+  score: number;
+  max: number;
+  [key: string]: unknown;
+}
+
 export interface VedicDashaInsightFact {
   id: string;
   category: string;
@@ -7671,6 +11151,25 @@ export interface VedicDashaInsightsResponse {
   summary: Record<string, Record<string, number>>;
   importance: Array<VedicDashaInsightImportanceItem>;
   facts: Array<VedicDashaInsightFact>;
+}
+
+/**
+ * A Vimshottari period; ``sub_periods`` holds the next level down when more levels are requested.
+ */
+export interface VedicDashaPeriod {
+  level: string;
+  lord: string;
+  start: string;
+  end: string;
+  duration_years: number;
+  sub_periods?: Array<VedicDashaPeriod> | null;
+  [key: string]: unknown;
+}
+
+export interface VedicDashaResponse {
+  moon_nakshatra: string;
+  vimshottari_dasha: Array<VedicDashaPeriod>;
+  [key: string]: unknown;
 }
 
 export interface VedicGocharTimelineInput {
@@ -7886,6 +11385,23 @@ export interface VedicGocharTimelineWindow {
   source_fact_ids: Array<string>;
 }
 
+export interface VedicMatchP1Details {
+  moon_sign: string;
+  moon_nakshatra: string;
+  [key: string]: unknown;
+}
+
+export interface VedicMatchResponse {
+  scores: Record<string, VedicCompatibilityScoresEntry>;
+  total_score: number;
+  max_score: number;
+  percentage: number;
+  recommendation: string;
+  p1_details: VedicMatchP1Details;
+  p2_details: VedicMatchP1Details;
+  [key: string]: unknown;
+}
+
 export interface VedicMuhuratPersonalizedSearchRequest {
   /**
    * Purpose for the search: general_work, vehicle_purchase, property_purchase, griha_pravesh, namkaran, or mundan.
@@ -8056,6 +11572,25 @@ export interface VedicMundanChildContext {
   is_first_child?: boolean | null;
 }
 
+/**
+ * Panchang at sunrise for the given date and place.
+ */
+export interface VedicPanchangResponse {
+  tithi: VedicCalculatePanchangTithi;
+  nakshatra: VedicChartAscendantNakshatra;
+  yoga: VedicCalculatePanchangYoga;
+  karana: VedicCalculatePanchangYoga;
+  weekday: string;
+  rahu_kalam: VedicCalculatePanchangRahuKalam;
+  [key: string]: unknown;
+}
+
+export interface VedicPlanetVargaSign {
+  sign: string;
+  sign_id: number;
+  [key: string]: unknown;
+}
+
 export interface VedicQAMetadata {
   endpoint_version: string;
   ruleset_version: string;
@@ -8192,6 +11727,12 @@ export interface VedicQAResponse {
   metadata: VedicQAMetadata;
 }
 
+export interface VedicStrengthResponse {
+  shadbala: Record<string, VedicCalculateShadbalaEntry>;
+  ashtakavarga: VedicCalculateAshtakavarga;
+  [key: string]: unknown;
+}
+
 export interface VedicTransitInsightFact {
   id: string;
   category: string;
@@ -8315,6 +11856,18 @@ export interface VedicTransitInsightsResponse {
   facts: Array<VedicTransitInsightFact>;
 }
 
+export interface VedicVargaPlacement {
+  planet: string;
+  sign: string;
+  sign_id: number;
+  [key: string]: unknown;
+}
+
+export interface VedicVargasResponse {
+  vargas: Record<string, Array<VedicVargaPlacement>>;
+  [key: string]: unknown;
+}
+
 export interface VedicVisualChartRequest {
   /**
    * Astronomical year of birth (0-2399; 0 = 1 BCE)
@@ -8428,6 +11981,12 @@ export interface VedicVisualChartRequest {
    * Optional CSS appended inside the generated SVG style block.
    */
   custom_css?: string | null;
+}
+
+export interface VedicYogasResponse {
+  yogas: Array<VedicCalculateYoga>;
+  sade_sati: VedicCalculateSadeSati;
+  [key: string]: unknown;
 }
 
 export interface WeddingElectionFactor {
@@ -8720,7 +12279,7 @@ export interface YogasV2Response {
 
 export interface ZodiacData {
   sign: string;
-  sign_id: string;
+  sign_id: "aries" | "taurus" | "gemini" | "cancer" | "leo" | "virgo" | "libra" | "scorpio" | "sagittarius" | "capricorn" | "aquarius" | "pisces";
   degree: number;
   zodiac_type?: string;
 }

@@ -53,6 +53,7 @@ export class ConflictError extends FreeAstroError {
 }
 
 export class RateLimitError extends FreeAstroError {
+  /** Seconds to wait before retrying, from `Retry-After` or the body's `retry_after_ms`. */
   readonly retryAfter: number | undefined;
 
   constructor(message: string, options: FreeAstroErrorOptions & { retryAfter?: number | undefined } = {}) {
@@ -83,12 +84,27 @@ export class TimeoutError extends NetworkError {
   }
 }
 
+const text = (value: unknown) => (typeof value === "string" && value.trim() ? value : undefined);
+const record = (value: unknown) =>
+  value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : undefined;
+
+// Route errors carry `detail` (a message, or an object with `error` and `message`), gateway
+// errors a top-level `error` code, and 422 validation errors a `detail` array.
 const messageFromPayload = (payload: ErrorResponse | undefined, fallback: string) => {
-  if (typeof payload?.detail === "string" && payload.detail.trim()) return payload.detail;
-  if (typeof payload?.message === "string" && payload.message.trim()) return payload.message;
-  if (typeof payload?.error === "string" && payload.error.trim()) return payload.error;
-  return fallback;
+  const detail = payload?.detail;
+  const firstIssue = Array.isArray(detail) ? record(detail[0]) : undefined;
+  return (
+    text(detail) ??
+    text(record(detail)?.message) ??
+    text(firstIssue?.msg) ??
+    text(payload?.message) ??
+    text(payload?.error) ??
+    fallback
+  );
 };
+
+const codeFromPayload = (payload: ErrorResponse | undefined) =>
+  text(payload?.code) ?? text(record(payload?.detail)?.error) ?? text(payload?.error);
 
 const retryAfterSeconds = (value: string | null) => {
   if (value === null) return undefined;
@@ -101,7 +117,7 @@ const retryAfterSeconds = (value: string | null) => {
 export const errorFromResponse = async (response: Response): Promise<FreeAstroError> => {
   let payload: ErrorResponse | undefined;
   try {
-    payload = (await response.clone().json()) as ErrorResponse;
+    payload = record(await response.clone().json()) as ErrorResponse | undefined;
   } catch {
     payload = undefined;
   }
@@ -110,8 +126,8 @@ export const errorFromResponse = async (response: Response): Promise<FreeAstroEr
   const message = messageFromPayload(payload, fallback);
   const options: FreeAstroErrorOptions = {
     status: response.status,
-    code: payload?.code,
-    requestId: response.headers.get("x-request-id") ?? payload?.trace_id,
+    code: codeFromPayload(payload),
+    requestId: response.headers.get("x-request-id") ?? text(payload?.trace_id),
     details: payload,
   };
 
@@ -120,7 +136,10 @@ export const errorFromResponse = async (response: Response): Promise<FreeAstroEr
   if (response.status === 400 || response.status === 422) return new ValidationError(message, options);
   if (response.status === 409) return new ConflictError(message, options);
   if (response.status === 429) {
-    const retryAfter = retryAfterSeconds(response.headers.get("retry-after"));
+    const retryAfterMs = typeof payload?.retry_after_ms === "number" ? payload.retry_after_ms : undefined;
+    const retryAfter =
+      retryAfterSeconds(response.headers.get("retry-after")) ??
+      (retryAfterMs !== undefined && retryAfterMs >= 0 ? retryAfterMs / 1_000 : undefined);
     return new RateLimitError(message, {
       ...options,
       ...(retryAfter !== undefined ? { retryAfter } : {}),

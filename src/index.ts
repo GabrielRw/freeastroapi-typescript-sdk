@@ -2,7 +2,7 @@ import { HttpClient, type FreeAstroOptions, type RawResponse, type RequestOption
 import { GeneratedResources } from "./generated/resources";
 import { GeoResource, MoonResource, SkyEventsResource, WesternResource } from "./resources";
 
-export const VERSION = "0.2.0";
+export const VERSION = "0.3.0";
 
 /**
  * FreeAstroAPI client. Resources follow the API paths: `client.western.natal.insights(...)`
