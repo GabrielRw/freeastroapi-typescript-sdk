@@ -68,7 +68,11 @@ const synastry = await client.western.synastry(request);
 const raw = await client.natal.calculate<MyNatalChart>(birth);
 ```
 
-Chart render endpoints (`client.vedic.kpRender`, `client.vedic.visual.chart`) return SVG as text; use `client.requestRaw` for PNG output.
+Operations with non-JSON responses send the matching `Accept` header and return text (SVG, Markdown) or a `Uint8Array` (PNG, PDF). The chart render endpoints (`client.vedic.kpRender`, `client.vedic.visual.chart`) return SVG as text; for PNG output pass `{ responseType: "bytes" }`:
+
+```ts
+const png = await client.vedic.kpRender<Uint8Array>({ ...birth, format: "png" }, { responseType: "bytes" });
+```
 
 ### v0.1 methods
 
@@ -119,20 +123,58 @@ try {
 
 ```sh
 npm install
-npm run check
+npm run check                # generate:check, typecheck, unit tests, build
+npm run test:contract:mock   # every method against a Prism mock of the spec (needs Python 3)
 ```
 
-The resources and types in `src/generated/` are generated from `spec/freeastro.json`. To update them, copy the API's `public-spec/openapi/freeastro.json` into `spec/` and run:
+The resources and types in `src/generated/` are generated from `spec/freeastro.json` by `scripts/generate.mjs` (`npm run generate`). `npm run check` fails when the generated files are out of date. The generator's own tests (`test/generator.test.ts`) run it on a small synthetic spec (`test/fixtures/synthetic-spec.json`) covering component names that are not identifiers, error response schemas, 201 responses and non-JSON bodies.
+
+### Tests
+
+| Command | What it runs |
+| --- | --- |
+| `npm test` | Unit tests with a mocked `fetch`, including the generator tests. |
+| `npm run test:contract:mock` | Starts [Prism](https://github.com/stoplightio/prism) (`scripts/with_prism.py`, pinned version) in mock mode on `spec/freeastro.json` and calls every operation through the SDK (`vitest.contract.config.ts`). Prism rejects any request that does not match the spec; responses must parse as the documented JSON kind, text or bytes. With Prism already running: `PRISM_URL=http://127.0.0.1:4010 npm run test:contract`. |
+| `npm run test:live` | Five read-only calls against production (`vitest.live.config.ts`); needs `FREEASTRO_TEST_API_KEY`. |
+| `python3 -m unittest discover -s scripts -p "test_*.py"` | Tests for `scripts/spec_sync.py`. |
+
+Request values for the contract tests come from `python3 scripts/spec_sync.py samples spec/freeastro.json`, which builds a minimal valid request for every operation from its schema.
+
+## Maintaining
+
+### How the spec stays in sync
+
+Production (`https://api.freeastroapi.com/openapi.json`) is the source of truth: the API is deployed by hand, so the live document is what customers call.
+
+1. **`Sync spec` workflow** (`.github/workflows/sync-spec.yml`, daily and on demand) fetches the live spec with `scripts/spec_sync.py fetch`, which validates it and writes it normalised (sorted keys except schema `properties`, which keep the API's field order; 2-space indent) so diffs only show real changes.
+2. If it differs from `spec/freeastro.json`, the workflow regenerates the SDK, runs `npm run check` and the Prism contract tests, and opens or updates a pull request from the `spec-sync/auto` branch, labelled `spec-sync`. If generation or a check fails, the workflow run fails and no pull request is opened.
+3. The pull request body is the output of `scripts/spec_sync.py diff`: added, removed and changed operations and schemas. Breaking changes (removed operations, parameters or request fields, newly required request fields or parameters, removed request enum values, removed response fields or content types, removed schemas) are listed first and the title starts with `BREAKING:`. The script never picks the version; you do.
+4. If production goes back to matching `main`, the next run closes the stale pull request.
+
+Pull requests opened with `GITHUB_TOKEN` do not trigger other workflows, so CI does not start on its own for `spec-sync/auto`; the sync run already ran the same checks. To get CI status on the pull request, run **Actions → CI → Run workflow** on the `spec-sync/auto` branch, or close and reopen the pull request.
+
+Run the same steps locally:
 
 ```sh
-npm run generate
+cp spec/freeastro.json /tmp/previous-spec.json
+npm run spec:fetch                                   # python3 scripts/spec_sync.py fetch
+npm run spec:diff -- /tmp/previous-spec.json spec/freeastro.json
+npm run generate && npm run check && npm run test:contract:mock
 ```
 
-`npm run check` fails when the generated files are out of date.
+The **`Live smoke test` workflow** (`.github/workflows/live-smoke.yml`, daily and on demand) runs `npm run test:live` with the `FREEASTRO_TEST_API_KEY` repository secret: geo search, moon phase, western sun sign, a natal chart and a vedic panchang, without retries (5 requests a day). Without the secret it is skipped with a notice.
 
-## Releasing
+`scripts/spec_sync.py` and `scripts/with_prism.py` are standard-library Python and identical in every FreeAstroAPI SDK repository; copy them, `test/fixtures/synthetic-spec.json` and the three workflows when starting a new SDK, then swap in that language's generate, check and test commands.
 
-Bump `version` in `package.json` and `VERSION` in `src/index.ts`, update `CHANGELOG.md`, then push a matching tag (`git tag v0.2.0 && git push origin v0.2.0`). The `Release` workflow runs the checks and publishes to npm with provenance.
+### Releasing
+
+After merging a spec-sync pull request (or any release-worthy change):
+
+1. Pick the version: breaking changes need a major bump (a minor bump while the SDK is 0.x), new operations or types a minor bump, anything else a patch.
+2. Bump `version` in `package.json` and `VERSION` in `src/index.ts`, and add a `CHANGELOG.md` entry.
+3. Commit, then push a matching tag: `git tag v0.3.0 && git push origin v0.3.0`.
+
+The `Release` workflow checks that the tag matches `package.json`, runs `npm run check` and publishes to npm with provenance.
 
 Issues and contributions are welcome on [GitHub](https://github.com/GabrielRw/freeastroapi-typescript-sdk).
 

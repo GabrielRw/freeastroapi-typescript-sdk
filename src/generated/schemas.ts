@@ -319,6 +319,119 @@ export interface AtomicReportRequest {
   template?: string;
 }
 
+/**
+ * Base request with birth data.
+ */
+export interface BaseChartRequestV1 {
+  /**
+   * Astronomical year of birth (0-2399; 0 = 1 BCE)
+   */
+  year: number;
+  /**
+   * Month of birth (1-12)
+   */
+  month: number;
+  /**
+   * Day of birth (1-31)
+   */
+  day: number;
+  /**
+   * Hour of birth (0-23)
+   */
+  hour: number;
+  /**
+   * Minute of birth (0-59)
+   */
+  minute: number;
+  /**
+   * City name (optional)
+   */
+  city?: string;
+  /**
+   * Latitude
+   */
+  lat?: number | null;
+  /**
+   * Longitude
+   */
+  lng?: number | null;
+  /**
+   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
+   */
+  tz_str?: string;
+  /**
+   * Ayanamsha
+   */
+  ayanamsha?: string;
+  /**
+   * House system
+   */
+  house_system?: string;
+  /**
+   * Node type (mean/true)
+   */
+  node_type?: string;
+}
+
+export interface BaseChartRequestV2 {
+  /**
+   * Astronomical year of birth (0-2399; 0 = 1 BCE)
+   */
+  year: number;
+  /**
+   * Month of birth (1-12)
+   */
+  month: number;
+  /**
+   * Day of birth (1-31)
+   */
+  day: number;
+  /**
+   * Hour of birth (0-23)
+   */
+  hour: number;
+  /**
+   * Minute of birth (0-59)
+   */
+  minute: number;
+  /**
+   * Second of birth (0-59)
+   */
+  second?: number;
+  /**
+   * City name (optional)
+   */
+  city?: string;
+  /**
+   * Latitude
+   */
+  lat?: number | null;
+  /**
+   * Longitude
+   */
+  lng?: number | null;
+  /**
+   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
+   */
+  tz_str?: string;
+  /**
+   * Ayanamsha
+   */
+  ayanamsha?: string;
+  /**
+   * House system
+   */
+  house_system?: string;
+  /**
+   * Node type (mean/true)
+   */
+  node_type?: string;
+  /**
+   * Reference date for transit-sensitive chart context, including Sade Sati. Defaults to today in timezone_used.
+   */
+  reference_date?: string | null;
+}
+
 export interface BaziFlowRequest {
   year: number;
   month: number;
@@ -1665,6 +1778,135 @@ export interface DashaMetadata {
   levels_requested: number;
   reference_date: string;
   dasha_mode: "classical" | "astrosage";
+}
+
+/**
+ * Dasha-specific request.
+ */
+export interface DashaRequestV1 {
+  /**
+   * Astronomical year of birth (0-2399; 0 = 1 BCE)
+   */
+  year: number;
+  /**
+   * Month of birth (1-12)
+   */
+  month: number;
+  /**
+   * Day of birth (1-31)
+   */
+  day: number;
+  /**
+   * Hour of birth (0-23)
+   */
+  hour: number;
+  /**
+   * Minute of birth (0-59)
+   */
+  minute: number;
+  /**
+   * City name (optional)
+   */
+  city?: string;
+  /**
+   * Latitude
+   */
+  lat?: number | null;
+  /**
+   * Longitude
+   */
+  lng?: number | null;
+  /**
+   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
+   */
+  tz_str?: string;
+  /**
+   * Ayanamsha
+   */
+  ayanamsha?: string;
+  /**
+   * House system
+   */
+  house_system?: string;
+  /**
+   * Node type (mean/true)
+   */
+  node_type?: string;
+  /**
+   * Dasha depth (1-3)
+   */
+  levels?: number;
+  /**
+   * When true, emit full lifetime dasha facts instead of compact active-focused output
+   */
+  full_history?: boolean;
+}
+
+export interface DashaRequestV2 {
+  /**
+   * Astronomical year of birth (0-2399; 0 = 1 BCE)
+   */
+  year: number;
+  /**
+   * Month of birth (1-12)
+   */
+  month: number;
+  /**
+   * Day of birth (1-31)
+   */
+  day: number;
+  /**
+   * Hour of birth (0-23)
+   */
+  hour: number;
+  /**
+   * Minute of birth (0-59)
+   */
+  minute: number;
+  /**
+   * Second of birth (0-59)
+   */
+  second?: number;
+  /**
+   * City name (optional)
+   */
+  city?: string;
+  /**
+   * Latitude
+   */
+  lat?: number | null;
+  /**
+   * Longitude
+   */
+  lng?: number | null;
+  /**
+   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
+   */
+  tz_str?: string;
+  /**
+   * Ayanamsha
+   */
+  ayanamsha?: string;
+  /**
+   * House system
+   */
+  house_system?: string;
+  /**
+   * Node type (mean/true)
+   */
+  node_type?: string;
+  /**
+   * Reference date for active dasha lookup. Defaults to today in timezone_used.
+   */
+  reference_date?: string | null;
+  /**
+   * Dasha depth (1-3)
+   */
+  levels?: number;
+  /**
+   * Vimshottari dasha calculation profile. Use astrosage only when exact AstroSage compatibility is required.
+   */
+  dasha_mode?: "classical" | "astrosage";
 }
 
 export interface DashaV2Response {
@@ -4705,6 +4947,89 @@ export interface PanchangRequestTime {
   moon_sign: PanchangSign;
 }
 
+export interface PanchangRequestV1 {
+  /**
+   * Astronomical year (0-2399; 0 = 1 BCE)
+   */
+  year: number;
+  month: number;
+  day: number;
+  hour?: number;
+  minute?: number;
+  city?: string;
+  lat?: number | null;
+  lng?: number | null;
+  tz_str?: string;
+  ayanamsha?: string;
+}
+
+export interface PanchangRequestV2 {
+  /**
+   * Astronomical year of birth (0-2399; 0 = 1 BCE)
+   */
+  year: number;
+  /**
+   * Month of birth (1-12)
+   */
+  month: number;
+  /**
+   * Day of birth (1-31)
+   */
+  day: number;
+  /**
+   * Hour of birth (0-23)
+   */
+  hour: number;
+  /**
+   * Minute of birth (0-59)
+   */
+  minute: number;
+  /**
+   * Second of birth (0-59)
+   */
+  second?: number;
+  /**
+   * City name (optional)
+   */
+  city?: string;
+  /**
+   * Latitude
+   */
+  lat?: number | null;
+  /**
+   * Longitude
+   */
+  lng?: number | null;
+  /**
+   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
+   */
+  tz_str?: string;
+  /**
+   * Ayanamsha
+   */
+  ayanamsha?: string;
+  /**
+   * House system
+   */
+  house_system?: string;
+  /**
+   * Node type (mean/true)
+   */
+  node_type?: string;
+  /**
+   * Reference date for transit-sensitive chart context, including Sade Sati. Defaults to today in timezone_used.
+   */
+  reference_date?: string | null;
+  /**
+   * Vikram Samvat year boundary, evaluated at local sunrise: chaitra_shukladi (default, opening new moon of Chaitra), chaitra_krishnadi (preceding full moon), or kartika_shukladi (opening new moon of Kartika, Gujarati convention). The first occurrence includes Adhika months. Does not change the Amanta month or display language. This is a calendar phase rule, not a festival-observance date.
+   */
+  year_convention?: "chaitra_shukladi" | "chaitra_krishnadi" | "kartika_shukladi";
+  /**
+   * Display language: en (default) or hi (Hindi). language is an accepted alias. Localizes all Panchang names, paksha and nakshatra lords, including request-time values. JSON keys, numeric IDs, dates, times and calculation metadata stay unchanged. If both lang and language are supplied, they must match.
+   */
+  lang?: "en" | "hi";
+}
+
 export interface PanchangSign {
   sign_id: number;
   name: string;
@@ -4777,6 +5102,31 @@ export interface PersonalCycles {
   personal_year: NumberResult;
   personal_month: NumberResult;
   personal_day: NumberResult;
+}
+
+export interface PersonalHoroscopeRequestV1 {
+  birth: NatalChartRequest;
+  date?: string | null;
+  timezone?: string;
+  tz_str?: string | null;
+  locale?: string;
+}
+
+export interface PersonalHoroscopeRequestV2 {
+  birth: NatalChartRequest;
+  date?: string | null;
+  timezone?: string;
+  tz_str?: string | null;
+  locale?: string;
+}
+
+export interface PersonalHoroscopeRequestV3 {
+  birth: NatalChartRequest;
+  date?: string | null;
+  timezone?: string;
+  tz_str?: string | null;
+  locale?: string;
+  include_interpretation_blocks?: boolean;
 }
 
 export interface PhaseMarkerEvent {
@@ -8373,354 +8723,4 @@ export interface ZodiacData {
   sign_id: string;
   degree: number;
   zodiac_type?: string;
-}
-
-export interface PersonalHoroscopeRequestV1 {
-  birth: NatalChartRequest;
-  date?: string | null;
-  timezone?: string;
-  tz_str?: string | null;
-  locale?: string;
-}
-
-/**
- * Base request with birth data.
- */
-export interface BaseChartRequestV1 {
-  /**
-   * Astronomical year of birth (0-2399; 0 = 1 BCE)
-   */
-  year: number;
-  /**
-   * Month of birth (1-12)
-   */
-  month: number;
-  /**
-   * Day of birth (1-31)
-   */
-  day: number;
-  /**
-   * Hour of birth (0-23)
-   */
-  hour: number;
-  /**
-   * Minute of birth (0-59)
-   */
-  minute: number;
-  /**
-   * City name (optional)
-   */
-  city?: string;
-  /**
-   * Latitude
-   */
-  lat?: number | null;
-  /**
-   * Longitude
-   */
-  lng?: number | null;
-  /**
-   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
-   */
-  tz_str?: string;
-  /**
-   * Ayanamsha
-   */
-  ayanamsha?: string;
-  /**
-   * House system
-   */
-  house_system?: string;
-  /**
-   * Node type (mean/true)
-   */
-  node_type?: string;
-}
-
-/**
- * Dasha-specific request.
- */
-export interface DashaRequestV1 {
-  /**
-   * Astronomical year of birth (0-2399; 0 = 1 BCE)
-   */
-  year: number;
-  /**
-   * Month of birth (1-12)
-   */
-  month: number;
-  /**
-   * Day of birth (1-31)
-   */
-  day: number;
-  /**
-   * Hour of birth (0-23)
-   */
-  hour: number;
-  /**
-   * Minute of birth (0-59)
-   */
-  minute: number;
-  /**
-   * City name (optional)
-   */
-  city?: string;
-  /**
-   * Latitude
-   */
-  lat?: number | null;
-  /**
-   * Longitude
-   */
-  lng?: number | null;
-  /**
-   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
-   */
-  tz_str?: string;
-  /**
-   * Ayanamsha
-   */
-  ayanamsha?: string;
-  /**
-   * House system
-   */
-  house_system?: string;
-  /**
-   * Node type (mean/true)
-   */
-  node_type?: string;
-  /**
-   * Dasha depth (1-3)
-   */
-  levels?: number;
-  /**
-   * When true, emit full lifetime dasha facts instead of compact active-focused output
-   */
-  full_history?: boolean;
-}
-
-export interface PanchangRequestV1 {
-  /**
-   * Astronomical year (0-2399; 0 = 1 BCE)
-   */
-  year: number;
-  month: number;
-  day: number;
-  hour?: number;
-  minute?: number;
-  city?: string;
-  lat?: number | null;
-  lng?: number | null;
-  tz_str?: string;
-  ayanamsha?: string;
-}
-
-export interface PersonalHoroscopeRequestV2 {
-  birth: NatalChartRequest;
-  date?: string | null;
-  timezone?: string;
-  tz_str?: string | null;
-  locale?: string;
-}
-
-export interface BaseChartRequestV2 {
-  /**
-   * Astronomical year of birth (0-2399; 0 = 1 BCE)
-   */
-  year: number;
-  /**
-   * Month of birth (1-12)
-   */
-  month: number;
-  /**
-   * Day of birth (1-31)
-   */
-  day: number;
-  /**
-   * Hour of birth (0-23)
-   */
-  hour: number;
-  /**
-   * Minute of birth (0-59)
-   */
-  minute: number;
-  /**
-   * Second of birth (0-59)
-   */
-  second?: number;
-  /**
-   * City name (optional)
-   */
-  city?: string;
-  /**
-   * Latitude
-   */
-  lat?: number | null;
-  /**
-   * Longitude
-   */
-  lng?: number | null;
-  /**
-   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
-   */
-  tz_str?: string;
-  /**
-   * Ayanamsha
-   */
-  ayanamsha?: string;
-  /**
-   * House system
-   */
-  house_system?: string;
-  /**
-   * Node type (mean/true)
-   */
-  node_type?: string;
-  /**
-   * Reference date for transit-sensitive chart context, including Sade Sati. Defaults to today in timezone_used.
-   */
-  reference_date?: string | null;
-}
-
-export interface DashaRequestV2 {
-  /**
-   * Astronomical year of birth (0-2399; 0 = 1 BCE)
-   */
-  year: number;
-  /**
-   * Month of birth (1-12)
-   */
-  month: number;
-  /**
-   * Day of birth (1-31)
-   */
-  day: number;
-  /**
-   * Hour of birth (0-23)
-   */
-  hour: number;
-  /**
-   * Minute of birth (0-59)
-   */
-  minute: number;
-  /**
-   * Second of birth (0-59)
-   */
-  second?: number;
-  /**
-   * City name (optional)
-   */
-  city?: string;
-  /**
-   * Latitude
-   */
-  lat?: number | null;
-  /**
-   * Longitude
-   */
-  lng?: number | null;
-  /**
-   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
-   */
-  tz_str?: string;
-  /**
-   * Ayanamsha
-   */
-  ayanamsha?: string;
-  /**
-   * House system
-   */
-  house_system?: string;
-  /**
-   * Node type (mean/true)
-   */
-  node_type?: string;
-  /**
-   * Reference date for active dasha lookup. Defaults to today in timezone_used.
-   */
-  reference_date?: string | null;
-  /**
-   * Dasha depth (1-3)
-   */
-  levels?: number;
-  /**
-   * Vimshottari dasha calculation profile. Use astrosage only when exact AstroSage compatibility is required.
-   */
-  dasha_mode?: "classical" | "astrosage";
-}
-
-export interface PanchangRequestV2 {
-  /**
-   * Astronomical year of birth (0-2399; 0 = 1 BCE)
-   */
-  year: number;
-  /**
-   * Month of birth (1-12)
-   */
-  month: number;
-  /**
-   * Day of birth (1-31)
-   */
-  day: number;
-  /**
-   * Hour of birth (0-23)
-   */
-  hour: number;
-  /**
-   * Minute of birth (0-59)
-   */
-  minute: number;
-  /**
-   * Second of birth (0-59)
-   */
-  second?: number;
-  /**
-   * City name (optional)
-   */
-  city?: string;
-  /**
-   * Latitude
-   */
-  lat?: number | null;
-  /**
-   * Longitude
-   */
-  lng?: number | null;
-  /**
-   * Timezone: AUTO, LMT, or standard (e.g. Europe/Berlin)
-   */
-  tz_str?: string;
-  /**
-   * Ayanamsha
-   */
-  ayanamsha?: string;
-  /**
-   * House system
-   */
-  house_system?: string;
-  /**
-   * Node type (mean/true)
-   */
-  node_type?: string;
-  /**
-   * Reference date for transit-sensitive chart context, including Sade Sati. Defaults to today in timezone_used.
-   */
-  reference_date?: string | null;
-  /**
-   * Vikram Samvat year boundary, evaluated at local sunrise: chaitra_shukladi (default, opening new moon of Chaitra), chaitra_krishnadi (preceding full moon), or kartika_shukladi (opening new moon of Kartika, Gujarati convention). The first occurrence includes Adhika months. Does not change the Amanta month or display language. This is a calendar phase rule, not a festival-observance date.
-   */
-  year_convention?: "chaitra_shukladi" | "chaitra_krishnadi" | "kartika_shukladi";
-  /**
-   * Display language: en (default) or hi (Hindi). language is an accepted alias. Localizes all Panchang names, paksha and nakshatra lords, including request-time values. JSON keys, numeric IDs, dates, times and calculation metadata stay unchanged. If both lang and language are supplied, they must match.
-   */
-  lang?: "en" | "hi";
-}
-
-export interface PersonalHoroscopeRequestV3 {
-  birth: NatalChartRequest;
-  date?: string | null;
-  timezone?: string;
-  tz_str?: string | null;
-  locale?: string;
-  include_interpretation_blocks?: boolean;
 }

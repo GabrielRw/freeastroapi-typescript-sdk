@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Operations with non-JSON responses send the matching `Accept` header and return text (SVG, Markdown, other `text/*`) or a `Uint8Array` (PNG, PDF and other binary types). New `accept` and `responseType` request options (`responseType: "bytes"` reads PNG chart renders).
+- The generator handles component names that are not identifiers (`Model-Input` becomes `Schemas.Model_Input`), names that clash with TypeScript types, 2xx responses other than 200 and `+json` content types, and fails on request bodies it cannot encode.
+- Add the daily `Sync spec` workflow, `scripts/spec_sync.py` (fetch, normalise, diff, request samples), Prism contract tests and a nightly live smoke test.
+- `spec/freeastro.json` is stored normalised (sorted keys); generated files are reordered accordingly.
+
 ## 0.2.0
 
 - Cover every operation in the public FreeAstroAPI OpenAPI document (142 operations): Western, Vedic (v1 and v2), Chinese BaZi, numerology, natal charts and reports, transits, ephemeris, horoscopes (v1-v3), AI reports, space charts, geo, Moon and sky events.

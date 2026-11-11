@@ -27,7 +27,16 @@ export interface RequestOptions {
   timeoutMs?: number;
   retry?: boolean | Partial<RetryOptions>;
   signal?: AbortSignal;
+  /** `Accept` header to send. Defaults to `application/json`. */
+  accept?: string;
+  /**
+   * How to read a successful body: `auto` (default) parses JSON content types and returns
+   * other bodies as text, `text` always returns a string and `bytes` returns a `Uint8Array`.
+   */
+  responseType?: ResponseType;
 }
+
+export type ResponseType = "auto" | "text" | "bytes";
 
 export type EndpointRequestOptions = Omit<RequestOptions, "query" | "body">;
 
@@ -89,8 +98,10 @@ const sleep = (delayMs: number, signal?: AbortSignal) => {
   });
 };
 
-const parseResponse = async <T>(response: Response): Promise<T> => {
+const parseResponse = async <T>(response: Response, responseType: ResponseType = "auto"): Promise<T> => {
   if (response.status === 204) return undefined as T;
+  if (responseType === "bytes") return new Uint8Array(await response.arrayBuffer()) as T;
+  if (responseType === "text") return (await response.text()) as T;
   const contentType = response.headers.get("content-type") ?? "";
   if (contentType.includes("application/json") || contentType.includes("+json")) {
     return (await response.json()) as T;
@@ -152,7 +163,7 @@ export class HttpClient {
       try {
         const headers = new Headers(this.headers);
         new Headers(options.headers).forEach((value, key) => headers.set(key, value));
-        headers.set("accept", "application/json");
+        headers.set("accept", options.accept ?? "application/json");
         headers.set("x-api-key", this.apiKey);
         if (options.idempotencyKey) headers.set("idempotency-key", options.idempotencyKey);
         if (options.body !== undefined && !headers.has("content-type")) headers.set("content-type", "application/json");
@@ -165,7 +176,7 @@ export class HttpClient {
         });
 
         if (response.ok) {
-          return { data: await parseResponse<T>(response), response };
+          return { data: await parseResponse<T>(response, options.responseType), response };
         }
 
         if (retryConfig && retryConfig.statuses.includes(response.status) && attempt < retryConfig.retries) {
