@@ -62,15 +62,15 @@ describe("FreeAstro", () => {
     expect(fetch).toHaveBeenCalledTimes(2);
   });
 
-  it("does not retry POST by default", async () => {
+  it("does not retry a side-effecting POST by default", async () => {
     const fetch = vi.fn<Fetch>().mockImplementation(async () => jsonResponse({ detail: "busy" }, { status: 503 }));
     const client = new FreeAstro({ apiKey: "test_key", fetch });
 
-    await expect(client.western.signs.sun({ year: 1990, month: 6, day: 15, city: "Paris" })).rejects.toThrow("busy");
+    await expect(client.vedic.chat({} as never)).rejects.toThrow("busy");
     expect(fetch).toHaveBeenCalledOnce();
   });
 
-  it("retries POST with one idempotency key", async () => {
+  it("retries a POST with one idempotency key", async () => {
     const fetch = vi
       .fn<Fetch>()
       .mockResolvedValueOnce(jsonResponse({ detail: "busy" }, { status: 503 }))

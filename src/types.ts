@@ -116,8 +116,9 @@ export interface NextMoonPhases {
 export interface MoonPhaseResponse {
   timestamp: string;
   phase: MoonPhaseData;
-  eclipse?: EclipseData;
+  eclipse?: EclipseData | null;
   next_phases: NextMoonPhases;
+  [key: string]: unknown;
 }
 
 export interface MoonMonthDay extends MoonPhaseResponse {
@@ -191,6 +192,15 @@ export type WesternSignRequest = WesternSignBirthBase & (
   | { city?: string; lat: number; lng: number }
 );
 
+export interface WesternSignInterpretation {
+  key: string;
+  title: string;
+  body: string;
+  tone?: string | null;
+  tags: string[];
+  [key: string]: unknown;
+}
+
 export interface WesternSignResponse {
   point: string;
   sign: string;
@@ -198,14 +208,23 @@ export interface WesternSignResponse {
   degree: number;
   abs_pos: number;
   house: number;
-  interpretation: null;
+  interpretation?: WesternSignInterpretation | null;
+  resolved_time?: Record<string, unknown> | null;
 }
 
+/**
+ * Error body (`Schemas.ErrorResponse`, or `Schemas.HTTPValidationError` for some 422s):
+ * route errors carry `detail`, gateway errors a top-level `error` code, and rate-limit
+ * errors `retry_after_ms` or `limit_info`. Read it from `FreeAstroError.details`.
+ */
 export interface ErrorResponse {
   detail?: unknown;
-  error?: string;
+  error?: string | null;
   message?: string;
   code?: string;
+  docs?: string | null;
+  retry_after_ms?: number | null;
+  limit_info?: Record<string, unknown> | null;
   trace_id?: string;
   [key: string]: unknown;
 }

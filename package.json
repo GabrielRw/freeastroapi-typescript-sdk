@@ -1,6 +1,6 @@
 {
   "name": "@freeastroapi/sdk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Official TypeScript SDK for FreeAstroAPI",
   "license": "Apache-2.0",
   "repository": {
@@ -36,9 +36,14 @@
     "generate:check": "node scripts/generate.mjs --check",
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --sourcemap",
     "test": "vitest run",
+    "test:contract": "vitest run --config vitest.contract.config.ts",
+    "test:contract:mock": "python3 scripts/with_prism.py -- npm run test:contract",
+    "test:live": "vitest run --config vitest.live.config.ts",
     "typecheck": "tsc --noEmit",
     "check": "npm run generate:check && npm run typecheck && npm run test && npm run build",
-    "prepublishOnly": "npm run check"
+    "prepublishOnly": "npm run check",
+    "spec:fetch": "python3 scripts/spec_sync.py fetch",
+    "spec:diff": "python3 scripts/spec_sync.py diff"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
